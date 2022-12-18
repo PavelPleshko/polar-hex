@@ -1,26 +1,22 @@
 {
-  "compileOnSave": false,
-  "compilerOptions": {
-    "baseUrl": "./",
-    "outDir": "./dist/out-tsc",
-    "sourceMap": true,
-    "declaration": false,
-    "downlevelIteration": true,
-    "experimentalDecorators": true,
-    "moduleResolution": "node",
-    "importHelpers": true,
-    "target": "es2015",
-    "module": "es2020",
-    "lib": [
-      "es2018",
-      "es2019.object",
-      "es2019.array",
-      "dom"
-    ],
-    "typeRoots": [
-      "node_modules/@types"
-    ],
-    "resolveJsonModule": true,
-    "allowSyntheticDefaultImports": true
-  }
+	"compileOnSave": false,
+	"compilerOptions": {
+		"baseUrl": "./",
+		"outDir": "./dist/out-tsc",
+		"sourceMap": true,
+		"declaration": false,
+		"downlevelIteration": true,
+		"experimentalDecorators": true,
+		"moduleResolution": "node",
+		"importHelpers": true,
+		"target": "es2015",
+		"module": "es2020",
+		"lib": ["es2018", "es2019.object", "es2019.array", "dom"],
+		"typeRoots": ["node_modules/@types"],
+		"resolveJsonModule": true,
+		"allowSyntheticDefaultImports": true,
+		"paths": {
+			"components/button": ["packages/components/button/src/index.ts"]
+		}
+	}
 }

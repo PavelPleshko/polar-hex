@@ -1,0 +1,15 @@
+{
+	"name": "@yeti/demo-app",
+	"description": "Application for demonstration of yeti design system",
+	"version": "0.0.1",
+	"main": "src/index.js",
+	"type": "commonjs",
+	"files": [
+		"src/index.js"
+	],
+	"scripts": {},
+	"dependencies": {},
+	"devDependencies": {
+		"@storybook/core-server": "^6.5.14"
+	}
+}

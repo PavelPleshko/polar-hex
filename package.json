@@ -1,59 +1,96 @@
 {
-  "name": "yeti-design",
-  "version": "1.0.0",
-  "description": "Design system for yeti brand",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "precommit": "lint-staged --relative --concurrent=false",
-    "prepare": "husky install"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/PavelPleshko/yeti-design.git"
-  },
-  "keywords": [
-    "yeti",
-    "design",
-    "components"
-  ],
-  "author": "Pavel Pleshko",
-  "bugs": {
-    "url": "https://github.com/PavelPleshko/yeti-design/issues"
-  },
-  "homepage": "https://github.com/PavelPleshko/yeti-design#readme",
-  "devDependencies": {
-    "commitizen": "^4.2.6",
-    "cz-conventional-changelog": "^3.3.0",
-    "eslint": "^8.30.0",
-    "husky": "^8.0.2",
-    "lerna": "^6.1.0",
-    "lint-staged": "^13.1.0",
-    "nx": "15.3.3",
-    "prettier": "^2.8.1",
-    "stylelint": "^14.16.0",
-    "typescript": "^4.9.4"
-  },
-  "nx": {
-    "targets": {}
-  },
-  "workspaces": [
-    "packages/*"
-  ],
-  "config": {
-    "commitizen": {
-      "path": "./node_modules/cz-conventional-changelog"
-    }
-  },
-  "lint-staged": {
-    "*.{js,ts,jsx,tsx,css,scss,less,html}": [
-      "prettier -u --write"
-    ],
-    "*.{js,ts,tsx,html}": [
-      "eslint --fix"
-    ],
-    "*.{css,scss,less}": [
-      "stylelint --fix"
-    ]
-  }
+	"name": "yeti-design",
+	"version": "0.0.0",
+	"description": "Design system for yeti brand",
+	"main": "index.js",
+	"scripts": {
+		"test": "nx affected:test",
+		"precommit": "lint-staged --relative --concurrent=false",
+		"prepare": "husky install"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/PavelPleshko/yeti-design.git"
+	},
+	"keywords": [
+		"yeti",
+		"design",
+		"components"
+	],
+	"author": "Pavel Pleshko",
+	"bugs": {
+		"url": "https://github.com/PavelPleshko/yeti-design/issues"
+	},
+	"homepage": "https://github.com/PavelPleshko/yeti-design#readme",
+	"dependencies": {
+		"@open-wc/storybook": "^0.2.8",
+		"core-js": "^3.6.5",
+		"lit": "^2.5.0",
+		"regenerator-runtime": "0.13.7",
+		"tslib": "^2.3.0"
+	},
+	"devDependencies": {
+		"@nrwl/cypress": "15.3.3",
+		"@nrwl/jest": "15.3.3",
+		"@nrwl/storybook": "^15.3.3",
+		"@nrwl/web": "15.3.3",
+		"@nrwl/webpack": "15.3.3",
+		"@storybook/builder-webpack5": "^6.5.14",
+		"@storybook/core-server": "^6.5.14",
+		"@storybook/manager-webpack5": "^6.5.14",
+		"@storybook/react": "^6.5.14",
+		"@types/jest": "28.1.1",
+		"@types/node": "18.7.1",
+		"@typescript-eslint/eslint-plugin": "^5.46.1",
+		"@typescript-eslint/parser": "^5.46.1",
+		"babel-jest": "28.1.1",
+		"commitizen": "^4.2.6",
+		"cypress": "^11.0.0",
+		"cz-conventional-changelog": "^3.3.0",
+		"eslint": "^8.30.0",
+		"eslint-config-prettier": "^8.5.0",
+		"eslint-plugin-cypress": "^2.10.3",
+		"eslint-plugin-html": "^7.1.0",
+		"eslint-plugin-import": "^2.26.0",
+		"eslint-plugin-jsdoc": "^39.6.4",
+		"husky": "^8.0.2",
+		"jest": "28.1.1",
+		"jest-environment-jsdom": "28.1.1",
+		"lerna": "^6.1.0",
+		"lint-staged": "^13.1.0",
+		"nx": "15.3.3",
+		"prettier": "^2.8.1",
+		"stylelint": "^14.16.0",
+		"stylelint-config-prettier": "^9.0.4",
+		"stylelint-config-property-sort-order-smacss": "^9.0.0",
+		"stylelint-config-standard-scss": "^6.1.0",
+		"stylelint-order": "^5.0.0",
+		"stylelint-scss": "^4.3.0",
+		"ts-jest": "28.0.5",
+		"ts-node": "10.9.1",
+		"typescript": "^4.9.4"
+	},
+	"license": "",
+	"nx": {
+		"targets": {}
+	},
+	"workspaces": [
+		"packages/*"
+	],
+	"config": {
+		"commitizen": {
+			"path": "./node_modules/cz-conventional-changelog"
+		}
+	},
+	"lint-staged": {
+		"*.{js,ts,jsx,tsx,css,scss,less,json,html}": [
+			"prettier -u --write"
+		],
+		"*.{js,ts,tsx,html}": [
+			"eslint --fix"
+		],
+		"*.{css,scss,less}": [
+			"stylelint --fix"
+		]
+	}
 }
