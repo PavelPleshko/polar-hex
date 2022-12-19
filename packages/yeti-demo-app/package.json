@@ -8,8 +8,8 @@
 		"src/index.js"
 	],
 	"scripts": {},
-	"dependencies": {},
-	"devDependencies": {
-		"@storybook/core-server": "^6.5.14"
-	}
+	"dependencies": {
+		"tsconfig-paths-webpack-plugin": "^4.0.0"
+	},
+	"devDependencies": {}
 }

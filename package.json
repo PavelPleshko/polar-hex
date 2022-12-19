@@ -4,6 +4,7 @@
 	"description": "Design system for yeti brand",
 	"main": "index.js",
 	"scripts": {
+		"demo-app:dev": "nx run yeti-demo-app:storybook",
 		"test": "nx affected:test",
 		"precommit": "lint-staged --relative --concurrent=false",
 		"prepare": "husky install"
@@ -39,6 +40,7 @@
 		"@storybook/core-server": "^6.5.14",
 		"@storybook/manager-webpack5": "^6.5.14",
 		"@storybook/react": "^6.5.14",
+		"@storybook/web-components": "^6.5.14",
 		"@types/jest": "28.1.1",
 		"@types/node": "18.7.1",
 		"@typescript-eslint/eslint-plugin": "^5.46.1",

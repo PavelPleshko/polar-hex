@@ -67,7 +67,7 @@
 		"storybook": {
 			"executor": "@nrwl/storybook:storybook",
 			"options": {
-				"uiFramework": "@storybook/react",
+				"uiFramework": "@storybook/web-components",
 				"port": 4400,
 				"config": {
 					"configFolder": "packages/yeti-demo-app/.storybook"

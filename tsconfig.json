@@ -16,7 +16,7 @@
 		"resolveJsonModule": true,
 		"allowSyntheticDefaultImports": true,
 		"paths": {
-			"components/button": ["packages/components/button/src/index.ts"]
+			"@yeti-wc/button": ["packages/components/button/src/index.ts"]
 		}
 	}
 }
