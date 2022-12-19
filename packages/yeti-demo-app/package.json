@@ -11,5 +11,7 @@
 	"dependencies": {
 		"tsconfig-paths-webpack-plugin": "^4.0.0"
 	},
-	"devDependencies": {}
+	"devDependencies": {
+		"ts-loader": "^9.4.2"
+	}
 }

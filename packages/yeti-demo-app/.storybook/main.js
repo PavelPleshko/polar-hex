@@ -23,10 +23,23 @@ module.exports = {
 		//     ],
 		// }));
 
+		const tsConfigPath = path.resolve(__dirname, '../tsconfig.json');
+		config.module.rules.push({
+			test: /\.ts$/,
+			sideEffects: true,
+			use: [
+				{
+					loader: 'ts-loader',
+					options: {
+						configFile: tsConfigPath,
+					},
+				},
+			],
+		});
 		config.resolve.plugins = [
 			...(config.resolve.plugins || []),
 			new TsconfigPathsPlugin({
-				configFile: path.resolve(__dirname, '../tsconfig.json'),
+				configFile: tsConfigPath,
 			}),
 		];
 

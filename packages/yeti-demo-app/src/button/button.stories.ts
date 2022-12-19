@@ -4,7 +4,7 @@ import '@yeti-wc/button';
 import { TemplateResult } from 'lit';
 
 export default {
-	title: 'yt-button',
+	title: 'Button',
 };
 
-export const Primary = (): TemplateResult => html` <yt-button></yt-button>`;
+export const Raised = (): TemplateResult => html` <yt-button> Raised button </yt-button>`;
