@@ -37,3 +37,9 @@ export const Size = (): TemplateResult => html`
 	<yt-button size="default"> Medium</yt-button>
 	<yt-button size="large"> Large</yt-button>
 `;
+
+export const Disabled = (): TemplateResult => html`
+	<yt-button disabled> Disabled</yt-button>
+	<yt-button disabled variant="outlined"> Disabled</yt-button>
+	<yt-button disabled variant="text"> Disabled</yt-button>
+`;

@@ -33,6 +33,7 @@ $base-palette: (
 	primary: white,
 	accent: white,
 	secondary: white,
+	disabled: grey,
 	error: red,
 	info: lightblue,
 	success: green,
@@ -57,6 +58,7 @@ $base-palette: (
 	$primary: map.get($palette, primary);
 	$accent: map.get($palette, accent);
 	$secondary: map.get($palette, secondary);
+	$disabled: map.get($palette, disabled);
 	$error: map.get($palette, error);
 	$info: map.get($palette, info);
 	$success: map.get($palette, success);
@@ -75,6 +77,19 @@ $base-palette: (
 		'color-success': augment-color($success),
 		'success-text-contrast': get-contrast-text($success),
 		'color-warning': augment-color($warning),
+		'action': (
+			'active': rgba(0, 0, 0, 0.54),
+			'hover': rgba(0, 0, 0, 0.04),
+			'hover-opacity': 0.04,
+			'selected': rgba(0, 0, 0, 0.08),
+			'selected-opacity': 0.08,
+			'disabled': rgba(0, 0, 0, 0.38),
+			'disabled-bg': rgba(0, 0, 0, 0.12),
+			'disabled-opacity': 0.38,
+			'focus': rgba(0, 0, 0, 0.12),
+			'focus-opacity': 0.12,
+			'activated-opacity': 0.12,
+		),
 		'warning-text-contrast': get-contrast-text($warning),
 		// TODO generate these values with different elevation
 		'elevation-shadow-1':

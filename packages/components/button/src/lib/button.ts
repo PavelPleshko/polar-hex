@@ -32,7 +32,7 @@ export class YtButtonElement extends LitElement implements ButtonState {
 
 	@property() shape = ButtonShape.normal;
 
-	@property({ attribute: 'disabled' }) disabled = false;
+	@property({ type: Boolean, reflect: true }) disabled = false;
 
 	protected override render(): TemplateResult {
 		return html` <button
@@ -45,7 +45,6 @@ export class YtButtonElement extends LitElement implements ButtonState {
 
 	protected _getRuntimeClasses(): ClassInfo {
 		return {
-			// TODO optimize classes assignment
 			[BASE_BTN_CLASS]: true,
 			[`${BASE_BTN_CLASS}--variant--raised`]: this.variant === ButtonVariant.raised,
 			[`${BASE_BTN_CLASS}--variant--outlined`]: this.variant === ButtonVariant.outlined,

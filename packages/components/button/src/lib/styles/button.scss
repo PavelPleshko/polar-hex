@@ -39,7 +39,10 @@ $button-transition: all 0.1s ease-in-out 0s !default;
 
 		&:hover,
 		&:focus {
-			background-color: var(--yt-color-#{$colorState}-light);
+			&:not([disabled]),
+			&:not([aria-disabled='true']) {
+				background-color: var(--yt-color-#{$colorState}-light);
+			}
 		}
 	}
 }
@@ -51,8 +54,11 @@ $button-transition: all 0.1s ease-in-out 0s !default;
 
 		&:hover,
 		&:focus {
-			background-color: var(--yt-color-#{$colorState}-main);
-			color: var(--yt-#{$colorState}-text-contrast);
+			&:not([disabled]),
+			&:not([aria-disabled='true']) {
+				background-color: var(--yt-color-#{$colorState}-main);
+				color: var(--yt-#{$colorState}-text-contrast);
+			}
 		}
 	}
 }
@@ -63,8 +69,11 @@ $button-transition: all 0.1s ease-in-out 0s !default;
 
 		&:hover,
 		&:focus {
-			background-color: var(--yt-color-#{$colorState}-lighter);
-			color: var(--yt-color-#{$colorState}-light);
+			&:not([disabled]),
+			&:not([aria-disabled='true']) {
+				background-color: var(--yt-color-#{$colorState}-lighter);
+				color: var(--yt-color-#{$colorState}-light);
+			}
 		}
 	}
 }
@@ -96,15 +105,22 @@ $button-transition: all 0.1s ease-in-out 0s !default;
 	border-radius: $base-border-radius;
 	outline: none;
 	background: transparent;
-	font-size: 12px;
+	font-size: 14px;
 	line-height: inherit;
+	text-align: center;
+	text-decoration: none;
 	text-transform: uppercase;
 	vertical-align: middle;
+	cursor: pointer;
 	user-select: none;
 	appearance: none;
 
-	&:hover {
-		cursor: pointer;
+	&[disabled],
+	&[aria-disabled='true'] {
+		box-shadow: none;
+
+		// TODO disabled color?
+		pointer-events: none;
 	}
 
 	&--variant {
@@ -116,11 +132,20 @@ $button-transition: all 0.1s ease-in-out 0s !default;
 
 			&:hover,
 			&:focus {
-				background-color: var(--yt-color-primary-light);
-				box-shadow: var(--yt-elevation-shadow-2);
+				&:not([disabled]),
+				&:not([aria-disabled='true']) {
+					background-color: var(--yt-color-primary-light);
+					box-shadow: var(--yt-elevation-shadow-2);
+				}
 			}
 
 			@include embed-color-states(raised);
+
+			&[disabled] {
+				border-color: var(--yt-action-disabled);
+				background-color: var(--yt-action-disabled-bg);
+				color: var(--yt-action-disabled);
+			}
 		}
 
 		&--outlined {
@@ -129,11 +154,19 @@ $button-transition: all 0.1s ease-in-out 0s !default;
 
 			&:hover,
 			&:focus {
-				background-color: var(--yt-color-primary-main);
-				color: var(--yt-primary-text-contrast);
+				&:not([disabled]),
+				&:not([aria-disabled='true']) {
+					background-color: var(--yt-color-primary-main);
+					color: var(--yt-primary-text-contrast);
+				}
 			}
 
 			@include embed-color-states(outlined);
+
+			&[disabled] {
+				border-color: var(--yt-action-disabled);
+				color: var(--yt-action-disabled);
+			}
 		}
 
 		&--text {
@@ -143,24 +176,30 @@ $button-transition: all 0.1s ease-in-out 0s !default;
 
 			&:hover,
 			&:focus {
-				background-color: var(--yt-color-primary-lighter);
-				color: var(--yt-color-primary-light);
+				&:not([disabled]),
+				&:not([aria-disabled='true']) {
+					background-color: var(--yt-color-primary-lighter);
+					color: var(--yt-color-primary-light);
+				}
 			}
 
 			@include embed-color-states(text);
+
+			&[disabled] {
+				color: var(--yt-action-disabled);
+			}
 		}
 	}
 
 	&--size {
 		&--small {
-			height: 1rem;
-			padding: 0 0.25rem;
+			padding: 0.25rem 0.5rem;
 			border-radius: $base-border-radius / 1.5;
-			font-size: 10px;
+			font-size: 12px;
 		}
 
 		&--large {
-			padding: 0.6rem 0.8rem;
+			padding: 0.75rem 1.25rem;
 			border-radius: $base-border-radius * 1.5;
 			font-size: 16px;
 		}
