@@ -1,0 +1,26 @@
+@import '../variables/index';
+@import '../abstracts/theme-creator';
+
+// $text-color-normal: map-get($colors, black);
+// $surface-color-normal: map-get($colors, lightgrey);
+
+:root {
+	@include create-and-apply-theme(
+		(
+			primary: map-get($colors, deepsaphire),
+			accent: map-get($colors, orangepeel),
+			success: #2e7d32,
+			error: #d32f2f,
+			warning: #ed6c02,
+			info: #0288d1,
+			// text-color-normal: #{transparentize($text-color-normal, 0.13)},
+			// text-color-body1: #{transparentize($text-color-normal, 0.33)},
+			// text-color-body2: #{transparentize($text-color-normal, 0.6)},
+			// surface-color-normal: #{$surface-color-normal},
+			// surface-color-elevated1: #{darken($surface-color-normal, 5)},
+			// surface-color-elevated2: #{darken($surface-color-normal, 15)},
+			// surface-color-elevated3: #{darken($surface-color-normal, 55)},
+			// surface-color-accent: lavender,,,
+		)
+	);
+}

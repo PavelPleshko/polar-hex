@@ -1,3 +1,174 @@
+@use 'sass:map';
+
+$base-border-radius: 0.2rem !default;
+$button-transition: all 0.1s ease-in-out 0s !default;
+
+// @mixin generate-btn-color-states($-button-type: $button-primary) {
+//	border-color: map-get($-button-type, "border-color");
+//	background-color: map-get($-button-type, "background-color");
+//	color: map-get($-button-type, "color");
+//	&:hover {
+//		&:not([disabled]),
+//		&:not([aria-disabled="true"]) {
+//			border-color: map-get($-button-type, "hover-border-color");
+//			background-color: map-get($-button-type, "hover-background-color");
+//			color: map-get($-button-type, "hover-color");
+//			text-decoration: map-get($-button-type, "text-decoration");
+//		}
+//	}
+//	&:focus {
+//		&:not([disabled]),
+//		&:not([aria-disabled="true"]) {
+//			border-color: map-get($-button-type, "focus-border-color");
+//			background-color: map-get($-button-type, "focus-background-color");
+//			color: map-get($-button-type, "focus-color");
+//		}
+//	}
+//	&:active {
+//		border-color: map-get($-button-type, "active-border-color");
+//		background-color: map-get($-button-type, "active-background-color");
+//		color: map-get($-button-type, "active-color");
+//		text-decoration: map-get($-button-type, "text-decoration");
+//	}
+// }
+
+@mixin raised-color-state($colorState) {
+	&.yt-button--color--#{$colorState} {
+		background-color: var(--yt-color-#{$colorState}-main);
+		color: var(--yt-#{$colorState}-text-contrast);
+
+		&:hover,
+		&:focus {
+			background-color: var(--yt-color-#{$colorState}-light);
+		}
+	}
+}
+
+@mixin outlined-color-state($colorState) {
+	&.yt-button--color--#{$colorState} {
+		border-color: var(--yt-color-#{$colorState}-main);
+		color: var(--yt-color-#{$colorState}-main);
+
+		&:hover,
+		&:focus {
+			background-color: var(--yt-color-#{$colorState}-main);
+			color: var(--yt-#{$colorState}-text-contrast);
+		}
+	}
+}
+
+@mixin text-color-state($colorState) {
+	&.yt-button--color--#{$colorState} {
+		color: var(--yt-color-#{$colorState}-main);
+
+		&:hover,
+		&:focus {
+			background-color: var(--yt-color-#{$colorState}-lighter);
+			color: var(--yt-color-#{$colorState}-light);
+		}
+	}
+}
+
+@mixin embed-color-states($type: 'raised') {
+	$color-states: (success, error, warning, info);
+
+	@each $state in $color-states {
+		@if $type == 'raised' {
+			@include raised-color-state($state);
+		} @else if $type == 'outlined' {
+			@include outlined-color-state($state);
+		} @else if $type == 'text' {
+			@include text-color-state($state);
+		}
+	}
+}
+
 .yt-button {
+	display: inline-flex;
+	position: relative;
+	box-sizing: border-box;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+	padding: 0.5rem 0.75rem;
+	transition: $button-transition;
+	border: none;
+	border-radius: $base-border-radius;
+	outline: none;
+	background: transparent;
+	font-size: 12px;
+	line-height: inherit;
+	text-transform: uppercase;
+	vertical-align: middle;
+	user-select: none;
 	appearance: none;
+
+	&:hover {
+		cursor: pointer;
+	}
+
+	&--variant {
+		&--raised {
+			// TODO get the variables right, make default ones for non supported
+			background-color: var(--yt-color-primary-main);
+			box-shadow: var(--yt-elevation-shadow-1);
+			color: var(--yt-primary-text-contrast);
+
+			&:hover,
+			&:focus {
+				background-color: var(--yt-color-primary-light);
+				box-shadow: var(--yt-elevation-shadow-2);
+			}
+
+			@include embed-color-states(raised);
+		}
+
+		&--outlined {
+			border: 1px solid var(--yt-color-primary-main);
+			color: var(--yt-color-primary);
+
+			&:hover,
+			&:focus {
+				background-color: var(--yt-color-primary-main);
+				color: var(--yt-primary-text-contrast);
+			}
+
+			@include embed-color-states(outlined);
+		}
+
+		&--text {
+			border: none;
+			background-color: transparent;
+			color: var(--yt-color-primary-main);
+
+			&:hover,
+			&:focus {
+				background-color: var(--yt-color-primary-lighter);
+				color: var(--yt-color-primary-light);
+			}
+
+			@include embed-color-states(text);
+		}
+	}
+
+	&--size {
+		&--small {
+			height: 1rem;
+			padding: 0 0.25rem;
+			border-radius: $base-border-radius / 1.5;
+			font-size: 10px;
+		}
+
+		&--large {
+			padding: 0.6rem 0.8rem;
+			border-radius: $base-border-radius * 1.5;
+			font-size: 16px;
+		}
+	}
+
+	&--shape {
+		&--round {
+			border-radius: 50%;
+		}
+	}
 }

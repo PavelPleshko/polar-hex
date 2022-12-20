@@ -1,0 +1,102 @@
+@use 'sass:map';
+@use 'sass:math';
+@use 'sass:color';
+@use 'sass:string';
+
+$light-text: #fff;
+$dark-text: rgb(0 0 0 / 87%);
+
+@function get-contrast-text($n, $dark: $dark-text, $light: $light-text) {
+	@return $light;
+
+	$color-brightness: math.round((color.red($n) * 299) + (color.green($n) * 587) + (color.blue($n) * 114) / 1000);
+	$light-color: math.round((color.red(#fff) * 299) + (color.green(#fff) * 587) + (color.blue(#fff) * 114) / 1000);
+
+	@if abs($color-brightness) < ($light-color / 2) {
+		@return $light;
+	} @else {
+		@return $dark;
+	}
+}
+
+@function augment-color($color) {
+	@return (
+		main: $color,
+		light: color.mix(#fff, $color, 10%),
+		lighter: color.mix(#fff, $color, 90%),
+		dark: darken($color, 20),
+		darker: color.mix(#000, $color, 90%)
+	);
+}
+
+$base-palette: (
+	primary: white,
+	accent: white,
+	secondary: white,
+	error: red,
+	info: lightblue,
+	success: green,
+	warning: orange,
+);
+
+@function generate-vars($palette: (), $prefix: '--yt') {
+	$result-vars: ();
+
+	@each $name, $value in $palette {
+		@if type-of($value) == map {
+			$result-vars: map.merge($result-vars, generate-vars($value, $prefix + '-' + $name));
+		} @else {
+			$result-vars: map.merge($result-vars, ('#{$prefix}-#{$name}': $value));
+		}
+	}
+	@return $result-vars;
+}
+
+@function create-theme($palette: ()) {
+	$palette: map.merge($base-palette, $palette);
+	$primary: map.get($palette, primary);
+	$accent: map.get($palette, accent);
+	$secondary: map.get($palette, secondary);
+	$error: map.get($palette, error);
+	$info: map.get($palette, info);
+	$success: map.get($palette, success);
+	$warning: map.get($palette, warning);
+	$output-theme: (
+		'color-primary': augment-color($primary),
+		'primary-text-contrast': get-contrast-text($primary),
+		'color-secondary': augment-color($secondary),
+		'secondary-text-contrast': get-contrast-text($secondary),
+		'color-accent': augment-color($accent),
+		'accent-text-contrast': get-contrast-text($accent),
+		'color-error': augment-color($error),
+		'error-text-contrast': get-contrast-text($error),
+		'color-info': augment-color($info),
+		'info-text-contrast': get-contrast-text($info),
+		'color-success': augment-color($success),
+		'success-text-contrast': get-contrast-text($success),
+		'color-warning': augment-color($warning),
+		'warning-text-contrast': get-contrast-text($warning),
+		// TODO generate these values with different elevation
+		'elevation-shadow-1':
+			string.unquote(
+				'rgb(0 0 0 / 20%) 0 3px 1px -2px, rgb(0 0 0 / 14%) 0 2px 2px 0px, rgb(0 0 0 / 12%) 0 1px 5px 0'
+			),
+		'elevation-shadow-2':
+			string.unquote(
+				'rgb(0 0 0 / 20%) 0px 2px 4px -1px, rgb(0 0 0 / 14%) 0px 4px 5px 0px, rgb(0 0 0 / 12%) 0px 1px 10px 0px'
+			),
+	);
+
+	@return generate-vars($output-theme);
+}
+
+@mixin apply-theme-vars($vars: ()) {
+	@each $name, $value in $vars {
+		#{$name}: $value;
+	}
+}
+
+@mixin create-and-apply-theme($vars: ()) {
+	$resolved-vars: create-theme($vars);
+	@include apply-theme-vars($resolved-vars);
+}

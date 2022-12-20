@@ -1,0 +1,27 @@
+@use 'sass:map';
+@import 'typography';
+@import 'colors';
+
+$surface-colors: (
+	normal: map.get($colors, white),
+	light: map.get($colors, lightgrey),
+	paper: #0e4399,
+	brand: rgb(6 40 93),
+	accent: #fba000,
+	secondary: #0b3372,
+	highlight: #deeefd,
+	disabled: map.get($colors, grey),
+) !default;
+$text-colors: (
+	normal: map.get($colors, white),
+	brand: #06285d,
+	secondary: rgb(6, 40, 93),
+	accent: #fba000,
+	// text color with highest emphasis then we decrease opacity
+	body1: rgba(255, 255, 255, 0.87),
+	body2: rgba(255, 255, 255, 0.6),
+	body3: rgba(255, 255, 255, 0.4),
+	inverse: map.get($colors, white),
+	link: #5583c3,
+	hover: #456fab,
+) !default;
