@@ -7,7 +7,7 @@
 	"packages": ["packages/*"],
 	"command": {
 		"version": {
-			"allowBranch": "master",
+			"allowBranch": "main",
 			"conventionalCommits": true,
 			"tagVersionPrefix": "",
 			"message": "chore(release): %s"
