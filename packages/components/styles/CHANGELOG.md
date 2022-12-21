@@ -1,0 +1,11 @@
+# Change Log
+
+All notable changes to this project will be documented in this file.
+See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## 0.0.2 (2022-12-21)
+
+### Bug Fixes
+
+-   **button:** add disabled state colors, add disabled state stories ([a9e3d42](https://personal/PavelPleshko/yeti-design/commits/a9e3d4206f18fa5039926e11c1eb58e16622feed))
+-   **button:** add focus styles ([d438d74](https://personal/PavelPleshko/yeti-design/commits/d438d74099e86c0be3c0386a4e30ac3095fa3355))
