@@ -4,7 +4,7 @@
 	"useNx": true,
 	"version": "independent",
 	"independent": true,
-	"packages": ["packages/*"],
+	"packages": ["packages/**/*"],
 	"command": {
 		"version": {
 			"allowBranch": "main",
