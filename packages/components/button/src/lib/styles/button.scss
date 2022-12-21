@@ -1,36 +1,9 @@
 @use 'sass:map';
 
-$base-border-radius: 0.2rem !default;
-$button-transition: all 0.1s ease-in-out 0s !default;
+@import '../../../../styles/src/utils/mixins';
 
-// @mixin generate-btn-color-states($-button-type: $button-primary) {
-//	border-color: map-get($-button-type, "border-color");
-//	background-color: map-get($-button-type, "background-color");
-//	color: map-get($-button-type, "color");
-//	&:hover {
-//		&:not([disabled]),
-//		&:not([aria-disabled="true"]) {
-//			border-color: map-get($-button-type, "hover-border-color");
-//			background-color: map-get($-button-type, "hover-background-color");
-//			color: map-get($-button-type, "hover-color");
-//			text-decoration: map-get($-button-type, "text-decoration");
-//		}
-//	}
-//	&:focus {
-//		&:not([disabled]),
-//		&:not([aria-disabled="true"]) {
-//			border-color: map-get($-button-type, "focus-border-color");
-//			background-color: map-get($-button-type, "focus-background-color");
-//			color: map-get($-button-type, "focus-color");
-//		}
-//	}
-//	&:active {
-//		border-color: map-get($-button-type, "active-border-color");
-//		background-color: map-get($-button-type, "active-background-color");
-//		color: map-get($-button-type, "active-color");
-//		text-decoration: map-get($-button-type, "text-decoration");
-//	}
-// }
+$button-border-radius: 0.2rem !default;
+$button-transition: all 0.1s ease-in-out 0s !default;
 
 @mixin raised-color-state($colorState) {
 	&.yt-button--color--#{$colorState} {
@@ -47,17 +20,17 @@ $button-transition: all 0.1s ease-in-out 0s !default;
 	}
 }
 
-@mixin outlined-color-state($colorState) {
-	&.yt-button--color--#{$colorState} {
-		border-color: var(--yt-color-#{$colorState}-main);
-		color: var(--yt-color-#{$colorState}-main);
+@mixin outlined-color-state($color-state) {
+	&.yt-button--color--#{$color-state} {
+		border-color: var(--yt-color-#{$color-state}-main);
+		color: var(--yt-color-#{$color-state}-main);
 
 		&:hover,
 		&:focus {
 			&:not([disabled]),
 			&:not([aria-disabled='true']) {
-				background-color: var(--yt-color-#{$colorState}-main);
-				color: var(--yt-#{$colorState}-text-contrast);
+				background-color: var(--yt-color-#{$color-state}-main);
+				color: var(--yt-#{$color-state}-text-contrast);
 			}
 		}
 	}
@@ -100,9 +73,10 @@ $button-transition: all 0.1s ease-in-out 0s !default;
 	align-items: center;
 	justify-content: center;
 	padding: 0.5rem 0.75rem;
+	overflow: hidden;
 	transition: $button-transition;
 	border: none;
-	border-radius: $base-border-radius;
+	border-radius: $button-border-radius;
 	outline: none;
 	background: transparent;
 	font-size: 14px;
@@ -118,8 +92,6 @@ $button-transition: all 0.1s ease-in-out 0s !default;
 	&[disabled],
 	&[aria-disabled='true'] {
 		box-shadow: none;
-
-		// TODO disabled color?
 		pointer-events: none;
 	}
 
@@ -132,11 +104,8 @@ $button-transition: all 0.1s ease-in-out 0s !default;
 
 			&:hover,
 			&:focus {
-				&:not([disabled]),
-				&:not([aria-disabled='true']) {
-					background-color: var(--yt-color-primary-light);
-					box-shadow: var(--yt-elevation-shadow-2);
-				}
+				background-color: var(--yt-color-primary-light);
+				box-shadow: var(--yt-elevation-shadow-2);
 			}
 
 			@include embed-color-states(raised);
@@ -153,12 +122,9 @@ $button-transition: all 0.1s ease-in-out 0s !default;
 			color: var(--yt-color-primary);
 
 			&:hover,
-			&:focus {
-				&:not([disabled]),
-				&:not([aria-disabled='true']) {
-					background-color: var(--yt-color-primary-main);
-					color: var(--yt-primary-text-contrast);
-				}
+			&:focus-visible {
+				background-color: var(--yt-color-primary-main);
+				color: var(--yt-primary-text-contrast);
 			}
 
 			@include embed-color-states(outlined);
@@ -176,11 +142,8 @@ $button-transition: all 0.1s ease-in-out 0s !default;
 
 			&:hover,
 			&:focus {
-				&:not([disabled]),
-				&:not([aria-disabled='true']) {
-					background-color: var(--yt-color-primary-lighter);
-					color: var(--yt-color-primary-light);
-				}
+				background-color: var(--yt-color-primary-lighter);
+				color: var(--yt-color-primary-light);
 			}
 
 			@include embed-color-states(text);
@@ -194,13 +157,13 @@ $button-transition: all 0.1s ease-in-out 0s !default;
 	&--size {
 		&--small {
 			padding: 0.25rem 0.5rem;
-			border-radius: $base-border-radius / 1.5;
+			border-radius: $button-border-radius / 1.5;
 			font-size: 12px;
 		}
 
 		&--large {
 			padding: 0.75rem 1.25rem;
-			border-radius: $base-border-radius * 1.5;
+			border-radius: $button-border-radius * 1.5;
 			font-size: 16px;
 		}
 	}
@@ -209,5 +172,9 @@ $button-transition: all 0.1s ease-in-out 0s !default;
 		&--round {
 			border-radius: 50%;
 		}
+	}
+
+	&:focus-visible {
+		@include focus;
 	}
 }

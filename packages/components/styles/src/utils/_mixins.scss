@@ -1,0 +1,16 @@
+@use 'sass:map';
+
+$focus-shadow: (
+	x: 0,
+	y: 0,
+	blur: 0,
+	spread: 0.25rem,
+	color: rgb(49 132 253 / 50%),
+);
+
+@mixin focus($focus-shadow-color: map.get($focus-shadow, color)) {
+	outline: none;
+	box-shadow: map.get($focus-shadow, x) map.get($focus-shadow, y) map.get($focus-shadow, blur)
+		map.get($focus-shadow, spread) map.get($focus-shadow-color, color);
+	text-decoration: none;
+}
