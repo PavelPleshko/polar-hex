@@ -13,4 +13,3 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 ### Features
 
 -   **button:** introduce the button component ([97feb84](https://personal/PavelPleshko/yeti-design/commits/97feb848e271497aa09643497a1e6986e8a49112))
--   **yeti-demo-app:** add first story for button, fix up dependencies ([0942f00](https://personal/PavelPleshko/yeti-design/commits/0942f00c4830e86706c4bea463e8e05405915484))
