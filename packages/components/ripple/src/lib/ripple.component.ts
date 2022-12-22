@@ -1,5 +1,5 @@
 import { customElement, html, LitElement, property, state, query } from 'lit-element';
-import { TemplateResult } from 'lit';
+import { PropertyValues, TemplateResult } from 'lit';
 import { ClassInfo, classMap } from 'lit/directives/class-map.js';
 import { CSSResultGroup } from '@lit/reactive-element/css-tag';
 
@@ -29,6 +29,8 @@ export class RippleComponent extends LitElement {
 		return [style];
 	}
 
+	private _inFlightRippleAnimation: Animation | null = null;
+
 	@query('.yt-ripple') private _rippleElement!: HTMLElement;
 
 	private _rippleSizePx = 0;
@@ -40,11 +42,12 @@ export class RippleComponent extends LitElement {
 
 	onPress(event: Event): void {
 		this.state = RippleState.pressed;
+		this._inFlightRippleAnimation?.cancel();
 		this._calculateRippleSize();
 
 		const { start, end } = this._getAnimationCoordinates(event);
 
-		const animation = this._rippleElement.animate(
+		this._inFlightRippleAnimation = this._rippleElement.animate(
 			{
 				top: [0, 0],
 				left: [0, 0],
@@ -58,10 +61,26 @@ export class RippleComponent extends LitElement {
 			},
 			{ duration: rippleConfig.animationDuration }
 		);
+
+		this._inFlightRippleAnimation.addEventListener('finish', () => {
+			this._inFlightRippleAnimation = null;
+		});
+	}
+
+	cancelPress(): void {
+		this.state = RippleState.idle;
+		this._inFlightRippleAnimation?.cancel();
 	}
 
 	protected override render(): TemplateResult {
 		return html`<span class="${classMap(this._getRippleContainerClasses())}"></span>`;
+	}
+
+	protected override update(changedProperties: PropertyValues<this>): void {
+		if (changedProperties.has('disabled') && this.disabled) {
+			this.cancelPress();
+		}
+		super.update(changedProperties);
 	}
 
 	private _getRippleContainerClasses(): ClassInfo {
@@ -78,11 +97,11 @@ export class RippleComponent extends LitElement {
 	private _calculateRippleSize(): void {
 		const hostDimensions = this._getHostDimensions();
 		const rippleDiameter = Math.max(hostDimensions.height, hostDimensions.width);
-		const rippleRadius = rippleDiameter / 2;
+		const softEdgeSize = Math.max(0.35 * rippleDiameter, 75);
 
 		const rippleSizeStart = Math.floor(rippleDiameter * rippleConfig.startScale);
 
-		this._rippleScale = rippleDiameter / rippleSizeStart;
+		this._rippleScale = (rippleDiameter + softEdgeSize) / rippleSizeStart;
 		this._rippleSizePx = rippleSizeStart;
 	}
 
@@ -93,11 +112,10 @@ export class RippleComponent extends LitElement {
 		const documentY = scrollY + top;
 
 		let startCoordinate: AnimationCoordinate;
-		if (event instanceof PointerEvent) {
+		if (event instanceof PointerEvent && !this._isKeyboardEvent(event)) {
 			const { pageX, pageY } = event;
 			startCoordinate = { x: pageX - documentX, y: pageY - documentY };
 		} else {
-			// TODO does not work well
 			startCoordinate = {
 				x: width / 2,
 				y: height / 2,
@@ -111,5 +129,9 @@ export class RippleComponent extends LitElement {
 				y: (height - this._rippleSizePx) / 2,
 			},
 		};
+	}
+
+	private _isKeyboardEvent(event: PointerEvent): boolean {
+		return event.detail === 0;
 	}
 }

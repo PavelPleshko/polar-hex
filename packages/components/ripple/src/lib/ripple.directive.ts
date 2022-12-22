@@ -9,7 +9,7 @@ class RippleDirective extends Directive {
 
 	private _rippleElementQuery?: RippleElementQuery;
 
-	render(rippleComp: RippleElementQuery): typeof noChange {
+	render(_rippleComp: RippleElementQuery): typeof noChange {
 		return noChange;
 	}
 
@@ -25,17 +25,24 @@ class RippleDirective extends Directive {
 
 	private _createListeners(): void {
 		const element = this._elementRef!;
-		element.addEventListener('click', this._onClick.bind(this));
-		element.addEventListener('pointerup', this._onClick.bind(this));
+		element.addEventListener('click', ev => this._onClick(ev as PointerEvent));
 	}
 
-	private async _onClick(event: Event): Promise<void> {
-		const rippleElement = await this._rippleElementQuery;
+	private async _onClick(event: PointerEvent): Promise<void> {
+		const rippleElement = await this._getRippleElement();
 		if (!rippleElement) {
 			return;
 		}
 
 		rippleElement.onPress(event);
+	}
+
+	private async _getRippleElement(): Promise<RippleComponent | null> {
+		const rippleElement = await this._rippleElementQuery;
+		if (!rippleElement || rippleElement.disabled) {
+			return null;
+		}
+		return rippleElement;
 	}
 }
 
