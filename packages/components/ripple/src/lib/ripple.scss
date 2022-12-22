@@ -1,0 +1,10 @@
+.yt-ripple {
+	display: block;
+	position: absolute;
+	border-radius: 50%;
+	background-color: var(--yt-ripple-color, white);
+
+	&--pressed {
+		opacity: 0.18;
+	}
+}

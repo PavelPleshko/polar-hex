@@ -1,11 +1,12 @@
-import { customElement, html, LitElement, property } from 'lit-element';
+import { customElement, html, LitElement, property, queryAsync } from 'lit-element';
 import { TemplateResult } from 'lit';
 import { ClassInfo, classMap } from 'lit/directives/class-map.js';
 import { CSSResultGroup } from '@lit/reactive-element/css-tag';
 
+import { ripple, RIPPLE_TAG_NAME, RippleComponent } from '@yeti-wc/ripple';
+
 import { ButtonVariant } from './config/button.variant';
 import { ButtonState } from './config/button.state';
-
 // @ts-expect-error: figure out the way to avoid errors for scss imports
 import style from './styles/button.scss';
 import { ButtonSize } from './config/button.size';
@@ -22,7 +23,9 @@ export class YtButtonElement extends LitElement implements ButtonState {
 		return [style];
 	}
 
-	@property({ attribute: 'type' }) type = 'button';
+	@queryAsync(RIPPLE_TAG_NAME) private _rippleElement!: Promise<RippleComponent | null>;
+
+	@property() type = 'button';
 
 	@property() variant = ButtonVariant.raised;
 
@@ -38,7 +41,9 @@ export class YtButtonElement extends LitElement implements ButtonState {
 		return html` <button
 			type="${this.type}"
 			?disabled=${this.disabled}
-			class="${classMap(this._getRuntimeClasses())}">
+			class="${classMap(this._getRuntimeClasses())}"
+			${ripple(this._rippleElement)}>
+			<yt-ripple></yt-ripple>
 			<slot></slot>
 		</button>`;
 	}
