@@ -5,16 +5,18 @@
 $button-border-radius: 0.2rem !default;
 $button-transition: all 0.1s ease-in-out 0s !default;
 
-@mixin raised-color-state($colorState) {
-	&.yt-button--color--#{$colorState} {
-		background-color: var(--yt-color-#{$colorState}-main);
-		color: var(--yt-#{$colorState}-text-contrast);
+@mixin raised-color-state($color-state) {
+	&.yt-button--color--#{$color-state} {
+		background-color: var(--yt-color-#{$color-state}-main);
+		color: var(--yt-#{$color-state}-text-contrast);
+
+		--yt-ripple-color: var(--yt-color-#{$color-state}-lighter);
 
 		&:hover,
-		&:focus {
+		&:focus-visible {
 			&:not([disabled]),
 			&:not([aria-disabled='true']) {
-				background-color: var(--yt-color-#{$colorState}-light);
+				background-color: var(--yt-color-#{$color-state}-light);
 			}
 		}
 	}
@@ -25,27 +27,30 @@ $button-transition: all 0.1s ease-in-out 0s !default;
 		border-color: var(--yt-color-#{$color-state}-main);
 		color: var(--yt-color-#{$color-state}-main);
 
+		--yt-ripple-color: var(--yt-color-#{$color-state}-main);
+
 		&:hover,
-		&:focus {
+		&:focus-visible {
 			&:not([disabled]),
 			&:not([aria-disabled='true']) {
-				background-color: var(--yt-color-#{$color-state}-main);
-				color: var(--yt-#{$color-state}-text-contrast);
+				background-color: var(--yt-color-#{$color-state}-lighter);
 			}
 		}
 	}
 }
 
-@mixin text-color-state($colorState) {
-	&.yt-button--color--#{$colorState} {
-		color: var(--yt-color-#{$colorState}-main);
+@mixin text-color-state($color-state) {
+	&.yt-button--color--#{$color-state} {
+		color: var(--yt-color-#{$color-state}-main);
+
+		--yt-ripple-color: var(--yt-color-#{$color-state}-main);
 
 		&:hover,
-		&:focus {
+		&:focus-visible {
 			&:not([disabled]),
 			&:not([aria-disabled='true']) {
-				background-color: var(--yt-color-#{$colorState}-lighter);
-				color: var(--yt-color-#{$colorState}-light);
+				background-color: var(--yt-color-#{$color-state}-lighter);
+				color: var(--yt-color-#{$color-state}-light);
 			}
 		}
 	}
@@ -102,8 +107,10 @@ $button-transition: all 0.1s ease-in-out 0s !default;
 			box-shadow: var(--yt-elevation-shadow-1);
 			color: var(--yt-primary-text-contrast);
 
+			--yt-ripple-color: var(--yt-color-primary-lighter);
+
 			&:hover,
-			&:focus {
+			&:focus-visible {
 				background-color: var(--yt-color-primary-light);
 				box-shadow: var(--yt-elevation-shadow-2);
 			}
@@ -121,10 +128,11 @@ $button-transition: all 0.1s ease-in-out 0s !default;
 			border: 1px solid var(--yt-color-primary-main);
 			color: var(--yt-color-primary);
 
+			--yt-ripple-color: var(--yt-color-primary-main);
+
 			&:hover,
 			&:focus-visible {
-				background-color: var(--yt-color-primary-main);
-				color: var(--yt-primary-text-contrast);
+				background-color: var(--yt-color-primary-lighter);
 			}
 
 			@include embed-color-states(outlined);
@@ -140,8 +148,10 @@ $button-transition: all 0.1s ease-in-out 0s !default;
 			background-color: transparent;
 			color: var(--yt-color-primary-main);
 
+			--yt-ripple-color: var(--yt-color-primary-main);
+
 			&:hover,
-			&:focus {
+			&:focus-visible {
 				background-color: var(--yt-color-primary-lighter);
 				color: var(--yt-color-primary-light);
 			}

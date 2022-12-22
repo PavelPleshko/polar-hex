@@ -4,6 +4,7 @@
 		"baseUrl": "./",
 		"outDir": "./dist/out-tsc",
 		"sourceMap": true,
+		"rootDir": ".",
 		"declaration": false,
 		"downlevelIteration": true,
 		"experimentalDecorators": true,
@@ -16,7 +17,8 @@
 		"resolveJsonModule": true,
 		"allowSyntheticDefaultImports": true,
 		"paths": {
-			"@yeti-wc/button": ["packages/components/button/src/index.ts"]
+			"@yeti-wc/*": ["packages/components/*"]
 		}
-	}
+	},
+	"include": ["custom.d.ts"]
 }
