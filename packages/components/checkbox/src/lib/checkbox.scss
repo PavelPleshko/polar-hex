@@ -1,22 +1,27 @@
-@mixin checkmark() {
+@mixin state-element-selector($state-element: 'checkmark') {
 	.yt-checkbox {
 		&--container {
-			&--checkmark {
+			&--#{$state-element} {
 				@content;
 			}
 		}
 	}
 }
 
+$checkbox-size: 16px !default;
+$focus-indicator-size: $checkbox-size * 2 !default;
+
 :host {
 	display: inline-flex;
 	position: relative;
-	height: 18px;
-	vertical-align: top; // Fix extra space when placed inside display: block
+	height: $checkbox-size;
+	outline: none;
+	vertical-align: top;
 }
 
 input {
 	position: absolute;
+	z-index: -1;
 	margin: 0;
 	outline: none;
 	appearance: none;
@@ -29,11 +34,13 @@ input {
 		position: relative;
 		align-items: center;
 		justify-content: center;
-		width: 18px;
-		height: 18px;
+		width: $checkbox-size;
+		height: $checkbox-size;
 		border-radius: 3px;
+		cursor: pointer;
 
 		&--outline {
+			z-index: 0;
 			box-sizing: border-box;
 			width: 100%;
 			height: 100%;
@@ -41,14 +48,52 @@ input {
 			border-radius: inherit;
 		}
 
-		@include checkmark {
+		@include state-element-selector(checkmark) {
 			display: none;
 			position: absolute;
+			z-index: -1;
+			border-radius: inherit;
+		}
+
+		@include state-element-selector(focus-indicator) {
+			display: block;
+			position: absolute;
+			z-index: -1;
+			width: $focus-indicator-size;
+			height: $focus-indicator-size;
+			transform: scale(0);
+			transition: 150ms;
+			border-radius: 50%;
+			opacity: 0.1;
+			background-color: grey;
 		}
 
 		&--checked {
-			@include checkmark {
+			@include state-element-selector(checkmark) {
 				display: block;
+				background-color: var(--yt-color-primary-light);
+				fill: var(--yt-primary-text-contrast);
+			}
+		}
+
+		&--focused {
+			@include state-element-selector('focus-indicator') {
+				transform: scale(1);
+				opacity: 0.15;
+			}
+		}
+
+		&:hover {
+			&:not(&--checked) {
+				@include state-element-selector(checkmark) {
+					display: block;
+					opacity: 0.25;
+				}
+			}
+
+			@include state-element-selector('focus-indicator') {
+				transform: scale(1);
+				opacity: 0.15;
 			}
 		}
 	}
