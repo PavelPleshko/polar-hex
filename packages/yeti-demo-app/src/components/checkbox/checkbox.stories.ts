@@ -1,4 +1,4 @@
-import { html, render } from 'lit-html';
+import { html } from 'lit-html';
 
 import '@yeti-wc/checkbox';
 import { TemplateResult } from 'lit';
@@ -8,5 +8,5 @@ export default {
 };
 
 export const Variants = (): TemplateResult => {
-	return html` <yt-checkbox> My checkbox label </yt-checkbox> `;
+	return html` <yt-checkbox></yt-checkbox> My checkbox label`;
 };

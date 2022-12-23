@@ -19,7 +19,7 @@ export function forwardAttribute<C extends ReactiveElement, P extends string>(ex
 			configurable: true,
 			enumerable: true,
 			get(this: ReactiveElement) {
-				return getPropMap(this)[prop] ?? '';
+				return getPropMap(this)[prop];
 			},
 			set(this: ReactiveElement, value: unknown) {
 				const externalPresent = this.getAttribute(externalPropName);
