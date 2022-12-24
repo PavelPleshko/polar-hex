@@ -2,12 +2,14 @@ import { customElement, html, LitElement, property, nothing, query, state } from
 import { TemplateResult } from 'lit';
 import { ClassInfo, classMap } from 'lit/directives/class-map.js';
 import { CSSResultGroup } from '@lit/reactive-element/css-tag';
-import { forwardAttribute, ENTER, SPACE } from '@yeti-wc/utils';
+import { forwardAttribute, ENTER, SPACE, uniqueIdGenerator } from '@yeti-wc/utils';
 
 // @ts-expect-error: figure out the broken imports
 import style from './checkbox.scss';
 
 const CHECKBOX_ACTIVATION_KEYS = [SPACE, ENTER];
+
+const getNextId = uniqueIdGenerator('yt-checkbox');
 
 @customElement('yt-checkbox')
 export class Checkbox extends LitElement {
@@ -21,9 +23,8 @@ export class Checkbox extends LitElement {
 
 	private _indeterminate = false;
 
-	// TODO generate these ids with some generator
 	@forwardAttribute('id')
-	_id = 'checkbox-id-1';
+	_id = getNextId();
 
 	@forwardAttribute('name')
 	_name?: string;
