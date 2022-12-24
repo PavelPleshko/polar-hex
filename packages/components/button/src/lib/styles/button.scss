@@ -104,7 +104,7 @@ $button-transition: all 0.1s ease-in-out 0s !default;
 		&--raised {
 			// TODO get the variables right, make default ones for non supported
 			background-color: var(--yt-color-primary-main);
-			box-shadow: var(--yt-elevation-shadow-1);
+			box-shadow: var(--yt-elevation-1-shadow);
 			color: var(--yt-primary-text-contrast);
 
 			--yt-ripple-color: var(--yt-color-primary-lighter);
@@ -112,7 +112,7 @@ $button-transition: all 0.1s ease-in-out 0s !default;
 			&:hover,
 			&:focus-visible {
 				background-color: var(--yt-color-primary-light);
-				box-shadow: var(--yt-elevation-shadow-2);
+				box-shadow: var(--yt-elevation-2-shadow);
 			}
 
 			@include embed-color-states(raised);
