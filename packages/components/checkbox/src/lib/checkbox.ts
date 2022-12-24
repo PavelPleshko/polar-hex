@@ -2,13 +2,14 @@ import { customElement, html, LitElement, property, nothing, query, state } from
 import { TemplateResult } from 'lit';
 import { ClassInfo, classMap } from 'lit/directives/class-map.js';
 import { CSSResultGroup } from '@lit/reactive-element/css-tag';
-import { forwardAttribute } from '@yeti-wc/utils';
+import { forwardAttribute, ENTER, SPACE, uniqueIdGenerator } from '@yeti-wc/utils';
 
 // @ts-expect-error: figure out the broken imports
 import style from './checkbox.scss';
 
-// TODO move keys to utils as constants
-const CHECKBOX_ACTIVATION_KEYS = [' ', 'Enter'];
+const CHECKBOX_ACTIVATION_KEYS = [SPACE, ENTER];
+
+const getNextId = uniqueIdGenerator('yt-checkbox');
 
 @customElement('yt-checkbox')
 export class Checkbox extends LitElement {
@@ -20,9 +21,10 @@ export class Checkbox extends LitElement {
 
 	@query('input') private readonly _inputElement!: HTMLInputElement | null;
 
-	// TODO generate these ids with some generator
+	private _indeterminate = false;
+
 	@forwardAttribute('id')
-	_id = 'checkbox-id-1';
+	_id = getNextId();
 
 	@forwardAttribute('name')
 	_name?: string;
@@ -41,6 +43,20 @@ export class Checkbox extends LitElement {
 
 	@property({ type: Boolean })
 	disabled = false;
+
+	@property({ type: Boolean })
+	set indeterminate(val: boolean) {
+		if (val === this._indeterminate) {
+			return;
+		}
+		this._indeterminate = val;
+		this.checked = val ? false : this.checked;
+		this.requestUpdate();
+	}
+
+	get indeterminate(): boolean {
+		return this._indeterminate;
+	}
 
 	@state()
 	focused = false;
@@ -62,17 +78,21 @@ export class Checkbox extends LitElement {
 				<svg viewBox="0 0 24 24" class="yt-checkbox--container--checkmark" aria-hidden="true" focusable="false">
 					<path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"></path>
 				</svg>
+				<div class="yt-checkbox--container--indeterminate"></div>
 			</span>
 			<input
 				tabindex="-1"
 				type="checkbox"
+				aria-checked="${this.indeterminate ? 'mixed' : nothing}"
 				aria-label="${this._ariaLabel || nothing}"
 				aria-labelledby="${this._ariaLabelledBy || nothing}"
 				name="${this._name || nothing}"
 				id="${this._id}"
 				@focus="${this._onFocus}"
 				@blur="${this._onBlur}"
+				@change="${this._onChange}"
 				.checked="${this.checked}"
+				.indeterminate=${this.indeterminate}
 				?disabled="${this.disabled}" />
 		`;
 	}
@@ -82,6 +102,7 @@ export class Checkbox extends LitElement {
 			'yt-checkbox--container': true,
 			'yt-checkbox--container--checked': this.checked,
 			'yt-checkbox--container--focused': this.focused,
+			'yt-checkbox--container--indeterminate': this.indeterminate,
 		};
 	}
 
@@ -111,7 +132,13 @@ export class Checkbox extends LitElement {
 		this.focused = false;
 	}
 
+	private _onChange(event: Event): void {
+		const target = event.target as HTMLInputElement;
+		this.checked = target.checked;
+		this.indeterminate = target.indeterminate;
+	}
+
 	private _toggleState(): void {
-		this.checked = !this.checked;
+		this._inputElement?.click();
 	}
 }

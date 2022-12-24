@@ -55,6 +55,16 @@ input {
 			border-radius: inherit;
 		}
 
+		@include state-element-selector(indeterminate) {
+			display: none;
+			position: absolute;
+			z-index: -1;
+			width: calc(100% - 6px);
+			height: 3px;
+			border-radius: inherit;
+			background-color: var(--yt-color-primary-light);
+		}
+
 		@include state-element-selector(focus-indicator) {
 			display: block;
 			position: absolute;
@@ -68,7 +78,7 @@ input {
 			background-color: grey;
 		}
 
-		&--checked {
+		&--checked:not(&--indeterminate) {
 			@include state-element-selector(checkmark) {
 				display: block;
 				background-color: var(--yt-color-primary-light);
@@ -80,6 +90,12 @@ input {
 			@include state-element-selector('focus-indicator') {
 				transform: scale(1);
 				opacity: 0.15;
+			}
+		}
+
+		&--indeterminate {
+			@include state-element-selector(indeterminate) {
+				display: block;
 			}
 		}
 
