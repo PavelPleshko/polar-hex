@@ -20,7 +20,8 @@
 			// surface-color-elevated1: #{darken($surface-color-normal, 5)},
 			// surface-color-elevated2: #{darken($surface-color-normal, 15)},
 			// surface-color-elevated3: #{darken($surface-color-normal, 55)},
-			// surface-color-accent: lavender,,,
-		)
+			// surface-color-accent: lavender,,,,,
+		),
+		$type: light
 	);
 }

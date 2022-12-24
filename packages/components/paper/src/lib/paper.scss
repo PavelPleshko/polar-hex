@@ -1,0 +1,20 @@
+@mixin generate-elevations() {
+	@each $elevation in (0, 1, 2, 3, 4, 6) {
+		.yt-elevation-#{$elevation} {
+			background-color: var(--yt-elevation-#{$elevation}-bg-color);
+			box-shadow: var(--yt-elevation-#{$elevation}-shadow);
+		}
+	}
+}
+
+@include generate-elevations;
+
+.yt-paper {
+	display: inline-flex;
+	overflow: hidden;
+	border-radius: 4px;
+
+	&--outlined {
+		border: 1px solid rgb(0 0 0 / 12%);
+	}
+}
