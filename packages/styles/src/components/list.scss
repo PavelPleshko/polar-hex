@@ -1,0 +1,32 @@
+yt-list {
+	display: inline-flex;
+	flex-direction: column;
+	min-width: 12rem;
+	max-height: 12rem;
+	overflow-x: hidden;
+	overflow-y: auto;
+	border: 1px solid grey;
+	border-radius: 4px;
+	background-color: white;
+
+	yt-list-item {
+		display: flex;
+		width: 100%;
+		padding: 0.5rem 1rem;
+		background-color: inherit;
+		text-align: left;
+		user-select: none;
+
+		&[disabled] {
+			pointer-events: none;
+		}
+
+		&:hover {
+			background-color: var(--yt-action-hover);
+		}
+
+		&:focus {
+			background-color: var(--yt-action-focus);
+		}
+	}
+}
