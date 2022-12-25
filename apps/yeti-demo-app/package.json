@@ -1,5 +1,5 @@
 {
-	"name": "@yeti/demo-app",
+	"name": "@yeti-design/components-demo",
 	"description": "Application for demonstration of yeti design system",
 	"version": "0.2.0",
 	"main": "src/index.js",

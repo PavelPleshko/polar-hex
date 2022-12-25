@@ -13,4 +13,3 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 ### Features
 
 -   **checkbox:** create component, add forwardProperty decorator ([924d4df](https://personal/PavelPleshko/yeti-design/commits/924d4df791d3cab8ce0339d253488db78ec73f64))
--   **paper:** add paper element, stories ([e7c90d0](https://personal/PavelPleshko/yeti-design/commits/e7c90d06df23634cc10a553671f1634ca40682d4))

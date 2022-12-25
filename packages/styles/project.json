@@ -1,6 +1,6 @@
 {
-	"name": "components/styles",
-	"$schema": "../../../node_modules/nx/schemas/project-schema.json",
+	"name": "design-system/styles",
+	"$schema": "../../node_modules/nx/schemas/project-schema.json",
 	"sourceRoot": "packages/components/styles/src",
 	"projectType": "library",
 	"targets": {},

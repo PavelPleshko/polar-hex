@@ -2,18 +2,8 @@ import { customElement, html, LitElement, property } from 'lit-element';
 import { TemplateResult } from 'lit';
 import { ClassInfo, classMap } from 'lit/directives/class-map.js';
 
-// @ts-expect-error: figure out the broken imports
-import { CSSResultGroup } from '@lit/reactive-element/css-tag';
-import style from './paper.scss';
-
 @customElement('yt-paper')
 export class PaperComponent extends LitElement {
-	static override shadowRootOptions: ShadowRootInit = { mode: 'open' };
-
-	static override get styles(): CSSResultGroup {
-		return [style];
-	}
-
 	private _elevation = 1;
 
 	@property()
@@ -29,9 +19,11 @@ export class PaperComponent extends LitElement {
 	outlined = false;
 
 	protected render(): TemplateResult {
-		return html`<div class="${classMap(this._getRuntimeClasses())}">
-			<slot></slot>
-		</div>`;
+		return html`<div class="${classMap(this._getRuntimeClasses())}">${this.children}</div>`;
+	}
+
+	protected createRenderRoot(): Element | ShadowRoot {
+		return this;
 	}
 
 	private _getRuntimeClasses(): ClassInfo {
@@ -40,5 +32,11 @@ export class PaperComponent extends LitElement {
 			[`yt-elevation-${this.elevation}`]: true,
 			'yt-paper--outlined': this.outlined,
 		};
+	}
+}
+
+declare global {
+	interface HTMLElementTagNameMap {
+		'yt-paper': PaperComponent;
 	}
 }

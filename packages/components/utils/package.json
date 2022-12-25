@@ -1,6 +1,7 @@
 {
-	"name": "@yeti-wc/utils",
-	"version": "0.1.0",
+	"name": "utils",
+	"version": "0.0.1",
 	"type": "commonjs",
-	"main": "src/index.ts"
+	"main": "src/index.ts",
+	"private": true
 }

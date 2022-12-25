@@ -1,5 +1,5 @@
 {
-	"name": "paper",
+	"name": "components/paper",
 	"$schema": "../../../node_modules/nx/schemas/project-schema.json",
 	"sourceRoot": "packages/components/paper/src",
 	"projectType": "library",

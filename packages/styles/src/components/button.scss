@@ -1,6 +1,6 @@
 @use 'sass:map';
 
-@import '../../../../styles/src/utils/mixins';
+@import '../utils/mixins';
 
 $button-border-radius: 0.2rem !default;
 $button-transition: all 0.1s ease-in-out 0s !default;

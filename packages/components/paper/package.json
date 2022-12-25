@@ -1,6 +1,7 @@
 {
-	"name": "@yeti-wc/paper",
-	"version": "0.1.0",
+	"name": "paper",
+	"version": "0.0.0",
 	"type": "commonjs",
-	"main": "src/index.ts"
+	"main": "src/index.ts",
+	"private": true
 }

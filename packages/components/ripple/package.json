@@ -1,6 +1,7 @@
 {
-	"name": "@yeti-wc/ripple",
+	"name": "ripple",
 	"version": "0.1.0",
 	"type": "commonjs",
-	"main": "./src/index.ts"
+	"main": "./src/index.ts",
+	"private": true
 }

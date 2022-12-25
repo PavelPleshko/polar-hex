@@ -1,16 +1,16 @@
 {
 	"$schema": "node_modules/lerna/schemas/lerna-schema.json",
-	"useWorkspaces": true,
+	"useWorkspaces": false,
 	"useNx": true,
 	"version": "independent",
 	"independent": true,
-	"packages": ["packages/**/*"],
+	"packages": ["packages/*", "apps/*"],
 	"command": {
 		"version": {
 			"allowBranch": "main",
 			"conventionalCommits": true,
 			"tagVersionPrefix": "",
-			"message": "chore(release): %s"
+			"message": "chore(release)"
 		}
 	}
 }

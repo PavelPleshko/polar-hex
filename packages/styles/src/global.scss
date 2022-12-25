@@ -1,0 +1,8 @@
+@use 'sass:meta';
+
+@mixin init-styles() {
+	@include meta.load-css('./components/button');
+	@include meta.load-css('./components/checkbox');
+	@include meta.load-css('./components/paper');
+	@include meta.load-css('./components/ripple');
+}
