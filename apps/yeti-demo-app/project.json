@@ -38,17 +38,6 @@
 				}
 			}
 		},
-		"serve": {
-			"executor": "@nrwl/webpack:dev-server",
-			"options": {
-				"buildTarget": "yeti-demo-app:build"
-			},
-			"configurations": {
-				"production": {
-					"buildTarget": "yeti-demo-app:build:production"
-				}
-			}
-		},
 		"lint": {
 			"executor": "@nrwl/linter:eslint",
 			"outputs": ["{options.outputFile}"],
@@ -70,7 +59,7 @@
 				"uiFramework": "@storybook/web-components",
 				"port": 4400,
 				"config": {
-					"configFolder": "packages/yeti-demo-app/.storybook"
+					"configFolder": "apps/yeti-demo-app/.storybook"
 				}
 			},
 			"configurations": {

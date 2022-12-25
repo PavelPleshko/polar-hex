@@ -1,6 +1,7 @@
 {
-	"name": "@yeti-wc/button",
+	"name": "button",
 	"version": "0.2.0",
 	"type": "commonjs",
-	"main": "src/index.ts"
+	"main": "src/index.ts",
+	"private": true
 }

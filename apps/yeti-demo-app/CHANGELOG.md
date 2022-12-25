@@ -5,13 +5,8 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 # [0.2.0](https://personal/PavelPleshko/yeti-design/compare/@yeti/demo-app@0.1.0...@yeti/demo-app@0.2.0) (2022-12-24)
 
-### Bug Fixes
-
--   **checkbox:** add indeterminate state, styles ([fdd530e](https://personal/PavelPleshko/yeti-design/commits/fdd530eb1671febab3c4bf3e948a01c83429a1ea))
-
 ### Features
 
--   **checkbox:** create component, add forwardProperty decorator ([924d4df](https://personal/PavelPleshko/yeti-design/commits/924d4df791d3cab8ce0339d253488db78ec73f64))
 -   **paper:** add paper element, stories ([e7c90d0](https://personal/PavelPleshko/yeti-design/commits/e7c90d06df23634cc10a553671f1634ca40682d4))
 
 # 0.1.0 (2022-12-21)

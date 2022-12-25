@@ -81,7 +81,8 @@
 		"targets": {}
 	},
 	"workspaces": [
-		"packages/**/*"
+		"packages/**/*",
+		"apps/*"
 	],
 	"config": {
 		"commitizen": {

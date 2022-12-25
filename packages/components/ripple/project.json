@@ -1,5 +1,5 @@
 {
-	"name": "ripple",
+	"name": "components/ripple",
 	"$schema": "../../../node_modules/nx/schemas/project-schema.json",
 	"sourceRoot": "packages/components/ripple/src",
 	"projectType": "library",

@@ -11,12 +11,11 @@
 $checkbox-size: 16px !default;
 $focus-indicator-size: $checkbox-size * 2 !default;
 
-:host {
-	display: inline-flex;
+yt-checkbox {
 	position: relative;
 	height: $checkbox-size;
 	outline: none;
-	vertical-align: top;
+	vertical-align: middle;
 }
 
 input {

@@ -1,10 +1,6 @@
 import { customElement, html, LitElement, property, state, query } from 'lit-element';
 import { PropertyValues, TemplateResult } from 'lit';
 import { ClassInfo, classMap } from 'lit/directives/class-map.js';
-import { CSSResultGroup } from '@lit/reactive-element/css-tag';
-
-// @ts-expect-error: figure out the way to avoid errors for scss imports
-import style from './ripple.scss';
 
 export const RIPPLE_TAG_NAME = 'yt-ripple';
 
@@ -25,10 +21,6 @@ interface AnimationCoordinate {
 
 @customElement(RIPPLE_TAG_NAME)
 export class RippleComponent extends LitElement {
-	static override get styles(): CSSResultGroup {
-		return [style];
-	}
-
 	private _inFlightRippleAnimation: Animation | null = null;
 
 	@query('.yt-ripple') private _rippleElement!: HTMLElement;
@@ -83,6 +75,10 @@ export class RippleComponent extends LitElement {
 		super.update(changedProperties);
 	}
 
+	protected override createRenderRoot(): Element | ShadowRoot {
+		return this;
+	}
+
 	private _getRippleContainerClasses(): ClassInfo {
 		return {
 			'yt-ripple': true,
@@ -133,5 +129,11 @@ export class RippleComponent extends LitElement {
 
 	private _isKeyboardEvent(event: PointerEvent): boolean {
 		return event.detail === 0;
+	}
+}
+
+declare global {
+	interface HTMLElementTagNameMap {
+		'yt-ripple': RippleComponent;
 	}
 }

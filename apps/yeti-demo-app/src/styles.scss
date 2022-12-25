@@ -1,0 +1,5 @@
+/* You can add global styles to this file, and also import other style files */
+@use '../../../packages/styles/src/global' as global-theme;
+@import '../../../packages/styles/src/themes/default';
+
+@include global-theme.init-styles;

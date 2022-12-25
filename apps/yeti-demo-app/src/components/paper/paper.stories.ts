@@ -1,6 +1,6 @@
 import { html } from 'lit-html';
 import { repeat } from 'lit/directives/repeat.js';
-import '@yeti-wc/paper';
+import 'packages/components/paper';
 import { TemplateResult } from 'lit';
 
 export default {

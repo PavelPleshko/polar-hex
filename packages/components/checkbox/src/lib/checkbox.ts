@@ -1,11 +1,7 @@
 import { customElement, html, LitElement, property, nothing, query, state } from 'lit-element';
 import { TemplateResult } from 'lit';
 import { ClassInfo, classMap } from 'lit/directives/class-map.js';
-import { CSSResultGroup } from '@lit/reactive-element/css-tag';
 import { forwardAttribute, ENTER, SPACE, uniqueIdGenerator } from '@yeti-wc/utils';
-
-// @ts-expect-error: figure out the broken imports
-import style from './checkbox.scss';
 
 const CHECKBOX_ACTIVATION_KEYS = [SPACE, ENTER];
 
@@ -13,12 +9,6 @@ const getNextId = uniqueIdGenerator('yt-checkbox');
 
 @customElement('yt-checkbox')
 export class Checkbox extends LitElement {
-	static override shadowRootOptions: ShadowRootInit = { mode: 'open' };
-
-	static override get styles(): CSSResultGroup {
-		return [style];
-	}
-
 	@query('input') private readonly _inputElement!: HTMLInputElement | null;
 
 	private _indeterminate = false;
@@ -97,6 +87,10 @@ export class Checkbox extends LitElement {
 		`;
 	}
 
+	protected override createRenderRoot(): Element | ShadowRoot {
+		return this;
+	}
+
 	private _getCheckboxContainerClasses(): ClassInfo {
 		return {
 			'yt-checkbox--container': true,
@@ -140,5 +134,11 @@ export class Checkbox extends LitElement {
 
 	private _toggleState(): void {
 		this._inputElement?.click();
+	}
+}
+
+declare global {
+	interface HTMLElementTagNameMap {
+		'yt-checkbox': Checkbox;
 	}
 }
