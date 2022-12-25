@@ -9,4 +9,8 @@ export class ListItemComponent extends LitElement implements ListItemState {
 
 	@property({ type: Boolean })
 	disabled = false;
+
+	protected override createRenderRoot(): Element | ShadowRoot {
+		return this;
+	}
 }
