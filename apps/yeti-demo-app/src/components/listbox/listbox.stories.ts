@@ -1,24 +1,36 @@
-import { html, LitElement, customElement, TemplateResult, state } from 'lit-element';
+import { html, LitElement, customElement, TemplateResult, state, nothing } from 'lit-element';
 import { repeat } from 'lit/directives/repeat.js';
-import 'packages/components/list';
+import '@yeti-wc/list';
 
 export default {
 	title: 'List',
 };
 
+const DUNGEON_CREATURES = ['Beholders', 'Harpy', 'Troglodyte', 'Medusa', 'Minotaur'];
+const HEAVEN_CREATURES = ['Knights', 'Archangels', 'Fanatics', 'Shooters'];
+
 @customElement('yt-list-box-demo')
 class ListBoxDemoComponent extends LitElement {
 	@state()
-	private _creatures = ['Beholders', 'Harpy', 'Troglodyte', 'Medusa', 'Minotaur'];
+	private _creatures = DUNGEON_CREATURES;
 
 	protected render(): TemplateResult {
-		return html` <yt-list>
-			${repeat(this._creatures, creature => html` <yt-list-item> ${creature} </yt-list-item>`)}
-		</yt-list>`;
+		return html` <button type="button" @click="${() => this._switch()}">Switch items</button>
+			<yt-list>
+				${repeat(
+					this._creatures,
+					creature => creature,
+					creature => html` <yt-list-item> ${creature}</yt-list-item>`
+				)}
+			</yt-list>`;
 	}
 
 	protected override createRenderRoot(): Element | ShadowRoot {
 		return this;
+	}
+
+	private _switch(): void {
+		this._creatures = this._creatures === DUNGEON_CREATURES ? HEAVEN_CREATURES : DUNGEON_CREATURES;
 	}
 }
 
