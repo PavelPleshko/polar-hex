@@ -20,9 +20,6 @@ export class ListComponent extends LitElement {
 
 	private _listItems: ListItemComponent[] = [];
 
-	@state()
-	private _selectedItem: ListItemComponent | null = null;
-
 	@property({ type: String, reflect: true })
 	override role = 'listbox';
 
@@ -35,7 +32,7 @@ export class ListComponent extends LitElement {
 	@property({ attribute: 'id', type: String, reflect: true })
 	override id = getNextId();
 
-	@property({ attribute: 'aria-activedescendant', reflect: true, state: true })
+	@property({ attribute: 'aria-activedescendant', reflect: true })
 	activeDescendant: string | null = null;
 
 	// TODO create orientation type and move to some file
@@ -67,6 +64,9 @@ export class ListComponent extends LitElement {
 
 	private _attachEventListeners(): void {
 		this._contentObserver.observe(this, { childList: true, attributes: false });
+		this.addEventListener('yt-activate-item', event => {
+			this.activeDescendant = event.detail.id;
+		});
 		this._listManager = new ActiveDescendantListManager();
 		this._listItems = this._queryItems();
 		this._listManager.attachToElement(this, this._listItems);

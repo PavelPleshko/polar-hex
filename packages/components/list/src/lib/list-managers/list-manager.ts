@@ -38,6 +38,18 @@ const HORIZONTAL_NAVIGATION_KEY_TO_STEP: Record<string, 1 | -1> = {
 	[ARROW_RIGHT]: 1,
 };
 
+export class ActivateEvent<T extends HTMLElement = HTMLElement> extends CustomEvent<T> {
+	constructor(detail: T, init?: EventInit) {
+		super('yt-activate-item', { detail, ...init });
+	}
+}
+
+export class SelectEvent<T extends HTMLElement = HTMLElement> extends CustomEvent<T> {
+	constructor(detail: T, init?: EventInit) {
+		super('yt-select-item', { detail, ...init });
+	}
+}
+
 export abstract class ListManager<T extends ListItemState> {
 	protected _navigationKeys = VERTICAL_NAVIGATION_KEY_TO_STEP;
 
@@ -80,16 +92,19 @@ export abstract class ListManager<T extends ListItemState> {
 		this._listItems.forEach(item =>
 			this._events.addListener(item, 'click', () => {
 				this._selectItem(item);
+				this._setActive(item);
 			})
 		);
 	}
 
-	protected _setActive(indexOrItem: number): void {
+	protected _setActive(indexOrItem: number | T): void {
 		const previouslyActive = this.activeItem;
-		this.activeItem = this._listItems[indexOrItem];
+		const itemIndex = typeof indexOrItem === 'number' ? indexOrItem : this._listItems.indexOf(indexOrItem);
+		this.activeItem = this._listItems[itemIndex];
 		this.activeItem.markActive(true);
-		this.activeItemIndex = indexOrItem;
+		this.activeItemIndex = itemIndex;
 		previouslyActive?.markActive(false);
+		this._notifyChanges(new ActivateEvent(this.activeItem));
 	}
 
 	protected _createListeners(): void {
@@ -119,6 +134,7 @@ export abstract class ListManager<T extends ListItemState> {
 			previousSelected?.setAttribute('aria-selected', 'false');
 			item.setAttribute('aria-selected', 'true');
 			this.selectedItem = item;
+			this._notifyChanges(new SelectEvent(this.selectedItem));
 		}
 	}
 
@@ -159,5 +175,19 @@ export abstract class ListManager<T extends ListItemState> {
 		}
 
 		this._setActive(index);
+	}
+
+	private _notifyChanges(event: ActivateEvent | SelectEvent): void {
+		if (!this._elementRef) {
+			return;
+		}
+		this._elementRef.dispatchEvent(event);
+	}
+}
+
+declare global {
+	interface HTMLElementEventMap {
+		'yt-activate-item': ActivateEvent;
+		'yt-select-item': SelectEvent;
 	}
 }
