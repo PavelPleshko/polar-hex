@@ -9,6 +9,10 @@ yt-list {
 	border-radius: 4px;
 	background-color: white;
 
+	&[aria-orientation='horizontal'] {
+		flex-direction: row;
+	}
+
 	yt-list-item {
 		display: flex;
 		width: 100%;
