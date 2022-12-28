@@ -1,4 +1,5 @@
 import { LitElement, customElement, property, state } from 'lit-element';
+import { PropertyValues } from 'lit';
 
 import { uniqueIdGenerator } from '@yeti-wc/utils';
 import { ListItemComponent, LIST_ITEM_SELECTOR } from './list-item';
@@ -37,14 +38,27 @@ export class ListComponent extends LitElement {
 	@property({ attribute: 'aria-activedescendant', reflect: true, state: true })
 	activeDescendant: string | null = null;
 
+	// TODO create orientation type and move to some file
+	@property({ attribute: 'aria-orientation', reflect: true, type: String })
+	orientation: 'vertical' | 'horizontal' = 'vertical';
+
 	override connectedCallback(): void {
 		super.connectedCallback();
 		this._attachEventListeners();
+		this._listManager.withOrientation(this.orientation);
 	}
 
 	override disconnectedCallback(): void {
 		super.disconnectedCallback();
 		this._contentObserver.disconnect();
+	}
+
+	protected override updated(_changedProperties: PropertyValues<ListComponent>): void {
+		super.updated(_changedProperties);
+		const orientation = _changedProperties.get('orientation');
+		if (orientation) {
+			this._listManager.withOrientation(orientation);
+		}
 	}
 
 	protected override createRenderRoot(): Element | ShadowRoot {
