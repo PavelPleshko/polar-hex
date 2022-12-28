@@ -5,6 +5,7 @@ import { uniqueIdGenerator } from '@yeti-wc/utils';
 import { ListItemComponent, LIST_ITEM_SELECTOR } from './list-item';
 import { ListManager } from './list-managers/list-manager';
 import { ActiveDescendantListManager } from './list-managers/active-descendant.list-manager';
+import { ListOrientation } from './types';
 
 const getNextId = uniqueIdGenerator('yt-listbox');
 
@@ -14,11 +15,19 @@ const nodesContainListItems = (nodeList: NodeList): boolean => {
 
 @customElement('yt-list')
 export class ListComponent extends LitElement {
+	private _activeElement: ListItemComponent | null = null;
+
 	private _contentObserver = new MutationObserver(mutations => this._onContentChange(mutations));
 
 	private _listManager!: ListManager<ListItemComponent>;
 
 	private _listItems: ListItemComponent[] = [];
+
+	@state()
+	set activeElement(val: ListItemComponent) {
+		this._activeElement = val;
+		this.requestUpdate('activeDescendant');
+	}
 
 	@property({ type: String, reflect: true })
 	override role = 'listbox';
@@ -32,12 +41,14 @@ export class ListComponent extends LitElement {
 	@property({ attribute: 'id', type: String, reflect: true })
 	override id = getNextId();
 
-	@property({ attribute: 'aria-activedescendant', reflect: true })
-	activeDescendant: string | null = null;
+	@property({ attribute: 'aria-activedescendant', reflect: true, noAccessor: true })
+	get activeDescendant(): string | null {
+		return this._activeElement?.id || null;
+	}
 
 	// TODO create orientation type and move to some file
 	@property({ attribute: 'aria-orientation', reflect: true, type: String })
-	orientation: 'vertical' | 'horizontal' = 'vertical';
+	orientation: ListOrientation = 'vertical';
 
 	override connectedCallback(): void {
 		super.connectedCallback();
@@ -48,6 +59,7 @@ export class ListComponent extends LitElement {
 	override disconnectedCallback(): void {
 		super.disconnectedCallback();
 		this._contentObserver.disconnect();
+		this._listManager.detach();
 	}
 
 	protected override updated(_changedProperties: PropertyValues<ListComponent>): void {
@@ -65,7 +77,7 @@ export class ListComponent extends LitElement {
 	private _attachEventListeners(): void {
 		this._contentObserver.observe(this, { childList: true, attributes: false });
 		this.addEventListener('yt-activate-item', event => {
-			this.activeDescendant = event.detail.id;
+			this.activeElement = event.detail;
 		});
 		this._listManager = new ActiveDescendantListManager();
 		this._listItems = this._queryItems();

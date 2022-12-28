@@ -6,3 +6,5 @@ export interface Activatable {
 export interface ListItemState extends Activatable, HTMLElement {
 	disabled?: boolean;
 }
+
+export type ListOrientation = 'vertical' | 'horizontal';
