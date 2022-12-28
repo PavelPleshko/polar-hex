@@ -1,4 +1,4 @@
-import { html, LitElement, customElement, TemplateResult, state, nothing } from 'lit-element';
+import { html, LitElement, customElement, TemplateResult, state, property } from 'lit-element';
 import { repeat } from 'lit/directives/repeat.js';
 import '@yeti-wc/list';
 
@@ -14,9 +14,12 @@ class ListBoxDemoComponent extends LitElement {
 	@state()
 	private _creatures = DUNGEON_CREATURES;
 
+	@property()
+	orientation = 'vertical';
+
 	protected render(): TemplateResult {
 		return html` <button type="button" @click="${() => this._switch()}">Switch items</button>
-			<yt-list>
+			<yt-list .orientation="${this.orientation}">
 				${repeat(
 					this._creatures,
 					creature => creature,
@@ -36,4 +39,8 @@ class ListBoxDemoComponent extends LitElement {
 
 export const InteractiveListBox = (): TemplateResult => {
 	return html` <yt-list-box-demo></yt-list-box-demo>`;
+};
+
+export const OrientationHorizontal = (): TemplateResult => {
+	return html` <yt-list-box-demo orientation="horizontal"></yt-list-box-demo>`;
 };
