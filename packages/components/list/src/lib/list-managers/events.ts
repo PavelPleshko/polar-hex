@@ -6,7 +6,7 @@ export class ActivateEvent<T extends HTMLElement = ListItemComponent> extends Cu
 	}
 }
 
-export class SelectEvent<T extends HTMLElement = HTMLElement> extends CustomEvent<T> {
+export class SelectEvent<T extends HTMLElement = ListItemComponent> extends CustomEvent<T> {
 	constructor(detail: T, init?: EventInit) {
 		super('yt-select-item', { detail, ...init });
 	}

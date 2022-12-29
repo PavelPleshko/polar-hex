@@ -17,6 +17,8 @@ const nodesContainListItems = (nodeList: NodeList): boolean => {
 export class ListComponent extends LitElement {
 	private _activeElement: ListItemComponent | null = null;
 
+	private _selectedElement: ListItemComponent | null = null;
+
 	private _contentObserver = new MutationObserver(mutations => this._onContentChange(mutations));
 
 	private _listManager!: ListManager<ListItemComponent>;
@@ -79,6 +81,12 @@ export class ListComponent extends LitElement {
 		this.addEventListener('yt-activate-item', event => {
 			this.activeElement = event.detail;
 		});
+		this.addEventListener('yt-select-item', event => {
+			this._selectedElement = event.detail;
+		});
+		this.addEventListener('focus', _ =>
+			this._listManager.scrollIntoView(this._selectedElement || this.activeElement)
+		);
 		this._listManager = new ActiveDescendantListManager();
 		this._listItems = this._queryItems();
 		this._listManager.attachToElement(this, this._listItems);

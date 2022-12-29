@@ -1,4 +1,13 @@
-import { ARROW_DOWN, ARROW_LEFT, ARROW_RIGHT, ARROW_UP, ENTER, SPACE, EventsService } from '@yeti-wc/utils';
+import {
+	ARROW_DOWN,
+	ARROW_LEFT,
+	ARROW_RIGHT,
+	ARROW_UP,
+	ENTER,
+	SPACE,
+	EventsService,
+	scrollToTarget,
+} from '@yeti-wc/utils';
 import { ListItemState, ListOrientation } from '../types';
 import { ActivateEvent, SelectEvent } from './events';
 
@@ -63,13 +72,21 @@ export abstract class ListManager<T extends ListItemState> {
 		);
 	}
 
+	scrollIntoView(item: T): void {
+		if (!this._elementRef) return;
+		scrollToTarget(this._elementRef, item);
+	}
+
 	protected _setActive(indexOrItem: number | T): void {
 		const previouslyActive = this.activeItem;
 		const itemIndex = typeof indexOrItem === 'number' ? indexOrItem : this._listItems.indexOf(indexOrItem);
+
 		this.activeItem = this._listItems[itemIndex];
 		this.activeItem.markActive(true);
 		this.activeItemIndex = itemIndex;
 		previouslyActive?.markActive(false);
+
+		this.scrollIntoView(this.activeItem);
 		this._notifyChanges(new ActivateEvent(this.activeItem));
 	}
 
