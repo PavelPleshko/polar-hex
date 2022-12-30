@@ -47,7 +47,12 @@ $base-palette: (
 		@if type-of($value) == map {
 			$result-vars: map.merge($result-vars, generate-vars($value, $prefix + '-' + $name));
 		} @else {
-			$result-vars: map.merge($result-vars, ('#{$prefix}-#{$name}': $value));
+			$result-vars: map.merge(
+				$result-vars,
+				(
+					'#{$prefix}-#{$name}': $value,
+				)
+			);
 		}
 	}
 	@return $result-vars;
@@ -86,7 +91,7 @@ $base-palette: (
 			'disabled': rgba(0, 0, 0, 0.38),
 			'disabled-bg': rgba(0, 0, 0, 0.12),
 			'disabled-opacity': 0.38,
-			'focus': rgba(0, 0, 0, 0.12),
+			'focus': rgba(0, 0, 0, 0.1),
 			'focus-opacity': 0.12,
 			'activated-opacity': 0.12,
 		),
