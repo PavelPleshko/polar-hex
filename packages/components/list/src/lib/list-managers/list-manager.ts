@@ -5,6 +5,8 @@ import {
 	ARROW_UP,
 	ENTER,
 	SPACE,
+	HOME,
+	END,
 	EventsService,
 	scrollToTarget,
 } from '@yeti-wc/utils';
@@ -15,18 +17,26 @@ const ITEM_ACTIVATION_KEYS = [SPACE, ENTER];
 
 type ListNavigationDelta = -1 | 1;
 
-const VERTICAL_NAVIGATION_KEY_TO_STEP: Record<string, ListNavigationDelta> = {
+// TODO cleanup:  move this into separate file
+const SPECIAL_NAVIGATION_KEY_TO_DELTA: Record<string, ListNavigationDelta> = {
+	[HOME]: 1,
+	[END]: -1,
+};
+
+const VERTICAL_NAVIGATION_KEY_TO_DELTA: Record<string, ListNavigationDelta> = {
+	...SPECIAL_NAVIGATION_KEY_TO_DELTA,
 	[ARROW_UP]: -1,
 	[ARROW_DOWN]: 1,
 };
 
-const HORIZONTAL_NAVIGATION_KEY_TO_STEP: Record<string, ListNavigationDelta> = {
+const HORIZONTAL_NAVIGATION_KEY_TO_DELTA: Record<string, ListNavigationDelta> = {
+	...SPECIAL_NAVIGATION_KEY_TO_DELTA,
 	[ARROW_LEFT]: -1,
 	[ARROW_RIGHT]: 1,
 };
 
 export abstract class ListManager<T extends ListItemState> {
-	protected _navigationKeys = VERTICAL_NAVIGATION_KEY_TO_STEP;
+	protected _navigationKeys = VERTICAL_NAVIGATION_KEY_TO_DELTA;
 
 	protected _listItems: T[] = [];
 
@@ -43,13 +53,14 @@ export abstract class ListManager<T extends ListItemState> {
 	attachToElement(elementRef: HTMLElement, initialItems: T[]): void {
 		this._elementRef = elementRef;
 		this.updateItems(initialItems);
-		this._setActive(0);
+		// we set first non-disabled item starting from top of the list
+		this._setActiveItemByIndex(0, 1);
 		this._createListeners();
 	}
 
 	withOrientation(orientation: ListOrientation): this {
 		if (orientation === 'horizontal') {
-			this._navigationKeys = HORIZONTAL_NAVIGATION_KEY_TO_STEP;
+			this._navigationKeys = HORIZONTAL_NAVIGATION_KEY_TO_DELTA;
 		}
 		return this;
 	}
@@ -114,6 +125,7 @@ export abstract class ListManager<T extends ListItemState> {
 	protected _selectItem(item?: T): void {
 		if (item && !item.disabled) {
 			const previousSelected = this.selectedItem;
+			// TODO make this attribute a variable since it can be aria-checked given its a menu or multiple selection mode
 			previousSelected?.setAttribute('aria-selected', 'false');
 			item.setAttribute('aria-selected', 'true');
 			this.selectedItem = item;
@@ -127,7 +139,16 @@ export abstract class ListManager<T extends ListItemState> {
 
 	protected _navigateByKey(key: string): void {
 		const delta = this._navigationKeys[key];
-		this._setActiveItemByDelta(delta);
+		switch (key) {
+			case HOME:
+				this._setActiveItemByIndex(0, delta);
+				break;
+			case END:
+				this._setActiveItemByIndex(this._listItems.length - 1, delta);
+				break;
+			default:
+				this._setActiveItemByDelta(delta);
+		}
 	}
 
 	private _setActiveItemByDelta(delta: ListNavigationDelta): void {
@@ -141,6 +162,10 @@ export abstract class ListManager<T extends ListItemState> {
 	 * Find the item which can be navigated to and perform navigation.
 	 * It traverses the items until the first non-disabled option is
 	 * encountered.
+	 * @param index - index of desired element that should be set as 'active'.
+	 * Acts as a base point from which traversal starts.
+	 * @param fallbackDelta - which direction it should traverse in the search
+	 * of most adjacent non-disabled item.
 	 */
 	private _setActiveItemByIndex(index: number, fallbackDelta: ListNavigationDelta): void {
 		const items = this._listItems;
