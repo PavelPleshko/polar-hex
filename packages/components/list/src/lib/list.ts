@@ -25,6 +25,8 @@ export class ListComponent extends LitElement {
 
 	private _listItems: ListItemComponent[] = [];
 
+	private _wrap = false;
+
 	@state()
 	set activeElement(val: ListItemComponent) {
 		this._activeElement = val;
@@ -33,6 +35,12 @@ export class ListComponent extends LitElement {
 
 	@property({ type: String, reflect: true })
 	override role = 'listbox';
+
+	@property({ type: Boolean })
+	set wrap(shouldWrap: boolean) {
+		this._wrap = shouldWrap;
+		this._listManager?.withWrap(shouldWrap);
+	}
 
 	@property({ type: Boolean, attribute: 'aria-disabled', reflect: true })
 	disabled = false;
@@ -87,7 +95,7 @@ export class ListComponent extends LitElement {
 		this.addEventListener('focus', _ =>
 			this._listManager.scrollIntoView(this._selectedElement || this.activeElement)
 		);
-		this._listManager = new ActiveDescendantListManager();
+		this._listManager = new ActiveDescendantListManager<ListItemComponent>().withWrap(this._wrap);
 		this._listItems = this._queryItems();
 		this._listManager.attachToElement(this, this._listItems);
 	}

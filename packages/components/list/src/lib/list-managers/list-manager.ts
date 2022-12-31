@@ -1,42 +1,19 @@
-import {
-	ARROW_DOWN,
-	ARROW_LEFT,
-	ARROW_RIGHT,
-	ARROW_UP,
-	ENTER,
-	SPACE,
-	HOME,
-	END,
-	EventsService,
-	scrollToTarget,
-} from '@yeti-wc/utils';
+import { ENTER, SPACE, HOME, END, EventsService, scrollToTarget } from '@yeti-wc/utils';
 import { ListItemState, ListOrientation } from '../types';
 import { ActivateEvent, SelectEvent } from './events';
+import {
+	VERTICAL_NAVIGATION_KEY_TO_DELTA,
+	HORIZONTAL_NAVIGATION_KEY_TO_DELTA,
+	ListNavigationDelta,
+	calculateNextIndex,
+} from './key-navigation';
 
 const ITEM_ACTIVATION_KEYS = [SPACE, ENTER];
 
-type ListNavigationDelta = -1 | 1;
-
-// TODO cleanup:  move this into separate file
-const SPECIAL_NAVIGATION_KEY_TO_DELTA: Record<string, ListNavigationDelta> = {
-	[HOME]: 1,
-	[END]: -1,
-};
-
-const VERTICAL_NAVIGATION_KEY_TO_DELTA: Record<string, ListNavigationDelta> = {
-	...SPECIAL_NAVIGATION_KEY_TO_DELTA,
-	[ARROW_UP]: -1,
-	[ARROW_DOWN]: 1,
-};
-
-const HORIZONTAL_NAVIGATION_KEY_TO_DELTA: Record<string, ListNavigationDelta> = {
-	...SPECIAL_NAVIGATION_KEY_TO_DELTA,
-	[ARROW_LEFT]: -1,
-	[ARROW_RIGHT]: 1,
-};
-
 export abstract class ListManager<T extends ListItemState> {
 	protected _navigationKeys = VERTICAL_NAVIGATION_KEY_TO_DELTA;
+
+	protected _wrap = true;
 
 	protected _listItems: T[] = [];
 
@@ -65,6 +42,11 @@ export abstract class ListManager<T extends ListItemState> {
 		return this;
 	}
 
+	withWrap(shouldWrap: boolean): this {
+		this._wrap = shouldWrap;
+		return this;
+	}
+
 	detach(): void {
 		this._clearItemListeners();
 		if (this._elementRef) {
@@ -89,6 +71,9 @@ export abstract class ListManager<T extends ListItemState> {
 	}
 
 	protected _setActive(indexOrItem: number | T): void {
+		if (this.activeItemIndex === indexOrItem) {
+			return;
+		}
 		const previouslyActive = this.activeItem;
 		const itemIndex = typeof indexOrItem === 'number' ? indexOrItem : this._listItems.indexOf(indexOrItem);
 
@@ -152,10 +137,9 @@ export abstract class ListManager<T extends ListItemState> {
 	}
 
 	private _setActiveItemByDelta(delta: ListNavigationDelta): void {
-		const nextIndex = (this.activeItemIndex || 0) + delta;
-		const totalLength = this._listItems.length;
-		const nextActiveIndex = nextIndex >= 0 ? nextIndex % totalLength : totalLength - 1;
-		this._setActiveItemByIndex(nextActiveIndex, delta);
+		const desiredIndex = (this.activeItemIndex || 0) + delta;
+		const normalizedIndex = calculateNextIndex(desiredIndex, this._listItems.length, this._wrap);
+		this._setActiveItemByIndex(normalizedIndex, delta);
 	}
 
 	/**
@@ -181,7 +165,6 @@ export abstract class ListManager<T extends ListItemState> {
 				return;
 			}
 		}
-
 		this._setActive(index);
 	}
 
