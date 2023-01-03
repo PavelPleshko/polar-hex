@@ -57,6 +57,9 @@ export abstract class ListManager<T extends ListItemState> {
 	updateItems(items: T[]): void {
 		this._clearItemListeners();
 		this._listItems = items;
+		const prevActive = this.activeItem ? items.indexOf(this.activeItem) : 0;
+		this._setActive(prevActive >= 0 ? prevActive : 0);
+
 		this._listItems.forEach(item =>
 			this._events.addListener(item, 'click', () => {
 				this._selectItem(item);

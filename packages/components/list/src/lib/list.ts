@@ -25,7 +25,7 @@ export class ListComponent extends LitElement {
 
 	private _listItems: ListItemComponent[] = [];
 
-	private _wrap = false;
+	private _wrap = true;
 
 	@state()
 	set activeElement(val: ListItemComponent) {
@@ -36,7 +36,7 @@ export class ListComponent extends LitElement {
 	@property({ type: String, reflect: true })
 	override role = 'listbox';
 
-	@property({ type: Boolean })
+	@property({ type: Boolean, attribute: true })
 	set wrap(shouldWrap: boolean) {
 		this._wrap = shouldWrap;
 		this._listManager?.withWrap(shouldWrap);
