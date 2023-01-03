@@ -33,7 +33,7 @@ export abstract class ListManager<T extends ListItemState> {
 		this._elementRef = elementRef;
 		this.updateItems(initialItems);
 		// we set first non-disabled item starting from top of the list
-		this._setActiveItemByIndex(0, 1);
+		this._setActiveItemByIndex(0, 1, false);
 		this._createListeners();
 	}
 
@@ -59,7 +59,7 @@ export abstract class ListManager<T extends ListItemState> {
 		this._clearItemListeners();
 		this._listItems = items;
 		const prevActive = this.activeItem ? items.indexOf(this.activeItem) : 0;
-		this._setActive(prevActive >= 0 ? prevActive : 0);
+		this._setActive(prevActive >= 0 ? prevActive : 0, false);
 
 		this._listItems.forEach(item =>
 			this._events.addListener(item, 'click', () => {
@@ -74,7 +74,7 @@ export abstract class ListManager<T extends ListItemState> {
 		scrollToTarget(this._elementRef, item);
 	}
 
-	protected _setActive(indexOrItem: number | T): void {
+	protected _setActive(indexOrItem: number | T, userAction = true): void {
 		if (this.activeItemIndex === indexOrItem) {
 			return;
 		}
@@ -87,13 +87,13 @@ export abstract class ListManager<T extends ListItemState> {
 		this.activeItem = this._listItems[itemIndex];
 		this.activeItemIndex = itemIndex;
 
-		this._markActive(this.activeItem);
+		this._markActive(this.activeItem, userAction);
 
 		this.scrollIntoView(this.activeItem);
 		this._notifyChanges(new ActivateEvent(this.activeItem));
 	}
 
-	protected _markActive(item: T): void {
+	protected _markActive(item: T, userAction: boolean): void {
 		item.markActive(true);
 	}
 
@@ -137,10 +137,10 @@ export abstract class ListManager<T extends ListItemState> {
 		const delta = this._navigationKeys[key];
 		switch (key) {
 			case HOME:
-				this._setActiveItemByIndex(0, delta);
+				this._setActiveItemByIndex(0, delta, true);
 				break;
 			case END:
-				this._setActiveItemByIndex(this._listItems.length - 1, delta);
+				this._setActiveItemByIndex(this._listItems.length - 1, delta, true);
 				break;
 			default:
 				this._setActiveItemByDelta(delta);
@@ -150,7 +150,7 @@ export abstract class ListManager<T extends ListItemState> {
 	private _setActiveItemByDelta(delta: ListNavigationDelta): void {
 		const desiredIndex = (this.activeItemIndex || 0) + delta;
 		const normalizedIndex = calculateNextIndex(desiredIndex, this._listItems.length, this._wrap);
-		this._setActiveItemByIndex(normalizedIndex, delta);
+		this._setActiveItemByIndex(normalizedIndex, delta, true);
 	}
 
 	/**
@@ -161,8 +161,9 @@ export abstract class ListManager<T extends ListItemState> {
 	 * Acts as a base point from which traversal starts.
 	 * @param fallbackDelta - which direction it should traverse in the search
 	 * of most adjacent non-disabled item.
+	 * @param userAction - whether the navigation is user initiated or programmatic.
 	 */
-	private _setActiveItemByIndex(index: number, fallbackDelta: ListNavigationDelta): void {
+	private _setActiveItemByIndex(index: number, fallbackDelta: ListNavigationDelta, userAction: boolean): void {
 		const items = this._listItems;
 
 		if (!items[index]) {
@@ -176,7 +177,7 @@ export abstract class ListManager<T extends ListItemState> {
 				return;
 			}
 		}
-		this._setActive(index);
+		this._setActive(index, userAction);
 	}
 
 	private _notifyChanges(event: Event): void {

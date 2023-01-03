@@ -6,6 +6,7 @@ import { ListItemComponent, LIST_ITEM_SELECTOR } from './list-item';
 import { ListManager } from './list-managers/list-manager';
 import { ActiveDescendantListManager } from './list-managers/active-descendant.list-manager';
 import { ListOrientation } from './types';
+import { FocusListManager } from './list-managers/focus.list-manager';
 
 const getNextId = uniqueIdGenerator('yt-listbox');
 
@@ -15,10 +16,6 @@ const nodesContainListItems = (nodeList: NodeList): boolean => {
 
 @customElement('yt-list')
 export class ListComponent extends LitElement {
-	private _activeElement?: ListItemComponent;
-
-	private _selectedElement?: ListItemComponent;
-
 	private _contentObserver = new MutationObserver(mutations => this._onContentChange(mutations));
 
 	private _listManager!: ListManager<ListItemComponent>;
@@ -47,10 +44,12 @@ export class ListComponent extends LitElement {
 	@property({ attribute: 'aria-orientation', reflect: true, type: String })
 	orientation: ListOrientation = 'vertical';
 
+	@property({ type: Boolean })
+	useActiveDescendant = false;
+
 	override connectedCallback(): void {
 		super.connectedCallback();
 		this._attachEventListeners();
-		this._listManager.withOrientation(this.orientation);
 	}
 
 	override disconnectedCallback(): void {
@@ -73,16 +72,10 @@ export class ListComponent extends LitElement {
 
 	private _attachEventListeners(): void {
 		this._contentObserver.observe(this, { childList: true, attributes: false });
-		this.addEventListener('yt-activate-item', event => {
-			this._activeElement = event.detail;
-		});
-		this.addEventListener('yt-select-item', event => {
-			this._selectedElement = event.detail;
-		});
-		this.addEventListener('focus', _ =>
-			this._listManager.scrollIntoView(this._selectedElement || this._activeElement)
-		);
-		this._listManager = new ActiveDescendantListManager<ListItemComponent>().withWrap(this._wrap);
+		const listManager = this.useActiveDescendant
+			? new ActiveDescendantListManager<ListItemComponent>()
+			: new FocusListManager<ListItemComponent>();
+		this._listManager = listManager.withWrap(this._wrap).withOrientation(this.orientation);
 		this._listManager.attachToElement(this, this._queryItems());
 	}
 
