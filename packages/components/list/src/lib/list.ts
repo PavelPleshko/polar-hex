@@ -1,4 +1,4 @@
-import { LitElement, customElement, property, state } from 'lit-element';
+import { LitElement, customElement, property } from 'lit-element';
 import { PropertyValues } from 'lit';
 
 import { uniqueIdGenerator } from '@yeti-wc/utils';
@@ -15,23 +15,15 @@ const nodesContainListItems = (nodeList: NodeList): boolean => {
 
 @customElement('yt-list')
 export class ListComponent extends LitElement {
-	private _activeElement: ListItemComponent | null = null;
+	private _activeElement?: ListItemComponent;
 
-	private _selectedElement: ListItemComponent | null = null;
+	private _selectedElement?: ListItemComponent;
 
 	private _contentObserver = new MutationObserver(mutations => this._onContentChange(mutations));
 
 	private _listManager!: ListManager<ListItemComponent>;
 
-	private _listItems: ListItemComponent[] = [];
-
 	private _wrap = true;
-
-	@state()
-	set activeElement(val: ListItemComponent) {
-		this._activeElement = val;
-		this.requestUpdate('activeDescendant');
-	}
 
 	@property({ type: String, reflect: true })
 	override role = 'listbox';
@@ -50,11 +42,6 @@ export class ListComponent extends LitElement {
 
 	@property({ attribute: 'id', type: String, reflect: true })
 	override id = getNextId();
-
-	@property({ attribute: 'aria-activedescendant', reflect: true, noAccessor: true })
-	get activeDescendant(): string | null {
-		return this._activeElement?.id || null;
-	}
 
 	// TODO create orientation type and move to some file
 	@property({ attribute: 'aria-orientation', reflect: true, type: String })
@@ -87,17 +74,16 @@ export class ListComponent extends LitElement {
 	private _attachEventListeners(): void {
 		this._contentObserver.observe(this, { childList: true, attributes: false });
 		this.addEventListener('yt-activate-item', event => {
-			this.activeElement = event.detail;
+			this._activeElement = event.detail;
 		});
 		this.addEventListener('yt-select-item', event => {
 			this._selectedElement = event.detail;
 		});
 		this.addEventListener('focus', _ =>
-			this._listManager.scrollIntoView(this._selectedElement || this.activeElement)
+			this._listManager.scrollIntoView(this._selectedElement || this._activeElement)
 		);
 		this._listManager = new ActiveDescendantListManager<ListItemComponent>().withWrap(this._wrap);
-		this._listItems = this._queryItems();
-		this._listManager.attachToElement(this, this._listItems);
+		this._listManager.attachToElement(this, this._queryItems());
 	}
 
 	/**
@@ -110,13 +96,12 @@ export class ListComponent extends LitElement {
 		});
 
 		if (hasChanged) {
-			this._listItems = this._queryItems();
 			this._updateItems();
 		}
 	}
 
 	private _updateItems(): void {
-		this._listManager.updateItems(this._listItems);
+		this._listManager.updateItems(this._queryItems());
 	}
 
 	private _queryItems(): ListItemComponent[] {

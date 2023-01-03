@@ -10,6 +10,8 @@ import {
 
 const ITEM_ACTIVATION_KEYS = [SPACE, ENTER];
 
+const isItemInteractive = (item: ListItemState): boolean => !item.disabled;
+
 export abstract class ListManager<T extends ListItemState> {
 	protected _navigationKeys = VERTICAL_NAVIGATION_KEY_TO_DELTA;
 
@@ -36,9 +38,8 @@ export abstract class ListManager<T extends ListItemState> {
 	}
 
 	withOrientation(orientation: ListOrientation): this {
-		if (orientation === 'horizontal') {
-			this._navigationKeys = HORIZONTAL_NAVIGATION_KEY_TO_DELTA;
-		}
+		this._navigationKeys =
+			orientation === 'horizontal' ? HORIZONTAL_NAVIGATION_KEY_TO_DELTA : VERTICAL_NAVIGATION_KEY_TO_DELTA;
 		return this;
 	}
 
@@ -68,8 +69,8 @@ export abstract class ListManager<T extends ListItemState> {
 		);
 	}
 
-	scrollIntoView(item: T): void {
-		if (!this._elementRef) return;
+	scrollIntoView(item?: T): void {
+		if (!this._elementRef || !item) return;
 		scrollToTarget(this._elementRef, item);
 	}
 
@@ -78,15 +79,26 @@ export abstract class ListManager<T extends ListItemState> {
 			return;
 		}
 		const previouslyActive = this.activeItem;
-		const itemIndex = typeof indexOrItem === 'number' ? indexOrItem : this._listItems.indexOf(indexOrItem);
+		if (previouslyActive) {
+			this._markInactive(previouslyActive);
+		}
 
+		const itemIndex = typeof indexOrItem === 'number' ? indexOrItem : this._listItems.indexOf(indexOrItem);
 		this.activeItem = this._listItems[itemIndex];
-		this.activeItem.markActive(true);
 		this.activeItemIndex = itemIndex;
-		previouslyActive?.markActive(false);
+
+		this._markActive(this.activeItem);
 
 		this.scrollIntoView(this.activeItem);
 		this._notifyChanges(new ActivateEvent(this.activeItem));
+	}
+
+	protected _markActive(item: T): void {
+		item.markActive(true);
+	}
+
+	protected _markInactive(item: T): void {
+		item.markActive(false);
 	}
 
 	protected _createListeners(): void {
@@ -94,31 +106,27 @@ export abstract class ListManager<T extends ListItemState> {
 
 		this._events.addListener(this._elementRef, 'keydown', event => {
 			const key = event.key;
-			let cancelEvent = false;
 
 			if (ITEM_ACTIVATION_KEYS.includes(key)) {
-				cancelEvent = true;
+				event.preventDefault();
 				this._selectItem(this.activeItem);
 			} else if (key in this._navigationKeys) {
-				cancelEvent = true;
-				this._navigateByKey(key);
-			}
-
-			if (cancelEvent) {
 				event.preventDefault();
+				this._navigateByKey(key);
 			}
 		});
 	}
 
 	protected _selectItem(item?: T): void {
-		if (item && !item.disabled) {
-			const previousSelected = this.selectedItem;
-			// TODO make this attribute a variable since it can be aria-checked given its a menu or multiple selection mode
-			previousSelected?.setAttribute('aria-selected', 'false');
-			item.setAttribute('aria-selected', 'true');
-			this.selectedItem = item;
-			this._notifyChanges(new SelectEvent(this.selectedItem));
+		if (!item || !isItemInteractive(item)) {
+			return;
 		}
+		const previousSelected = this.selectedItem;
+		// TODO make this attribute a variable since it can be aria-checked given its a menu or multiple selection mode
+		previousSelected?.setAttribute('aria-selected', 'false');
+		item.setAttribute('aria-selected', 'true');
+		this.selectedItem = item;
+		this._notifyChanges(new SelectEvent(this.selectedItem));
 	}
 
 	protected _clearItemListeners(): void {
@@ -161,7 +169,7 @@ export abstract class ListManager<T extends ListItemState> {
 			return;
 		}
 
-		while (items[index].disabled) {
+		while (!isItemInteractive(items[index])) {
 			index += fallbackDelta;
 
 			if (!items[index]) {
