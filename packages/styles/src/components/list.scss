@@ -21,25 +21,29 @@ yt-list {
 		text-align: left;
 		user-select: none;
 
-		&[disabled] {
-			pointer-events: none;
-		}
-
 		&:hover,
 		&.active {
 			background-color: var(--yt-action-hover);
 		}
 
 		&:focus {
+			outline: none;
 			background-color: var(--yt-action-focus);
 		}
 
 		&[aria-selected='true'] {
 			background-color: rgb(25 118 210 / 8%);
 
-			&:hover {
+			&:hover,
+			&:focus {
 				background-color: rgb(25 118 210 / 12%);
 			}
+		}
+
+		&[disabled],
+		&[aria-disabled] {
+			color: var(--yt-action-disabled);
+			pointer-events: none;
 		}
 	}
 }
