@@ -1,4 +1,5 @@
 import { ENTER, SPACE, HOME, END, EventsService, scrollToTarget } from '@yeti-wc/utils';
+
 import { ListItemState, ListOrientation } from '../types';
 import { ActivateEvent, SelectEvent } from './events';
 import {
@@ -6,9 +7,12 @@ import {
 	HORIZONTAL_NAVIGATION_KEY_TO_DELTA,
 	ListNavigationDelta,
 	calculateNextIndex,
+	getCorrectedNextIndex,
+	OUT_OF_BOUND_INDEX,
 } from './key-navigation';
 
 const ITEM_ACTIVATION_KEYS = [SPACE, ENTER];
+const FIRST_ITEM_INDEX = 0;
 
 const isItemInteractive = (item: ListItemState): boolean => !item.disabled;
 
@@ -33,7 +37,7 @@ export abstract class ListManager<T extends ListItemState> {
 		this._elementRef = elementRef;
 		this.updateItems(initialItems);
 		// we set first non-disabled item starting from top of the list
-		this._setActiveItemByIndex(0, 1, false);
+		this._setActiveItemByIndex(FIRST_ITEM_INDEX, 1, false);
 		this._createListeners();
 	}
 
@@ -93,7 +97,7 @@ export abstract class ListManager<T extends ListItemState> {
 		this._notifyChanges(new ActivateEvent(this.activeItem));
 	}
 
-	protected _markActive(item: T, userAction: boolean): void {
+	protected _markActive(item: T, _userAction: boolean): void {
 		item.markActive(true);
 	}
 
@@ -137,11 +141,13 @@ export abstract class ListManager<T extends ListItemState> {
 		const delta = this._navigationKeys[key];
 		switch (key) {
 			case HOME:
-				this._setActiveItemByIndex(0, delta, true);
+				this._setActiveItemByIndex(FIRST_ITEM_INDEX, delta, true);
 				break;
-			case END:
-				this._setActiveItemByIndex(this._listItems.length - 1, delta, true);
+			case END: {
+				const lastElementIndex = this._listItems.length - 1;
+				this._setActiveItemByIndex(lastElementIndex, delta, true);
 				break;
+			}
 			default:
 				this._setActiveItemByDelta(delta);
 		}
@@ -153,31 +159,16 @@ export abstract class ListManager<T extends ListItemState> {
 		this._setActiveItemByIndex(normalizedIndex, delta, true);
 	}
 
-	/**
-	 * Find the item which can be navigated to and perform navigation.
-	 * It traverses the items until the first non-disabled option is
-	 * encountered.
-	 * @param index - index of desired element that should be set as 'active'.
-	 * Acts as a base point from which traversal starts.
-	 * @param fallbackDelta - which direction it should traverse in the search
-	 * of most adjacent non-disabled item.
-	 * @param userAction - whether the navigation is user initiated or programmatic.
-	 */
-	private _setActiveItemByIndex(index: number, fallbackDelta: ListNavigationDelta, userAction: boolean): void {
-		const items = this._listItems;
-
-		if (!items[index]) {
-			return;
+	private _setActiveItemByIndex(desiredIndex: number, fallbackStep: ListNavigationDelta, userAction: boolean): void {
+		const correctedIndex = getCorrectedNextIndex({
+			items: this._listItems,
+			desiredIndex,
+			fallbackStep,
+			skipPredicate: item => !isItemInteractive(item),
+		});
+		if (correctedIndex !== OUT_OF_BOUND_INDEX) {
+			this._setActive(correctedIndex, userAction);
 		}
-
-		while (!isItemInteractive(items[index])) {
-			index += fallbackDelta;
-
-			if (!items[index]) {
-				return;
-			}
-		}
-		this._setActive(index, userAction);
 	}
 
 	private _notifyChanges(event: Event): void {
