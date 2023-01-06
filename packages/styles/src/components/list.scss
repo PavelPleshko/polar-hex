@@ -31,7 +31,8 @@ yt-list {
 			background-color: var(--yt-action-focus);
 		}
 
-		&[aria-selected='true'] {
+		&[aria-selected='true'],
+		&[aria-checked='true'] {
 			background-color: rgb(25 118 210 / 8%);
 
 			&:hover,
