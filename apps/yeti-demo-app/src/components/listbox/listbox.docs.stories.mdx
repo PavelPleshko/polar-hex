@@ -1,0 +1,120 @@
+import { Canvas, Meta, Story } from '@storybook/addon-docs';
+
+<Meta title="Components/Listbox/Documentation" />
+
+# Listbox
+
+Listbox is a widget that allows user to select one or multiple options from the presented list.
+
+-   [Visual appearance](#visual-appearance)
+-   [Orientation](#orientation)
+-   [Disabled options](#disabled-options)
+-   [Wrapping options](#wrapping-options)
+-   [Accessibility and UX](#accessibility-and-ux)
+-   [How to use](#how-to-use)
+
+## Visual appearance
+
+The widget consists of the host manager **listbox element** and a collection of options with non-interactive content.
+Its important to make option labels as short and as clear as possible due to the lack of space especially if the
+listbox configured with `vertical` orientation. Options can be grouped together further with option groups.
+
+<Canvas withSource="none">
+	<Story id="components-listbox--default"></Story>
+</Canvas>
+
+### Orientation
+
+The `orientation` property of the listbox communicates to the user how to navigate the widget options via
+so-called fluent navigation with arrow keys. By default, its value is `vertical` and listbox responds to
+navigation with `Arrow Up` and `Arrow Down` to go one step forward or backwards correspondingly within the
+collection of options. If `horizontal` is set instead - the navigation will happen with `Arrow Left`/`Arrow Right`
+keys instead.
+
+Orientation is communicated both visually with items layout as well as for screen readers with `aria-orientation`
+attribute set on listbox element.
+
+<Canvas withSource="none">
+	<Story id="components-listbox--orientation-horizontal"></Story>
+</Canvas>
+
+```html
+<yt-list orientation="horizontal">
+	<yt-list-item>Beholder</yt-list-item>
+	<yt-list-item>Harpy</yt-list-item>
+</yt-list>
+```
+
+### Disabled options
+
+Individual options can be disabled in runtime. They will visually indicate that they are non-interactive and
+will have `aria-disabled` attributes set to `true` so screen readers could also catch it. When using keyboard keys
+to navigate - disabled options will be skipped and next non-disabled option will be activated in logical sequence.
+
+<Canvas withSource="none">
+	<Story id="components-listbox--disabled-options"></Story>
+</Canvas>
+
+```html
+<yt-list>
+	<yt-list-item disabled="true">Beholder</yt-list-item>
+	<yt-list-item>Harpy</yt-list-item>
+</yt-list>
+```
+
+### Wrapping options
+
+When navigating options with a keyboard sooner or later user hits the end or the beginning of the list.
+List navigation wraps when trying to go past those border options. In order to disable this behavior and
+to have navigation stop right at the border option pass `wrap` property to be `false`.
+
+<Canvas withSource="none">
+	<Story id="components-listbox--wrap"></Story>
+</Canvas>
+
+```html
+<yt-list wrap="false">
+	<yt-list-item>Beholder</yt-list-item>
+	<yt-list-item>Harpy</yt-list-item>
+</yt-list>
+```
+
+## Accessibility and UX
+
+### General
+
+`yt-list` widget implements pattern from <a target="_blank" href="https://www.w3.org/WAI/ARIA/apg/patterns/listbox/">W3C guidelines</a>.
+The widget supports 2 modes of navigation through options: with focusing options as navigation progresses or with
+keeping the focus on the listbox. In case of latter, the currently active item is communicated to screen
+readers via `aria-activedescendant` attribute.
+Each option is assigned a role `option` and the host widget has role `listbox`.
+
+### Options navigation
+
+Options can be fluently navigated through via `Arrow Up/Down/Left/Right` keys depending on
+the orientation. The first option in the list can be immediately reached via `Home` key and the last
+with `End` correspondingly.
+
+### Options selection
+
+Options can be selected with `Enter/Space` keys as well as mouse click. The selection is indicated visually
+and also with proper attribute `aria-selected` or `aria-checked` on the option element depending on the
+mode of selection.
+
+## How to use
+
+## Properties
+
+### List element
+
+| Property                      | Values                     | Default value | Description                              |
+| ----------------------------- | -------------------------- | ------------- | ---------------------------------------- |
+| [`orientation`](#orientation) | `'vertical', 'horizontal'` | `vertical`    |                                          |
+| [`wrap`](#wrapping-options)   | `true`, `false`            | `true`        | Wrap keyboard navigation through options |
+| [`disabled`](#disabled)       | `true`, `false`            | `false`       | Disable listbox                          |
+
+### List item element
+
+| Property                        | Values          | Default value | Description     |
+| ------------------------------- | --------------- | ------------- | --------------- |
+| [`disabled`](#disabled-options) | `true`, `false` | `false`       | Disable listbox |
