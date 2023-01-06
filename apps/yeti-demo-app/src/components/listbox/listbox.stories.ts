@@ -19,8 +19,11 @@ class ListBoxDemoComponent extends LitElement {
 	@property({ attribute: true })
 	wrap = true;
 
+	@property({ attribute: true })
+	multi = false;
+
 	protected render(): TemplateResult {
-		return html` <yt-list .wrap="${this.wrap}" .orientation="${this.orientation}">
+		return html` <yt-list .wrap="${this.wrap}" .multi="${this.multi}" .orientation="${this.orientation}">
 			${repeat(
 				DUNGEON_CREATURES,
 				creature => creature,
@@ -49,4 +52,8 @@ export const DisabledOptions = (): TemplateResult => {
 
 export const Wrap = (): TemplateResult => {
 	return html` <yt-list-box-demo .wrap="${false}"></yt-list-box-demo>`;
+};
+
+export const MultiSelection = (): TemplateResult => {
+	return html` <yt-list-box-demo .multi="${true}"></yt-list-box-demo>`;
 };
