@@ -4,18 +4,39 @@ import { Selectable, SelectableHost } from './types';
 
 const ITEM_SELECTION_KEYS = [SPACE, ENTER];
 
-export class SelectionManager<T, V extends Selectable<T>> {
+// TODO move to different file
+export class SelectionModel<ValueType> {
+	protected _selection = new Set<ValueType>();
+
+	select(...selected: ValueType[]): void {
+		selected.forEach(value => this._selection.add(value));
+	}
+
+	deselect(...selected: ValueType[]): void {
+		selected.forEach(value => this._selection.delete(value));
+	}
+
+	isSelected(value: ValueType): boolean {
+		return this._selection.has(value);
+	}
+
+	clear(): void {
+		this._selection.clear();
+	}
+}
+
+export class SelectionManager<ValueType, SelectableEl extends Selectable<ValueType>, U = ValueType | ValueType[]> {
 	protected _events = new EventsService();
 
-	protected _elementRef!: SelectableHost<T>;
+	protected _multiple = false;
 
-	protected _selectedItem?: V;
+	protected _elementRef!: SelectableHost<ValueType>;
 
-	protected _selectables: V[] = [];
+	protected _selectables: SelectableEl[] = [];
 
-	protected _selection?: T;
+	protected _selection = new SelectionModel<ValueType | void>();
 
-	attach(elementRef: SelectableHost<T>, items: V[]): this {
+	attach(elementRef: SelectableHost<ValueType>, items: SelectableEl[]): this {
 		this._elementRef = elementRef;
 		this.updateItems(items);
 		this._addListeners();
@@ -26,7 +47,7 @@ export class SelectionManager<T, V extends Selectable<T>> {
 		this._events.clearListenersForElement(this._elementRef);
 	}
 
-	updateItems(items: V[]): void {
+	updateItems(items: SelectableEl[]): void {
 		this._clearItemListeners();
 		this._selectables = items;
 		this._selectables.forEach(item => {
@@ -34,6 +55,11 @@ export class SelectionManager<T, V extends Selectable<T>> {
 				this._selectItem(item);
 			});
 		});
+	}
+
+	withMultipleMode(multiple: boolean): this {
+		this._multiple = multiple;
+		return this;
 	}
 
 	protected _addListeners(): void {
@@ -46,29 +72,57 @@ export class SelectionManager<T, V extends Selectable<T>> {
 		const key = event.key;
 
 		if (ITEM_SELECTION_KEYS.includes(key)) {
-			this._selectItem(this._findActiveSelectable());
+			this._selectItem(this._elementRef.activeItem as SelectableEl);
 			event.preventDefault();
 			event.stopPropagation();
 		}
 	}
 
-	protected _selectItem(item?: V): void {
+	protected _selectItem(item?: SelectableEl): void {
 		if (!item || item.getAttribute('disabled')) {
 			return;
 		}
-		const previousSelected = this._selectedItem;
-		// TODO make this attribute a variable since it can be aria-checked given its a menu or multiple selection mode
-		previousSelected?.setAttribute('aria-selected', 'false');
-		item.setAttribute('aria-selected', 'true');
-		this._selectedItem = item;
-		// this._notifyChanges(new SelectEvent(this.selectedItem));
+		const selection = [item];
+		if (this._multiple) {
+			if (this._isSelected(item)) {
+				this._deselectItems(selection);
+			} else {
+				this._selectItems(selection);
+			}
+		} else {
+			this._selection.clear();
+			this._selectItems(selection);
+		}
+		this._updateSelectedMarkers();
 	}
+
+	protected _selectItems(items: SelectableEl[]): void {
+		this._selection.select(...items.map(item => item.value));
+	}
+
+	protected _deselectItems(items: SelectableEl[]): void {
+		this._selection.deselect(...items.map(item => item.value));
+	}
+
+	// protected _updateValuesSelection (selected: ValueType[], deselected: ValueType[]): void {
+	// 	this._selection.select(...selected);
+	// 	this._selection.deselect(...deselected);
+	// 	// propagate changes here
+	// }
 
 	protected _clearItemListeners(): void {
 		this._selectables.forEach(item => this._events.clearListenersForElement(item));
 	}
 
-	protected _findActiveSelectable(): V | undefined {
-		return this._selectables.find(item => this._elementRef.isItemActive(item));
+	protected _isSelected(itemOrIndex: SelectableEl | number): boolean {
+		const item = typeof itemOrIndex === 'number' ? this._selectables[itemOrIndex] : itemOrIndex;
+
+		return this._selection.isSelected(item.value);
+	}
+
+	protected _updateSelectedMarkers(): void {
+		this._selectables.forEach(item => {
+			this._elementRef.markSelected(item, this._isSelected(item));
+		});
 	}
 }
