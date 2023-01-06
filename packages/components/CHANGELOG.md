@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.2.0](https://personal/PavelPleshko/yeti-design/compare/@yeti-design/components@0.1.0...@yeti-design/components@0.2.0) (2023-01-06)
+
+### Bug Fixes
+
+-   **listbox:** add active descendant identifier to host element ([71ca131](https://personal/PavelPleshko/yeti-design/commits/71ca1316db6ec6a4f8e4dd2c4666db303a01e881))
+-   **listbox:** add end, home navigation capability ([82ac7aa](https://personal/PavelPleshko/yeti-design/commits/82ac7aa92ebbd530e055bf9ae6b72bf40e84a4b6))
+-   **listbox:** add orientation property and navigation by keys ([10ffb03](https://personal/PavelPleshko/yeti-design/commits/10ffb03e3c53b2b5b2c0bdeb57ca31ee1fab0a2a))
+-   **listbox:** add support for multiselectable attribute, use aria-checked for multi mode ([6c1abe2](https://personal/PavelPleshko/yeti-design/commits/6c1abe2ebed21dede48845c8107dcf829dce3351))
+-   **listbox:** fix bug with the wrong index when wrapping ([91fd88d](https://personal/PavelPleshko/yeti-design/commits/91fd88d06b10dbfba1c0a0e6dad73eb845b57b8f))
+-   **listbox:** make wrap/nowrap navigation style configurable ([f03d677](https://personal/PavelPleshko/yeti-design/commits/f03d67788ad57b5bcec08af74b7698178e6808e4))
+-   **listbox:** scroll to active, selected item when focused and to active when navigated ([38f0055](https://personal/PavelPleshko/yeti-design/commits/38f0055fb6988428cd4dba18d66ec2399b6fa0e3))
+-   **listbox:** separate active descendant management with focus list management ([9c3c999](https://personal/PavelPleshko/yeti-design/commits/9c3c9995c0932082abe286ac598915f92ce630ee))
+-   **list:** enable selection of active item with mouse and keyboard ([54a7de6](https://personal/PavelPleshko/yeti-design/commits/54a7de6481df72a67fd6a372b0b46876bf724888))
+
+### Features
+
+-   **list:** add list, list item components ([d172f47](https://personal/PavelPleshko/yeti-design/commits/d172f47d0d35a4cb059ef82944b8c305b248e72e))
+
 # 0.1.0 (2022-12-25)
 
 ### Bug Fixes

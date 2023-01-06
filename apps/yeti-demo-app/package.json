@@ -1,7 +1,7 @@
 {
 	"name": "@yeti-design/components-demo",
 	"description": "Application for demonstration of yeti design system",
-	"version": "0.1.0",
+	"version": "0.2.0",
 	"main": "src/index.js",
 	"files": [
 		"src/index.js"
