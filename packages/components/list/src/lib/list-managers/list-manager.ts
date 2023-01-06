@@ -1,7 +1,7 @@
-import { ENTER, SPACE, HOME, END, EventsService, scrollToTarget } from '@yeti-wc/utils';
+import { HOME, END, EventsService, scrollToTarget } from '@yeti-wc/utils';
 
 import { ListItemState, ListOrientation } from '../types';
-import { ActivateEvent, SelectEvent } from './events';
+import { ActivateEvent } from './events';
 import {
 	VERTICAL_NAVIGATION_KEY_TO_DELTA,
 	HORIZONTAL_NAVIGATION_KEY_TO_DELTA,
@@ -11,7 +11,6 @@ import {
 	OUT_OF_BOUND_INDEX,
 } from './key-navigation';
 
-const ITEM_ACTIVATION_KEYS = [SPACE, ENTER];
 const FIRST_ITEM_INDEX = 0;
 
 const isItemInteractive = (item: ListItemState): boolean => !item.disabled;
@@ -67,7 +66,6 @@ export abstract class ListManager<T extends ListItemState> {
 
 		this._listItems.forEach(item =>
 			this._events.addListener(item, 'click', () => {
-				this._selectItem(item);
 				this._setActive(item);
 			})
 		);
@@ -111,26 +109,11 @@ export abstract class ListManager<T extends ListItemState> {
 		this._events.addListener(this._elementRef, 'keydown', event => {
 			const key = event.key;
 
-			if (ITEM_ACTIVATION_KEYS.includes(key)) {
-				event.preventDefault();
-				this._selectItem(this.activeItem);
-			} else if (key in this._navigationKeys) {
+			if (key in this._navigationKeys) {
 				event.preventDefault();
 				this._navigateByKey(key);
 			}
 		});
-	}
-
-	protected _selectItem(item?: T): void {
-		if (!item || !isItemInteractive(item)) {
-			return;
-		}
-		const previousSelected = this.selectedItem;
-		// TODO make this attribute a variable since it can be aria-checked given its a menu or multiple selection mode
-		previousSelected?.setAttribute('aria-selected', 'false');
-		item.setAttribute('aria-selected', 'true');
-		this.selectedItem = item;
-		this._notifyChanges(new SelectEvent(this.selectedItem));
 	}
 
 	protected _clearItemListeners(): void {

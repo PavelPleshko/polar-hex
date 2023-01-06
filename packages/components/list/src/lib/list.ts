@@ -2,11 +2,14 @@ import { LitElement, customElement, property } from 'lit-element';
 import { PropertyValues } from 'lit';
 
 import { uniqueIdGenerator } from '@yeti-wc/utils';
+import { Selectable, SelectableHost } from '@yeti-wc/list/src/lib/selection/types';
 import { ListItemComponent, LIST_ITEM_SELECTOR } from './list-item';
 import { ListManager } from './list-managers/list-manager';
 import { ActiveDescendantListManager } from './list-managers/active-descendant.list-manager';
 import { ListOrientation } from './types';
 import { FocusListManager } from './list-managers/focus.list-manager';
+import { valueMixin } from './input/input';
+import { SelectionManager } from './selection/selection.manager';
 
 const getNextId = uniqueIdGenerator('yt-listbox');
 
@@ -15,10 +18,12 @@ const nodesContainListItems = (nodeList: NodeList): boolean => {
 };
 
 @customElement('yt-list')
-export class ListComponent extends LitElement {
+export class ListComponent<T = any | any[]> extends valueMixin(LitElement) implements SelectableHost<T> {
 	private _contentObserver = new MutationObserver(mutations => this._onContentChange(mutations));
 
 	private _listManager!: ListManager<ListItemComponent>;
+
+	private _selectionManager!: SelectionManager<T, ListItemComponent<any>>;
 
 	private _wrap = true;
 
@@ -58,6 +63,10 @@ export class ListComponent extends LitElement {
 		this._listManager.detach();
 	}
 
+	isItemActive(item: Selectable<T>): boolean {
+		return item === this._listManager.activeItem;
+	}
+
 	protected override updated(_changedProperties: PropertyValues<ListComponent>): void {
 		super.updated(_changedProperties);
 		const orientation = _changedProperties.get('orientation');
@@ -70,13 +79,16 @@ export class ListComponent extends LitElement {
 		return this;
 	}
 
+	// TODO refactor long method
 	private _attachEventListeners(): void {
 		this._contentObserver.observe(this, { childList: true, attributes: false });
 		const listManager = this.useActiveDescendant
 			? new ActiveDescendantListManager<ListItemComponent>()
 			: new FocusListManager<ListItemComponent>();
 		this._listManager = listManager.withWrap(this._wrap).withOrientation(this.orientation);
-		this._listManager.attachToElement(this, this._queryItems());
+		const items = this._queryItems();
+		this._listManager.attachToElement(this, items);
+		this._selectionManager = new SelectionManager<T, ListItemComponent<any>>().attach(this, items);
 	}
 
 	/**
@@ -94,7 +106,9 @@ export class ListComponent extends LitElement {
 	}
 
 	private _updateItems(): void {
-		this._listManager.updateItems(this._queryItems());
+		const items = this._queryItems();
+		this._listManager.updateItems(items);
+		this._selectionManager.updateItems(items);
 	}
 
 	private _queryItems(): ListItemComponent[] {
