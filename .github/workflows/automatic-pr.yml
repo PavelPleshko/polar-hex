@@ -37,15 +37,20 @@ jobs:
 
             - name: Create pull request
               id: 'cpr'
-              uses: gr2m/create-or-update-pull-request-action@v1
-              env:
-                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              uses: repo-sync/pull-request@v2
               with:
-                  branch: ${{ github.ref_name }}
-                  labels: feature, automated pr
-                  update-pull-request-title-and-body: true
-                  title: Auto-generated PR for ${{ github.ref_name }} into 'main'
-                  body: |
+                  github_token: ${{ secrets.GITHUB_TOKEN }}
+                  destination_branch: main
+                  pr_labels: feature, automated pr
+
+            - name: Update pull request
+              id: 'upr'
+              uses: kt3k/update-pr-description@v2.1.1
+              with:
+                  github_token: ${{ secrets.GITHUB_TOKEN }}
+                  destination_branch: main
+                  pr_title: Auto-generated PR for ${{ github.ref_name }} into 'main'
+                  pr_body: |
                       _This PR was generated via github actions workflow to create RC pull request_
 
                       **Affected packages**
