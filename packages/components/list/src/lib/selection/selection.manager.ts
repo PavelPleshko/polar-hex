@@ -1,29 +1,10 @@
-import { ENTER, EventsService, SPACE } from '@yeti-wc/utils';
+import { ArrayUtil, ENTER, EventsService, SPACE } from '@yeti-wc/utils';
+
 import { Selectable, SelectableHost } from './types';
+import { SelectionModel } from './selection.model';
 // import {SelectEvent} from "@yeti-wc/list/src/lib/list-managers/events";
 
 const ITEM_SELECTION_KEYS = [SPACE, ENTER];
-
-// TODO move to different file
-export class SelectionModel<ValueType> {
-	protected _selection = new Set<ValueType>();
-
-	select(...selected: ValueType[]): void {
-		selected.forEach(value => this._selection.add(value));
-	}
-
-	deselect(...selected: ValueType[]): void {
-		selected.forEach(value => this._selection.delete(value));
-	}
-
-	isSelected(value: ValueType): boolean {
-		return this._selection.has(value);
-	}
-
-	clear(): void {
-		this._selection.clear();
-	}
-}
 
 export class SelectionManager<ValueType, SelectableEl extends Selectable<ValueType>, U = ValueType | ValueType[]> {
 	protected _events = new EventsService();
@@ -34,7 +15,9 @@ export class SelectionManager<ValueType, SelectableEl extends Selectable<ValueTy
 
 	protected _selectables: SelectableEl[] = [];
 
-	protected _selection = new SelectionModel<ValueType | void>();
+	protected _selectionModel = new SelectionModel<ValueType | void>();
+
+	protected _selectedIndices: number[] = [];
 
 	attach(elementRef: SelectableHost<ValueType>, items: SelectableEl[]): this {
 		this._elementRef = elementRef;
@@ -59,6 +42,7 @@ export class SelectionManager<ValueType, SelectableEl extends Selectable<ValueTy
 
 	withMultipleMode(multiple: boolean): this {
 		this._multiple = multiple;
+		// TODO move the value from single to multi and vice versa
 		return this;
 	}
 
@@ -90,25 +74,31 @@ export class SelectionManager<ValueType, SelectableEl extends Selectable<ValueTy
 				this._selectItems(selection);
 			}
 		} else {
-			this._selection.clear();
+			this._selectionModel.clear();
 			this._selectItems(selection);
 		}
 		this._updateSelectedMarkers();
 	}
 
 	protected _selectItems(items: SelectableEl[]): void {
-		this._selection.select(...items.map(item => item.value));
+		const indices = ArrayUtil.includedIndices(this._selectables, items);
+		this._setSelectedItems(ArrayUtil.mergeSorted(this._selectedIndices, indices));
 	}
 
 	protected _deselectItems(items: SelectableEl[]): void {
-		this._selection.deselect(...items.map(item => item.value));
+		const indices = ArrayUtil.includedIndices(this._selectables, items);
+		this._setSelectedItems(ArrayUtil.diffSorted(this._selectedIndices, indices));
 	}
 
-	// protected _updateValuesSelection (selected: ValueType[], deselected: ValueType[]): void {
-	// 	this._selection.select(...selected);
-	// 	this._selection.deselect(...deselected);
-	// 	// propagate changes here
-	// }
+	protected _setSelectedItems(selectedIndices: number[]): void {
+		const valuesFromIndices = (indices: number[]): ValueType[] => {
+			return ArrayUtil.indicesToValues(this._selectables, indices, item => item.value);
+		};
+		const prevIndices = this._selectedIndices;
+		this._selectedIndices = selectedIndices;
+		this._selectionModel.deselect(...valuesFromIndices(prevIndices));
+		this._selectionModel.select(...valuesFromIndices(this._selectedIndices));
+	}
 
 	protected _clearItemListeners(): void {
 		this._selectables.forEach(item => this._events.clearListenersForElement(item));
@@ -117,7 +107,7 @@ export class SelectionManager<ValueType, SelectableEl extends Selectable<ValueTy
 	protected _isSelected(itemOrIndex: SelectableEl | number): boolean {
 		const item = typeof itemOrIndex === 'number' ? this._selectables[itemOrIndex] : itemOrIndex;
 
-		return this._selection.isSelected(item.value);
+		return this._selectionModel.isSelected(item.value);
 	}
 
 	protected _updateSelectedMarkers(): void {
