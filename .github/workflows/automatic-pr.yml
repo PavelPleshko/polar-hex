@@ -32,8 +32,10 @@ jobs:
 
             - name: Affected packages
               id: 'affected_packages_info'
-              run: >-
-                  echo "::set-output name=PR_BODY::$(npx lerna changed --loglevel silent)"
+              run: |
+                  echo "PR_BODY<<EOF" >> $GITHUB_OUTPUT
+                  echo "$(npx lerna changed --loglevel silent)" >> $GITHUB_OUTPUT
+                  echo "EOF" >> $GITHUB_OUTPUT
 
             - name: Create pull request
               id: 'cpr'
@@ -41,7 +43,7 @@ jobs:
               with:
                   github_token: ${{ secrets.GITHUB_TOKEN }}
                   destination_branch: main
-                  pr_labels: feature, automated pr
+                  pr_label: feature, automated pr
 
             - name: Update pull request
               id: 'upr'
