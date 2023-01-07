@@ -32,19 +32,24 @@ jobs:
 
             - name: Affected packages
               id: 'affected_packages_info'
-              run: echo $(npx lerna changed --loglevel silent) > pr_body
+              run: >-
+                  echo "::set-output name=PR_BODY::$(
+                    npx lerna changed --loglevel silent
+                  )"
 
             - name: Create pull request
               id: 'cpr'
-              uses: repo-sync/pull-request@v2
+              uses: gr2m/create-or-update-pull-request-action@v1
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
               with:
-                  destination_branch: 'main'
-                  github_token: ${{ secrets.GITHUB_TOKEN }}
-                  pr_label: 'feature, automated pr'
-                  pr_title: Auto-generated PR for ${{ github.ref_name }}
-                  pr_body: |
+                  branch: 'main'
+                  labels: feature, automated pr
+                  update-pull-request-title-and-body: true
+                  title: Auto-generated PR for ${{ github.ref_name }}
+                  body: |
                       _This PR was generated via github actions workflow to create RC pull request_
 
                       **Affected packages**
 
-                      ${{ steps.affected_packages_info.outputs.pr_body }}
+                      ${{ steps.affected_packages_info.outputs.PR_BODY }}
