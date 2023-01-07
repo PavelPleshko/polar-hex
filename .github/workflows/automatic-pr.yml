@@ -23,6 +23,7 @@ jobs:
               with:
                   token: ${{ secrets.GITHUB_TOKEN }}
                   branch: ${{ github.ref_name }}
+                  base: main
                   title: Auto-generated PR for ${{ github.ref_name }}
 
             - name: Check outputs
