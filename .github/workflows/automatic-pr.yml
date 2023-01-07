@@ -22,7 +22,8 @@ jobs:
               uses: peter-evans/create-pull-request@v4
               with:
                   token: ${{ secrets.GITHUB_TOKEN }}
-                  branch: main
+                  branch: ${{ github.ref_name }}
+                  base: main
                   title: Auto-generated PR for ${{ github.ref_name }}
                   draft: true
 
