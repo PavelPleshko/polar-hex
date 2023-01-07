@@ -1,0 +1,57 @@
+name: Create pull request from feature to main
+
+on:
+    push:
+        branches:
+            - feat/*
+            - fix/*
+            - refactor/*
+            - test/*
+            - ci/*
+
+jobs:
+    create-pr:
+        name: Create pull request from feature branch to main
+        runs-on: ubuntu-latest
+        strategy:
+            matrix:
+                node-version: [14.x]
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v3
+              with:
+                  fetch-depth: 0
+
+            - name: Use Node.js ${{ matrix.node-version }}
+              uses: actions/setup-node@v2
+              with:
+                  node-version: ${{ matrix.node-version }}
+
+            - name: Install deps
+              run: npm ci
+
+            - name: Affected packages
+              id: 'affected_packages_info'
+              run: >-
+                  echo "::set-output name=PR_BODY::$(npx lerna changed --loglevel silent)"
+
+            - name: Create pull request
+              id: 'cpr'
+              uses: repo-sync/pull-request@v2
+              with:
+                  github_token: ${{ secrets.GITHUB_TOKEN }}
+                  destination_branch: main
+                  pr_labels: feature, automated pr
+
+            - name: Update pull request
+              id: 'upr'
+              uses: kt3k/update-pr-description@v2.1.1
+              with:
+                  github_token: ${{ secrets.GITHUB_TOKEN }}
+                  destination_branch: main
+                  pr_title: Auto-generated PR for ${{ github.ref_name }} into 'main'
+                  pr_body: |
+                      _This PR was generated via github actions workflow to create RC pull request_
+
+                      **Affected packages**
+                      ${{ steps.affected_packages_info.outputs.PR_BODY }}
