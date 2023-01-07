@@ -16,8 +16,13 @@ jobs:
         steps:
             - name: Checkout
               uses: actions/checkout@v3
-              with:
-                  ref: main
+
+            - name: Install deps
+              run: npm ci
+
+            - name: Affected packages
+              id: 'affected_packages_info'
+              run: echo $(npx lerna changed --loglevel silent) > pr_body
 
             - name: Create pull request
               id: 'cpr'
@@ -27,3 +32,9 @@ jobs:
                   github_token: ${{ secrets.GITHUB_TOKEN }}
                   pr_label: 'feature, automated pr'
                   pr_title: Auto-generated PR for ${{ github.ref_name }}
+                  pr_body: |
+                      _This PR was generated via github actions workflow to create RC pull request_
+
+                      **Affected packages**
+
+                      ${{ steps.affected_packages_info.outputs.pr_body }}
