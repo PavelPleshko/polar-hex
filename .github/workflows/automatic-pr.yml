@@ -41,7 +41,7 @@ jobs:
               env:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
               with:
-                  branch: 'main'
+                  branch: ${{ github.ref_name }}
                   labels: feature, automated pr
                   update-pull-request-title-and-body: true
                   title: Auto-generated PR for ${{ github.ref_name }} into 'main'
