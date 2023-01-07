@@ -33,9 +33,7 @@ jobs:
             - name: Affected packages
               id: 'affected_packages_info'
               run: >-
-                  echo "::set-output name=PR_BODY::$(
-                    npx lerna changed --loglevel silent
-                  )"
+                  echo "::set-output name=PR_BODY::$(npx lerna changed --loglevel silent)"
 
             - name: Create pull request
               id: 'cpr'
@@ -46,10 +44,9 @@ jobs:
                   branch: 'main'
                   labels: feature, automated pr
                   update-pull-request-title-and-body: true
-                  title: Auto-generated PR for ${{ github.ref_name }}
+                  title: Auto-generated PR for ${{ github.ref_name }} into 'main'
                   body: |
                       _This PR was generated via github actions workflow to create RC pull request_
 
                       **Affected packages**
-
                       ${{ steps.affected_packages_info.outputs.PR_BODY }}
