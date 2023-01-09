@@ -30,8 +30,9 @@ jobs:
             - name: Set head git commit message
               id: set_head_commit_msg
               run: |
-                  echo "Head commit $(git show -s --format=%s)"
-                  echo "HEAD_COMMIT_MSG='$(git show -s --format=%s)'" >> $GITHUB_OUTPUT
+                  echo "HEAD_COMMIT_MSG<<EOF" >> $GITHUB_OUTPUT
+                  echo "$(git show -s --format=%s)" >> $GITHUB_OUTPUT
+                  echo "EOF" >> $GITHUB_OUTPUT
 
             - name: Get requested version
               id: get_requested_version
@@ -42,11 +43,10 @@ jobs:
                   # inferred programmatically from commit history
                   regex: '^Release:\s?(\d+\.\d+\.\d+|auto)'
                   flags: 'gi'
-            # extra comment
 
             - name: 'Set next version'
               env:
-                  NEXT_VERSION: ${{ steps.get_requested_version.outputs.group1 }}
+                  NEXT_VERSION: ${{ steps.get_requested_version.outputs.match }}
               run: |
                   echo 'Commit message is ${{ steps.set_head_commit_message.outputs.HEAD_COMMIT_MSG }}'
                   echo 'Next version is: ${{env.NEXT_VERSION}}'
