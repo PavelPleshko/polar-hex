@@ -30,8 +30,7 @@ jobs:
             - name: Set head git commit message
               id: set_head_commit_msg
               run: |
-                  echo "HEAD_COMMIT_MSG=$(git show -s --format=%s)" >> $GITHUB_OUTPUT
-                  cat $GITHUB_OUTPUT
+                  echo "HEAD_COMMIT_MSG=$(git show -s --format=%s)" >> $env:GITHUB_OUTPUT
 
             - name: Get requested version
               id: get_requested_version
