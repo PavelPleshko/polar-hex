@@ -18,6 +18,7 @@ jobs:
               uses: actions/checkout@v2
               with:
                   fetch-depth: 0
+                  ref: ${{ github.event.pull_request.head.sha }}
 
             - name: Use Node.js ${{ matrix.node-version }}
               uses: actions/setup-node@v2
@@ -27,11 +28,16 @@ jobs:
             - name: Install deps
               run: npm ci
 
+            - name: Print head git commit message
+              id: set_head_commit_msg
+              run: |
+                  echo "HEAD_COMMIT_MSG=$(git show -s --format=%s)" >> $GITHUB_OUTPUT
+
             - name: Get requested version
               id: get_requested_version
               uses: actions-ecosystem/action-regex-match@v2
               with:
-                  text: ${{ github.event.head_commit.message }}
+                  text: ${{ steps.set_head_commit_message.outputs.HEAD_COMMIT_MSG }}
                   # semantic version, for ex.: 2.0.12 or 'auto' which means the version is
                   # inferred programmatically from commit history
                   regex: '^Release:\s?(\d+\.\d+\.\d+|auto)'
@@ -40,7 +46,9 @@ jobs:
             - name: 'Set next version'
               env:
                   NEXT_VERSION: ${{ steps.get_requested_version.outputs.group1 }}
-              run: "echo 'Next version is: ${{env.NEXT_VERSION}}'"
+              run: |
+                  Commit message is ${{ github.event.head_commit.message }}
+                  echo 'Next version is: ${{env.NEXT_VERSION}}'
 
             - name: Setup git config
               run: |
@@ -60,5 +68,3 @@ jobs:
                   fi
                   git checkout main
                   npx lerna version ${LERNA_NEXT_VERSION} --conventional-commits --conventional-graduate --yes --no-push
-
-#          git push origin main
