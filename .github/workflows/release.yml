@@ -46,7 +46,7 @@ jobs:
 
             - name: 'Set next version'
               env:
-                  NEXT_VERSION: ${{ steps.get_requested_version.outputs.match }}
+                  NEXT_VERSION: ${{ steps.get_requested_version.outputs.group1 }}
               run: |
                   echo 'Commit message is ${{ steps.set_head_commit_msg.outputs.HEAD_COMMIT_MSG }}'
                   echo 'Next version is: ${{env.NEXT_VERSION}}'
