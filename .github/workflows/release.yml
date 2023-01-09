@@ -57,6 +57,7 @@ jobs:
                   git config user.email "<>"
 
             # implement checks here (call the checks pipeline - build affected, test affected)
+            # vvv
             - name: 'Release'
               if: ${{ env.NEXT_VERSION }} != ''
               env:
