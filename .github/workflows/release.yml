@@ -31,14 +31,14 @@ jobs:
               id: set_head_commit_msg
               shell: bash
               run: |
-                  HEAD_COMMIT_MSG=$(git show -s --format=%s)
+                  HEAD_COMMIT_MSG="$(git show -s --format=%s)"
                   echo "HEAD_COMMIT_MSG=$HEAD_COMMIT_MSG" >> $GITHUB_OUTPUT
 
             - name: Get requested version
               id: get_requested_version
               uses: actions-ecosystem/action-regex-match@v2
               with:
-                  text: ${{ steps.set_head_commit_message.outputs.HEAD_COMMIT_MSG }}
+                  text: ${{ steps.set_head_commit_msg.outputs.HEAD_COMMIT_MSG }}
                   # semantic version, for ex.: 2.0.12 or 'auto' which means the version is
                   # inferred programmatically from commit history
                   regex: '^Release:\s?(\d+\.\d+\.\d+|auto)'
@@ -48,8 +48,7 @@ jobs:
               env:
                   NEXT_VERSION: ${{ steps.get_requested_version.outputs.match }}
               run: |
-                  echo '${{ steps.set_head_commit_msg.outputs }}'
-                  echo 'Commit message is ${{ steps.set_head_commit_message.outputs.HEAD_COMMIT_MSG }}'
+                  echo 'Commit message is ${{ steps.set_head_commit_msg.outputs.HEAD_COMMIT_MSG }}'
                   echo 'Next version is: ${{env.NEXT_VERSION}}'
 
             - name: Setup git config
