@@ -42,6 +42,7 @@ jobs:
                   # inferred programmatically from commit history
                   regex: '^Release:\s?(\d+\.\d+\.\d+|auto)'
                   flags: 'gi'
+            # extra comment
 
             - name: 'Set next version'
               env:
