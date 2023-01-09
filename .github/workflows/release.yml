@@ -29,10 +29,10 @@ jobs:
 
             - name: Set head git commit message
               id: set_head_commit_msg
-              outputs:
-                  HEAD_COMMIT_MSG: ${{ steps.set_head_commit_msg.outputs.HEAD_COMMIT_MSG }}
+              shell: bash
               run: |
-                  echo "HEAD_COMMIT_MSG=$(git show -s --format=%s)" >> $env:GITHUB_OUTPUT
+                  HEAD_COMMIT_MSG=$(git show -s --format=%s)
+                  echo "HEAD_COMMIT_MSG=$HEAD_COMMIT_MSG" >> $GITHUB_OUTPUT
 
             - name: Get requested version
               id: get_requested_version
