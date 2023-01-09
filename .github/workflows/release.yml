@@ -33,7 +33,7 @@ jobs:
                   echo "HEAD_COMMIT_MSG<<EOF" >> $GITHUB_OUTPUT
                   echo "$(git show -s --format=%s)" >> $GITHUB_OUTPUT
                   echo "EOF" >> $GITHUB_OUTPUT
-                  echo "cat $GITHUB_OUTPUT"
+                  cat $GITHUB_OUTPUT
 
             - name: Get requested version
               id: get_requested_version
