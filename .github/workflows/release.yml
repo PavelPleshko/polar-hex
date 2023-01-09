@@ -60,7 +60,7 @@ jobs:
                   GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
                   NEXT_VERSION: ${{ steps.get_requested_version.outputs.group1 }}
               run: |
-                  if [[ '${{ env.NEXT_VERSION }}' != "auto" ]]; then
+                  if [[ "${{ env.NEXT_VERSION }}" == "auto" ]]; then
                     LERNA_NEXT_VERSION=''
                   else
                     LERNA_NEXT_VERSION=${{ env.NEXT_VERSION }}
