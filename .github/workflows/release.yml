@@ -27,11 +27,11 @@ jobs:
             - name: Install deps
               run: npm ci
 
-            - name: Print head git commit message
+            - name: Set head git commit message
               id: set_head_commit_msg
               run: |
                   echo "Head commit $(git show -s --format=%s)"
-                  echo "HEAD_COMMIT_MSG=$(git show -s --format=%s)" >> $GITHUB_OUTPUT
+                  echo "HEAD_COMMIT_MSG='$(git show -s --format=%s)'" >> $GITHUB_OUTPUT
 
             - name: Get requested version
               id: get_requested_version
