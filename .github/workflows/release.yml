@@ -47,7 +47,7 @@ jobs:
               env:
                   NEXT_VERSION: ${{ steps.get_requested_version.outputs.group1 }}
               run: |
-                  Commit message is ${{ github.event.head_commit.message }}
+                  echo 'Commit message is ${{ steps.set_head_commit_message.outputs.HEAD_COMMIT_MSG }}'
                   echo 'Next version is: ${{env.NEXT_VERSION}}'
 
             - name: Setup git config
