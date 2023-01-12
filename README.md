@@ -7,9 +7,10 @@
 
 <hr>
 
-# Yeti design
+# Yeti
 
-**Yeti design** is the design system managed as monorepo.
+**Yeti** is the design system managed as monorepo.
 
 ### Description
+
 TODO

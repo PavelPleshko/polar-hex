@@ -57,7 +57,7 @@ jobs:
             - name: 'Release'
               if: ${{ steps.get_requested_version.outputs.group1 }} != ''
               env:
-                  GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                  GH_TOKEN: ${{ secrets.REPO_TOKEN }}
                   NEXT_VERSION: ${{ steps.get_requested_version.outputs.group1 }}
               run: |
                   if [[ "${{ env.NEXT_VERSION }}" == "auto" ]]; then
