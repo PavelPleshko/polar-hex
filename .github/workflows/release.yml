@@ -66,5 +66,5 @@ jobs:
                     LERNA_NEXT_VERSION=${{ env.NEXT_VERSION }}
                   fi
                   git checkout ${{ github.ref_name }}
-                  npx lerna version ${LERNA_NEXT_VERSION} --conventional-commits --conventional-graduate --yes --no-push
+                  npx lerna version ${LERNA_NEXT_VERSION} --allow-branch ${{ github.ref_name }} --conventional-commits --conventional-graduate --yes --no-push
                   git push origin ${{ github.ref_name }}
