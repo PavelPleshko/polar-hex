@@ -1,0 +1,70 @@
+name: On CI release
+
+on:
+    pull_request:
+        types: [closed]
+        branches:
+            - main
+
+jobs:
+    release:
+        if: github.event.pull_request.merged == true
+        runs-on: ubuntu-latest
+        strategy:
+            matrix:
+                node-version: [14.x]
+        steps:
+            - name: 'Checkout'
+              uses: actions/checkout@v2
+              with:
+                  fetch-depth: 0
+
+            - name: Use Node.js ${{ matrix.node-version }}
+              uses: actions/setup-node@v2
+              with:
+                  node-version: ${{ matrix.node-version }}
+
+            - name: Install deps
+              run: npm ci
+
+            - name: Set head git commit message
+              id: set_head_commit_msg
+              shell: bash
+              run: |
+                  echo "HEAD_COMMIT_MSG=$(git show -s --format=%s)" >> $GITHUB_OUTPUT
+
+            - name: Get requested version
+              id: get_requested_version
+              uses: actions-ecosystem/action-regex-match@v2
+              with:
+                  text: ${{ steps.set_head_commit_msg.outputs.HEAD_COMMIT_MSG }}
+                  # semantic version, for ex.: 2.0.12 or 'auto' which means the version is
+                  # inferred programmatically from commit history
+                  regex: '^Release:\s?(\d+\.\d+\.\d+|auto)'
+                  flags: 'gi'
+
+            - name: 'Print next version'
+              run: |
+                  echo 'Commit message is ${{ steps.set_head_commit_msg.outputs.HEAD_COMMIT_MSG }}'
+                  echo 'Next version is: ${{steps.get_requested_version.outputs.group1}}'
+
+            - name: Setup git config
+              run: |
+                  git config user.name "GitHub Actions Bot"
+                  git config user.email "<>"
+
+            # implement checks here (call the checks pipeline - build affected, test affected)
+            - name: 'Release'
+              if: ${{ steps.get_requested_version.outputs.group1 }} != ''
+              env:
+                  GH_TOKEN: ${{ secrets.REPO_TOKEN }}
+                  NEXT_VERSION: ${{ steps.get_requested_version.outputs.group1 }}
+              run: |
+                  if [[ "${{ env.NEXT_VERSION }}" == "auto" ]]; then
+                    LERNA_NEXT_VERSION=''
+                  else
+                    LERNA_NEXT_VERSION=${{ env.NEXT_VERSION }}
+                  fi
+                  git checkout main
+                  npx lerna version ${LERNA_NEXT_VERSION} --conventional-commits --conventional-graduate --yes --no-push
+                  git push origin main
