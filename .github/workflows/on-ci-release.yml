@@ -17,6 +17,7 @@ jobs:
             - name: 'Checkout'
               uses: actions/checkout@v2
               with:
+                  token: ${{ secrets.GH_TOKEN_SEMANTIC_RELEASE }}
                   fetch-depth: 0
 
             - name: Use Node.js ${{ matrix.node-version }}
@@ -57,7 +58,6 @@ jobs:
             - name: 'Release'
               if: ${{ steps.get_requested_version.outputs.group1 }} != ''
               env:
-                  GH_TOKEN: ${{ secrets.REPO_TOKEN }}
                   NEXT_VERSION: ${{ steps.get_requested_version.outputs.group1 }}
               run: |
                   if [[ "${{ env.NEXT_VERSION }}" == "auto" ]]; then
@@ -67,4 +67,4 @@ jobs:
                   fi
                   git checkout main
                   npx lerna version ${LERNA_NEXT_VERSION} --conventional-commits --conventional-graduate --yes --no-push
-                  git push origin main
+                  git push origin main --follow-tags
