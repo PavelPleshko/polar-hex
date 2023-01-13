@@ -1,3 +1,3 @@
 # Design system components library
 
-Used in yeti apps
+Used in **Polar Hex** apps

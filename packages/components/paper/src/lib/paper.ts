@@ -2,7 +2,7 @@ import { customElement, html, LitElement, property } from 'lit-element';
 import { TemplateResult } from 'lit';
 import { ClassInfo, classMap } from 'lit/directives/class-map.js';
 
-@customElement('yt-paper')
+@customElement('ph-paper')
 export class PaperComponent extends LitElement {
 	private _elevation = 1;
 
@@ -28,15 +28,15 @@ export class PaperComponent extends LitElement {
 
 	private _getRuntimeClasses(): ClassInfo {
 		return {
-			'yt-paper': true,
-			[`yt-elevation-${this.elevation}`]: true,
-			'yt-paper--outlined': this.outlined,
+			'ph-paper': true,
+			[`ph-elevation-${this.elevation}`]: true,
+			'ph-paper--outlined': this.outlined,
 		};
 	}
 }
 
 declare global {
 	interface HTMLElementTagNameMap {
-		'yt-paper': PaperComponent;
+		'ph-paper': PaperComponent;
 	}
 }

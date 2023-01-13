@@ -7,50 +7,50 @@ $button-transition: all 0.1s ease-in-out 0s !default;
 
 @mixin raised-color-state($color-state) {
 	&.yt-button--color--#{$color-state} {
-		background-color: var(--yt-color-#{$color-state}-main);
-		color: var(--yt-#{$color-state}-text-contrast);
+		background-color: var(--ph-color-#{$color-state}-main);
+		color: var(--ph-#{$color-state}-text-contrast);
 
-		--yt-ripple-color: var(--yt-color-#{$color-state}-lighter);
+		--ph-ripple-color: var(--ph-color-#{$color-state}-lighter);
 
 		&:hover,
 		&:focus-visible {
 			&:not([disabled]),
 			&:not([aria-disabled='true']) {
-				background-color: var(--yt-color-#{$color-state}-light);
+				background-color: var(--ph-color-#{$color-state}-light);
 			}
 		}
 	}
 }
 
 @mixin outlined-color-state($color-state) {
-	&.yt-button--color--#{$color-state} {
-		border-color: var(--yt-color-#{$color-state}-main);
-		color: var(--yt-color-#{$color-state}-main);
+	&.ph-button--color--#{$color-state} {
+		border-color: var(--ph-color-#{$color-state}-main);
+		color: var(--ph-color-#{$color-state}-main);
 
-		--yt-ripple-color: var(--yt-color-#{$color-state}-main);
+		--ph-ripple-color: var(--ph-color-#{$color-state}-main);
 
 		&:hover,
 		&:focus-visible {
 			&:not([disabled]),
 			&:not([aria-disabled='true']) {
-				background-color: var(--yt-color-#{$color-state}-lighter);
+				background-color: var(--ph-color-#{$color-state}-lighter);
 			}
 		}
 	}
 }
 
 @mixin text-color-state($color-state) {
-	&.yt-button--color--#{$color-state} {
-		color: var(--yt-color-#{$color-state}-main);
+	&.ph-button--color--#{$color-state} {
+		color: var(--ph-color-#{$color-state}-main);
 
-		--yt-ripple-color: var(--yt-color-#{$color-state}-main);
+		--ph-ripple-color: var(--ph-color-#{$color-state}-main);
 
 		&:hover,
 		&:focus-visible {
 			&:not([disabled]),
 			&:not([aria-disabled='true']) {
-				background-color: var(--yt-color-#{$color-state}-lighter);
-				color: var(--yt-color-#{$color-state}-light);
+				background-color: var(--ph-color-#{$color-state}-lighter);
+				color: var(--ph-color-#{$color-state}-light);
 			}
 		}
 	}
@@ -70,7 +70,7 @@ $button-transition: all 0.1s ease-in-out 0s !default;
 	}
 }
 
-.yt-button {
+.ph-button {
 	display: inline-flex;
 	position: relative;
 	box-sizing: border-box;
@@ -103,63 +103,63 @@ $button-transition: all 0.1s ease-in-out 0s !default;
 	&--variant {
 		&--raised {
 			// TODO get the variables right, make default ones for non supported
-			background-color: var(--yt-color-primary-main);
-			box-shadow: var(--yt-elevation-1-shadow);
-			color: var(--yt-primary-text-contrast);
+			background-color: var(--ph-color-primary-main);
+			box-shadow: var(--ph-elevation-1-shadow);
+			color: var(--ph-primary-text-contrast);
 
-			--yt-ripple-color: var(--yt-color-primary-lighter);
+			--ph-ripple-color: var(--ph-color-primary-lighter);
 
 			&:hover,
 			&:focus-visible {
-				background-color: var(--yt-color-primary-light);
-				box-shadow: var(--yt-elevation-2-shadow);
+				background-color: var(--ph-color-primary-light);
+				box-shadow: var(--ph-elevation-2-shadow);
 			}
 
 			@include embed-color-states(raised);
 
 			&[disabled] {
-				border-color: var(--yt-action-disabled);
-				background-color: var(--yt-action-disabled-bg);
-				color: var(--yt-action-disabled);
+				border-color: var(--ph-action-disabled);
+				background-color: var(--ph-action-disabled-bg);
+				color: var(--ph-action-disabled);
 			}
 		}
 
 		&--outlined {
-			border: 1px solid var(--yt-color-primary-main);
-			color: var(--yt-color-primary);
+			border: 1px solid var(--ph-color-primary-main);
+			color: var(--ph-color-primary);
 
-			--yt-ripple-color: var(--yt-color-primary-main);
+			--ph-ripple-color: var(--ph-color-primary-main);
 
 			&:hover,
 			&:focus-visible {
-				background-color: var(--yt-color-primary-lighter);
+				background-color: var(--ph-color-primary-lighter);
 			}
 
 			@include embed-color-states(outlined);
 
 			&[disabled] {
-				border-color: var(--yt-action-disabled);
-				color: var(--yt-action-disabled);
+				border-color: var(--ph-action-disabled);
+				color: var(--ph-action-disabled);
 			}
 		}
 
 		&--text {
 			border: none;
 			background-color: transparent;
-			color: var(--yt-color-primary-main);
+			color: var(--ph-color-primary-main);
 
-			--yt-ripple-color: var(--yt-color-primary-main);
+			--ph-ripple-color: var(--ph-color-primary-main);
 
 			&:hover,
 			&:focus-visible {
-				background-color: var(--yt-color-primary-lighter);
-				color: var(--yt-color-primary-light);
+				background-color: var(--ph-color-primary-lighter);
+				color: var(--ph-color-primary-light);
 			}
 
 			@include embed-color-states(text);
 
 			&[disabled] {
-				color: var(--yt-action-disabled);
+				color: var(--ph-action-disabled);
 			}
 		}
 	}
