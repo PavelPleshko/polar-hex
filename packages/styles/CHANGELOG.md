@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.4.0](https://github.com/PavelPleshko/yeti-design/compare/@yeti-design/styles@0.3.0...@yeti-design/styles@0.4.0) (2023-01-13)
+
+### Features
+
+-   **brand:** complete rebranding ([ecfdb71](https://github.com/PavelPleshko/yeti-design/commit/ecfdb712c7e8361163cd6381e423f4df3b6a4050))
+
 # [0.3.0](https://github.com/PavelPleshko/yeti-design/compare/@yeti-design/styles@0.1.0...@yeti-design/styles@0.3.0) (2023-01-12)
 
 ### Bug Fixes
