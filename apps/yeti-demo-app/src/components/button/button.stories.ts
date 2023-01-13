@@ -8,38 +8,38 @@ export default {
 };
 
 export const Variants = (): TemplateResult => html`
-	<yt-button label="Raised button"></yt-button>
-	<yt-button variant="outlined" label="Outlined button"></yt-button>
-	<yt-button variant="text" label="Text button"></yt-button>
+	<ph-button label="Raised button"></ph-button>
+	<ph-button variant="outlined" label="Outlined button"></ph-button>
+	<ph-button variant="text" label="Text button"></ph-button>
 `;
 
 export const SemanticColors = (): TemplateResult => html`
-	<yt-button color="success" label="Success"></yt-button>
-	<yt-button color="error" label="Error"></yt-button>
-	<yt-button color="info" label="Info"></yt-button>
-	<yt-button color="warning" label="Warning"></yt-button>
+	<ph-button color="success" label="Success"></ph-button>
+	<ph-button color="error" label="Error"></ph-button>
+	<ph-button color="info" label="Info"></ph-button>
+	<ph-button color="warning" label="Warning"></ph-button>
 	<br />
 	<br />
-	<yt-button variant="outlined" color="success" label="Success"></yt-button>
-	<yt-button variant="outlined" color="error" label="Error"></yt-button>
-	<yt-button variant="outlined" color="info" label="Info"></yt-button>
-	<yt-button variant="outlined" color="warning" label="Warning"></yt-button>
+	<ph-button variant="outlined" color="success" label="Success"></ph-button>
+	<ph-button variant="outlined" color="error" label="Error"></ph-button>
+	<ph-button variant="outlined" color="info" label="Info"></ph-button>
+	<ph-button variant="outlined" color="warning" label="Warning"></ph-button>
 	<br />
 	<br />
-	<yt-button variant="text" color="success" label="Success"></yt-button>
-	<yt-button variant="text" color="error" label="Error"></yt-button>
-	<yt-button variant="text" color="info" label="Info"></yt-button>
-	<yt-button variant="text" color="warning" label="Warning"></yt-button>
+	<ph-button variant="text" color="success" label="Success"></ph-button>
+	<ph-button variant="text" color="error" label="Error"></ph-button>
+	<ph-button variant="text" color="info" label="Info"></ph-button>
+	<ph-button variant="text" color="warning" label="Warning"></ph-button>
 `;
 
 export const Size = (): TemplateResult => html`
-	<yt-button size="small" label="Small"></yt-button>
-	<yt-button size="default" label="Medium"></yt-button>
-	<yt-button size="large" label="Large"></yt-button>
+	<ph-button size="small" label="Small"></ph-button>
+	<ph-button size="default" label="Medium"></ph-button>
+	<ph-button size="large" label="Large"></ph-button>
 `;
 
 export const Disabled = (): TemplateResult => html`
-	<yt-button disabled label="Disabled"></yt-button>
-	<yt-button disabled variant="outlined" label="Disabled outlined"></yt-button>
-	<yt-button disabled variant="text" label="Disabled text"></yt-button>
+	<ph-button disabled label="Disabled"></ph-button>
+	<ph-button disabled variant="outlined" label="Disabled outlined"></ph-button>
+	<ph-button disabled variant="text" label="Disabled text"></ph-button>
 `;

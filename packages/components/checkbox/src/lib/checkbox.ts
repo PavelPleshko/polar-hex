@@ -1,13 +1,13 @@
 import { customElement, html, LitElement, property, nothing, query, state } from 'lit-element';
 import { TemplateResult } from 'lit';
 import { ClassInfo, classMap } from 'lit/directives/class-map.js';
-import { forwardAttribute, ENTER, SPACE, uniqueIdGenerator } from '@yeti-wc/utils';
+import { forwardAttribute, ENTER, SPACE, uniqueIdGenerator } from '@ph-wc/utils';
 
 const CHECKBOX_ACTIVATION_KEYS = [SPACE, ENTER];
 
-const getNextId = uniqueIdGenerator('yt-checkbox');
+const getNextId = uniqueIdGenerator('ph-checkbox');
 
-@customElement('yt-checkbox')
+@customElement('ph-checkbox')
 export class Checkbox extends LitElement {
 	@query('input') private readonly _inputElement!: HTMLInputElement | null;
 
@@ -63,12 +63,12 @@ export class Checkbox extends LitElement {
 	protected override render(): TemplateResult {
 		return html`
 			<span class="${classMap(this._getCheckboxContainerClasses())}">
-				<span class="yt-checkbox--container--focus-indicator"></span>
-				<span class="yt-checkbox--container--outline"></span>
-				<svg viewBox="0 0 24 24" class="yt-checkbox--container--checkmark" aria-hidden="true" focusable="false">
+				<span class="ph-checkbox--container--focus-indicator"></span>
+				<span class="ph-checkbox--container--outline"></span>
+				<svg viewBox="0 0 24 24" class="ph-checkbox--container--checkmark" aria-hidden="true" focusable="false">
 					<path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"></path>
 				</svg>
-				<div class="yt-checkbox--container--indeterminate"></div>
+				<div class="ph-checkbox--container--indeterminate"></div>
 			</span>
 			<input
 				tabindex="-1"
@@ -93,10 +93,10 @@ export class Checkbox extends LitElement {
 
 	private _getCheckboxContainerClasses(): ClassInfo {
 		return {
-			'yt-checkbox--container': true,
-			'yt-checkbox--container--checked': this.checked,
-			'yt-checkbox--container--focused': this.focused,
-			'yt-checkbox--container--indeterminate': this.indeterminate,
+			'ph-checkbox--container': true,
+			'ph-checkbox--container--checked': this.checked,
+			'ph-checkbox--container--focused': this.focused,
+			'ph-checkbox--container--indeterminate': this.indeterminate,
 		};
 	}
 
@@ -139,6 +139,6 @@ export class Checkbox extends LitElement {
 
 declare global {
 	interface HTMLElementTagNameMap {
-		'yt-checkbox': Checkbox;
+		'ph-checkbox': Checkbox;
 	}
 }

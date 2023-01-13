@@ -1,6 +1,6 @@
-import { ArrayUtil, ENTER, EventsService, SPACE } from '@yeti-wc/utils';
-
+import { ArrayUtil, ENTER, EventsService, SPACE } from '@ph-wc/utils';
 import { Selectable, SelectableHost } from './types';
+// import {SelectEvent} from "@ph-wc/list/src/lib/list-managers/events";
 import { SelectionModel } from './selection.model';
 // import {SelectEvent} from "@yeti-wc/list/src/lib/list-managers/events";
 

@@ -40,7 +40,7 @@ $base-palette: (
 	warning: orange,
 );
 
-@function generate-vars($palette: (), $prefix: '--yt') {
+@function generate-vars($palette: (), $prefix: '--ph') {
 	$result-vars: ();
 
 	@each $name, $value in $palette {

@@ -1,4 +1,4 @@
-import { HOME, END, EventsService, scrollToTarget } from '@yeti-wc/utils';
+import { HOME, END, EventsService, scrollToTarget } from '@ph-wc/utils';
 
 import { ListItemState, ListOrientation } from '../types';
 import { ActivateEvent } from './events';

@@ -2,7 +2,7 @@ import { customElement, html, LitElement, property, state, query } from 'lit-ele
 import { PropertyValues, TemplateResult } from 'lit';
 import { ClassInfo, classMap } from 'lit/directives/class-map.js';
 
-export const RIPPLE_TAG_NAME = 'yt-ripple';
+export const RIPPLE_TAG_NAME = 'ph-ripple';
 
 enum RippleState {
 	idle,

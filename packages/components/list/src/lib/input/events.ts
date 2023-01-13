@@ -5,7 +5,7 @@ export class ValueChangeEvent<
 	T extends HasValue<ValueType> = HasValue<ValueType>
 > extends CustomEvent<ValueType> {
 	constructor(detail: ValueType, init?: EventInit) {
-		super('yt-value-changed', { detail, ...init });
+		super('ph-value-changed', { detail, ...init });
 	}
 }
 

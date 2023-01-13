@@ -1,4 +1,4 @@
-import { ARROW_DOWN, ARROW_LEFT, ARROW_RIGHT, ARROW_UP, END, HOME } from '@yeti-wc/utils';
+import { ARROW_DOWN, ARROW_LEFT, ARROW_RIGHT, ARROW_UP, END, HOME } from '@ph-wc/utils';
 
 export type ListNavigationDelta = -1 | 1;
 

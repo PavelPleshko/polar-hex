@@ -1,6 +1,6 @@
 import { LitElement, customElement, property } from 'lit-element';
 
-import { uniqueIdGenerator } from '@yeti-wc/utils';
+import { uniqueIdGenerator } from '@ph-wc/utils';
 import { Selectable, SelectableHost } from './selection/types';
 import { ListItemComponent, LIST_ITEM_SELECTOR } from './list-item';
 import { ListManager } from './list-managers/list-manager';
@@ -10,13 +10,13 @@ import { FocusListManager } from './list-managers/focus.list-manager';
 import { valueMixin } from './input/input';
 import { SelectionManager } from './selection/selection.manager';
 
-const getNextId = uniqueIdGenerator('yt-listbox');
+const getNextId = uniqueIdGenerator('ph-listbox');
 
 const nodesContainListItems = (nodeList: NodeList): boolean => {
 	return Array.from(nodeList).some(node => node instanceof ListItemComponent);
 };
 
-@customElement('yt-list')
+@customElement('ph-list')
 export class ListComponent<T = any | any[]> extends valueMixin(LitElement) implements SelectableHost<T> {
 	private _contentObserver = new MutationObserver(mutations => this._onContentChange(mutations));
 

@@ -1,5 +1,5 @@
 @mixin state-element-selector($state-element: 'checkmark') {
-	.yt-checkbox {
+	.ph-checkbox {
 		&--container {
 			&--#{$state-element} {
 				@content;
@@ -11,7 +11,7 @@
 $checkbox-size: 16px !default;
 $focus-indicator-size: $checkbox-size * 2 !default;
 
-yt-checkbox {
+ph-checkbox {
 	position: relative;
 	height: $checkbox-size;
 	outline: none;
@@ -27,7 +27,7 @@ input {
 	inset: 0;
 }
 
-.yt-checkbox {
+.ph-checkbox {
 	&--container {
 		display: inline-flex;
 		position: relative;
@@ -43,7 +43,7 @@ input {
 			box-sizing: border-box;
 			width: 100%;
 			height: 100%;
-			border: 1px solid var(--yt-color-primary-main);
+			border: 1px solid var(--ph-color-primary-main);
 			border-radius: inherit;
 		}
 
@@ -61,7 +61,7 @@ input {
 			width: calc(100% - 6px);
 			height: 3px;
 			border-radius: inherit;
-			background-color: var(--yt-color-primary-light);
+			background-color: var(--ph-color-primary-light);
 		}
 
 		@include state-element-selector(focus-indicator) {
@@ -80,8 +80,8 @@ input {
 		&--checked:not(&--indeterminate) {
 			@include state-element-selector(checkmark) {
 				display: block;
-				background-color: var(--yt-color-primary-light);
-				fill: var(--yt-primary-text-contrast);
+				background-color: var(--ph-color-primary-light);
+				fill: var(--ph-primary-text-contrast);
 			}
 		}
 

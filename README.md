@@ -7,9 +7,10 @@
 
 <hr>
 
-# Yeti design
+# Polar Hex
 
-**Yeti design** is the design system managed as monorepo.
+Monorepo
 
 ### Description
+
 TODO

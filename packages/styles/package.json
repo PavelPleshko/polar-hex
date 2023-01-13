@@ -1,6 +1,6 @@
 {
 	"name": "@yeti-design/styles",
-	"version": "0.2.0",
+	"version": "0.4.0",
 	"type": "commonjs",
 	"exports": {
 		"./global.scss": "./src/global.scss"
