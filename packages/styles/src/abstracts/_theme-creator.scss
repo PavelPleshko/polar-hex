@@ -40,19 +40,14 @@ $base-palette: (
 	warning: orange,
 );
 
-@function generate-vars($palette: (), $prefix: '--yt') {
+@function generate-vars($palette: (), $prefix: '--ph') {
 	$result-vars: ();
 
 	@each $name, $value in $palette {
 		@if type-of($value) == map {
 			$result-vars: map.merge($result-vars, generate-vars($value, $prefix + '-' + $name));
 		} @else {
-			$result-vars: map.merge(
-				$result-vars,
-				(
-					'#{$prefix}-#{$name}': $value,
-				)
-			);
+			$result-vars: map.merge($result-vars, ('#{$prefix}-#{$name}': $value));
 		}
 	}
 	@return $result-vars;

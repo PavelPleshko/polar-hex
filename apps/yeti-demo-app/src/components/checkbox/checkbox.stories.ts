@@ -1,16 +1,16 @@
 import { html } from 'lit-html';
-
-import 'packages/components/checkbox';
 import { TemplateResult } from 'lit';
+
+import '@ph-wc/checkbox';
 
 export default {
 	title: 'Checkbox',
 };
 
 export const StandardCheckbox = (): TemplateResult => {
-	return html`<yt-checkbox></yt-checkbox> <label>My checkbox label</label>`;
+	return html`<ph-checkbox></ph-checkbox> <label>My checkbox label</label>`;
 };
 
 export const Indeterminate = (): TemplateResult => {
-	return html` <yt-checkbox indeterminate="true"></yt-checkbox> <label>Indeterminate checkbox</label>`;
+	return html` <ph-checkbox indeterminate="true"></ph-checkbox> <label>Indeterminate checkbox</label>`;
 };

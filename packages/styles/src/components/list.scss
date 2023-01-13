@@ -1,4 +1,4 @@
-yt-list {
+ph-list {
 	display: inline-flex;
 	flex-direction: column;
 	min-width: 12rem;
@@ -13,7 +13,7 @@ yt-list {
 		flex-direction: row;
 	}
 
-	yt-list-item {
+	ph-list-item {
 		display: flex;
 		width: 100%;
 		padding: 0.5rem 1rem;
@@ -23,12 +23,12 @@ yt-list {
 
 		&:hover,
 		&.active {
-			background-color: var(--yt-action-hover);
+			background-color: var(--ph-action-hover);
 		}
 
 		&:focus {
 			outline: none;
-			background-color: var(--yt-action-focus);
+			background-color: var(--ph-action-focus);
 		}
 
 		&[aria-selected='true'],
@@ -43,7 +43,7 @@ yt-list {
 
 		&[disabled],
 		&[aria-disabled] {
-			color: var(--yt-action-disabled);
+			color: var(--ph-action-disabled);
 			pointer-events: none;
 		}
 	}

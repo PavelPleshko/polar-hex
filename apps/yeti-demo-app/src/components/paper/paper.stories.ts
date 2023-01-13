@@ -17,17 +17,17 @@ export const Elevation = (): TemplateResult => {
 		${repeat(
 			elevationLevels,
 			item =>
-				html` <yt-paper .elevation="${item}">
+				html` <ph-paper .elevation="${item}">
 					<div style="padding: 0.25rem 1.5rem;">
 						<p>Elevation <i>${item}</i></p>
 					</div>
-				</yt-paper>`
+				</ph-paper>`
 		)}
 	</div>`;
 };
 
-export const Outlined = (): TemplateResult => html`<yt-paper outlined="true">
+export const Outlined = (): TemplateResult => html`<ph-paper outlined="true">
 	<div style="padding: 0.25rem 1rem; width: 200px;">
 		<p>Outlined paper example</p>
 	</div>
-</yt-paper>`;
+</ph-paper>`;

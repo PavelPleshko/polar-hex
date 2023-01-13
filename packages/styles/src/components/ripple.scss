@@ -1,8 +1,8 @@
-.yt-ripple {
+.ph-ripple {
 	display: block;
 	position: absolute;
 	border-radius: 50%;
-	background-color: var(--yt-ripple-color, white);
+	background-color: var(--ph-ripple-color, white);
 
 	&--pressed {
 		opacity: 0.28;

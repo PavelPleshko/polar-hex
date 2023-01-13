@@ -1,12 +1,12 @@
 import { LitElement, customElement, property } from 'lit-element';
 
-import { uniqueIdGenerator } from '@yeti-wc/utils';
+import { uniqueIdGenerator } from '@ph-wc/utils';
 import { ListItemState, Activatable } from './types';
 import { Selectable } from './selection/types';
 
-export const LIST_ITEM_SELECTOR = 'yt-list-item';
+export const LIST_ITEM_SELECTOR = 'ph-list-item';
 
-const getNextId = uniqueIdGenerator('yt-list-item');
+const getNextId = uniqueIdGenerator('ph-list-item');
 
 @customElement(LIST_ITEM_SELECTOR)
 export class ListItemComponent<ValueType = unknown>

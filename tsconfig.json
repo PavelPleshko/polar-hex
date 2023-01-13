@@ -17,7 +17,7 @@
 		"resolveJsonModule": true,
 		"allowSyntheticDefaultImports": true,
 		"paths": {
-			"@yeti-wc/*": ["packages/components/*"]
+			"@ph-wc/*": ["packages/components/*"]
 		}
 	},
 	"include": ["custom.d.ts"]

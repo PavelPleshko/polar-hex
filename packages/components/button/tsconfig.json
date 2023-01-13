@@ -10,10 +10,7 @@
 		"noFallthroughCasesInSwitch": true,
 		"useDefineForClassFields": false,
 		"experimentalDecorators": true,
-		"emitDecoratorMetadata": true,
-		"paths": {
-			"@yeti-wc/*": ["packages/components/*"]
-		}
+		"emitDecoratorMetadata": true
 	},
 	"references": [
 		{

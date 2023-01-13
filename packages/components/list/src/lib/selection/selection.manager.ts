@@ -1,6 +1,6 @@
-import { ENTER, EventsService, SPACE } from '@yeti-wc/utils';
+import { ENTER, EventsService, SPACE } from '@ph-wc/utils';
 import { Selectable, SelectableHost } from './types';
-// import {SelectEvent} from "@yeti-wc/list/src/lib/list-managers/events";
+// import {SelectEvent} from "@ph-wc/list/src/lib/list-managers/events";
 
 const ITEM_SELECTION_KEYS = [SPACE, ENTER];
 

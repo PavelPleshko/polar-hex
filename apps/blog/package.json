@@ -1,0 +1,10 @@
+{
+	"name": "blog",
+	"description": "Polar hex blog",
+	"version": "0.0.1",
+	"private": true,
+	"scripts": {
+		"build": "eleventy --input=./src --output=../../dist/apps/blog",
+		"serve": "eleventy --serve --input=./src --output=../../dist/apps/blog"
+	}
+}

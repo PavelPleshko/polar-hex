@@ -2,7 +2,7 @@ import { customElement, html, LitElement, property, queryAsync } from 'lit-eleme
 import { TemplateResult } from 'lit';
 import { ClassInfo, classMap } from 'lit/directives/class-map.js';
 
-import { ripple, RIPPLE_TAG_NAME, RippleComponent } from '@yeti-wc/ripple';
+import { ripple, RIPPLE_TAG_NAME, RippleComponent } from '@ph-wc/ripple';
 
 import { ButtonVariant } from './config/button.variant';
 import { ButtonState } from './config/button.state';
@@ -10,10 +10,10 @@ import { ButtonSize } from './config/button.size';
 import { ButtonColor } from './config/button.color';
 import { ButtonShape } from './config/button.shape';
 
-const BASE_BTN_CLASS = 'yt-button';
+const BASE_BTN_CLASS = 'ph-button';
 
-@customElement('yt-button')
-export class YtButtonElement extends LitElement implements ButtonState {
+@customElement('ph-button')
+export class ButtonComponent extends LitElement implements ButtonState {
 	@queryAsync(RIPPLE_TAG_NAME) private _rippleElement!: Promise<RippleComponent | null>;
 
 	@property() type = 'button';
@@ -37,7 +37,7 @@ export class YtButtonElement extends LitElement implements ButtonState {
 			?disabled=${this.disabled}
 			class="${classMap(this._getRuntimeClasses())}"
 			${ripple(this._rippleElement)}>
-			<yt-ripple></yt-ripple>
+			<ph-ripple></ph-ripple>
 			${this.label}
 		</button>`;
 	}
@@ -62,6 +62,6 @@ export class YtButtonElement extends LitElement implements ButtonState {
 
 declare global {
 	interface HTMLElementTagNameMap {
-		'yt-button': YtButtonElement;
+		'ph-button': ButtonComponent;
 	}
 }
