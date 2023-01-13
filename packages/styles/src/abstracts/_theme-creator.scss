@@ -47,7 +47,12 @@ $base-palette: (
 		@if type-of($value) == map {
 			$result-vars: map.merge($result-vars, generate-vars($value, $prefix + '-' + $name));
 		} @else {
-			$result-vars: map.merge($result-vars, ('#{$prefix}-#{$name}': $value));
+			$result-vars: map.merge(
+				$result-vars,
+				(
+					'#{$prefix}-#{$name}': $value,
+				)
+			);
 		}
 	}
 	@return $result-vars;
