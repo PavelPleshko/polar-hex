@@ -5,6 +5,7 @@
 	"private": true,
 	"scripts": {
 		"build": "eleventy --input=./src --output=../../dist/apps/blog",
-		"serve": "eleventy --serve --input=./src --output=../../dist/apps/blog"
+		"serve": "eleventy --serve --input=./src --output=../../dist/apps/blog",
+		"dev:tailwind": "tailwindcss -i ./src/assets/css/tailwind.css -o ../../dist/apps/blog/assets/css/style.css --watch"
 	}
 }

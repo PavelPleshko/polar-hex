@@ -1,4 +1,5 @@
 {
-	"layout": "layout.liquid",
+	"defaultAuthor": ["pavel-pleshko"],
+	"collection": "posts-nav",
 	"tags": ["posts"]
 }
