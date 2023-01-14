@@ -1,0 +1,6 @@
+---
+title: About
+layout: page
+---
+
+{% block content %} About page {% endblock %}

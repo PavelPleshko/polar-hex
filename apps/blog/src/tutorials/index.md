@@ -1,0 +1,6 @@
+---
+title: Tutorials
+layout: page
+---
+
+{% block content %} Tutorials {% endblock %}

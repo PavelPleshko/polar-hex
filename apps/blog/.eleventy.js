@@ -1,3 +1,4 @@
+const fs = require('fs');
 const pluginRss = require('@11ty/eleventy-plugin-rss');
 const pluginNavigation = require('@11ty/eleventy-navigation');
 const markdownIt = require('markdown-it');
@@ -5,7 +6,31 @@ const markdownItEmoji = require('markdown-it-emoji');
 
 const customFilters = require('./utils/filters.js');
 
+const OUTPUT_PATH = '../../dist/apps/blog';
+const NOT_FOUND_PATH = `${OUTPUT_PATH}/404.html`;
+
 module.exports = function (eleventyConfig) {
+	eleventyConfig.setBrowserSyncConfig({
+		callbacks: {
+			ready: function (err, bs) {
+				bs.addMiddleware('*', (req, res) => {
+					if (!fs.existsSync(NOT_FOUND_PATH)) {
+						throw new Error(
+							`Expected a \`${NOT_FOUND_PATH}\` file but could not find one. Did you create a 404.html template?`
+						);
+					}
+
+					const content_404 = fs.readFileSync(NOT_FOUND_PATH);
+					// Add 404 http status code in request header.
+					res.writeHead(404, { 'Content-Type': 'text/html; charset=UTF-8' });
+					// Provides the 404 content without redirect.
+					res.write(content_404);
+					res.end();
+				});
+			},
+		},
+	});
+
 	/**
 	 * Plugins
 	 * @link https://www.11ty.dev/docs/plugins/
@@ -86,7 +111,7 @@ module.exports = function (eleventyConfig) {
 		// TODO maybe there is a NX executor for this
 		dir: {
 			input: 'src',
-			output: '../../dist',
+			output: OUTPUT_PATH,
 			includes: '_includes',
 			data: '_data',
 		},
