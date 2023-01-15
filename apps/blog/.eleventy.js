@@ -5,6 +5,7 @@ const markdownIt = require('markdown-it');
 const markdownItEmoji = require('markdown-it-emoji');
 
 const customFilters = require('./utils/filters.js');
+const md = require('markdown-it');
 
 const OUTPUT_PATH = '../../dist/apps/blog';
 const NOT_FOUND_PATH = `${OUTPUT_PATH}/404.html`;
@@ -35,7 +36,6 @@ module.exports = function (eleventyConfig) {
 	 * Plugins
 	 * @link https://www.11ty.dev/docs/plugins/
 	 */
-
 	eleventyConfig.addPlugin(pluginRss);
 	eleventyConfig.addPlugin(pluginNavigation);
 
@@ -48,6 +48,23 @@ module.exports = function (eleventyConfig) {
 	});
 
 	/**
+	 * Set custom markdown library instance
+	 * and support for Emojis in markdown.
+	 */
+	const options = {
+		html: true,
+		breaks: true,
+		linkify: true,
+		typographer: true,
+	};
+	const markdownLib = markdownIt(options).use(markdownItEmoji);
+	eleventyConfig.setLibrary('md', markdownLib);
+
+	eleventyConfig.addFilter('md', value => {
+		return markdownLib.render(value);
+	});
+
+	/**
 	 * Collections
 	 * ============================
 	 *
@@ -56,9 +73,13 @@ module.exports = function (eleventyConfig) {
 	 * If "false" or NULL it will be published in PRODUCTION.
 	 * Every Post will ALWAYS be published in DEVELOPMENT so you can preview locally.
 	 */
-	eleventyConfig.addCollection('post', collection => {
-		if (process.env.ELEVENTY_ENV !== 'production') return [...collection.getFilteredByGlob('./src/posts/*.md')];
-		else return [...collection.getFilteredByGlob('./src/posts/*.md')].filter(post => !post.data.draft);
+	eleventyConfig.addCollection('posts', collection => {
+		const posts = [...collection.getFilteredByGlob('./src/posts/!(index)*.md')];
+
+		if (process.env.ELEVENTY_ENV !== 'production') {
+			return posts;
+		}
+		return posts.filter(post => !post.data.draft);
 	});
 
 	eleventyConfig.addCollection('tagList', function (collection) {
@@ -93,19 +114,6 @@ module.exports = function (eleventyConfig) {
 
 	eleventyConfig.addWatchTarget('./src/assets');
 	eleventyConfig.addWatchTarget('./tailwind.config.js');
-
-	/**
-	 * Set custom markdown library instance
-	 * and support for Emojis in markdown.
-	 */
-	let options = {
-		html: true,
-		breaks: true,
-		linkify: true,
-		typographer: true,
-	};
-	let markdownLib = markdownIt(options).use(markdownItEmoji);
-	eleventyConfig.setLibrary('md', markdownLib);
 
 	return {
 		// TODO maybe there is a NX executor for this
