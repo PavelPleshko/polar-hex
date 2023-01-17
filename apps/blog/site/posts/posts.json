@@ -1,5 +1,6 @@
 {
 	"defaultAuthor": ["pavel-pleshko"],
+	"layout": "post",
 	"collection": "post",
 	"tags": ["posts"]
 }

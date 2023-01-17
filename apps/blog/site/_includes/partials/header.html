@@ -1,0 +1,18 @@
+<header
+	class="pageHeader sticky top-0 z-40 w-full backdrop-blur flex-none transition-colors duration-500 lg:z-50 lg:border-b lg:border-slate-900/10 dark:border-slate-50/[0.06] bg-white/95 supports-backdrop-blur:bg-white/60 dark:bg-transparent">
+	<nav class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
+		<div class="relative flex h-20 items-center justify-between">
+			<div class="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
+				<div class="flex flex-shrink-0 items-center">
+					<a id="homeLink" href="{{ site.baseurl }}/" aria-label="Home"> Logo image here </a>
+				</div>
+			</div>
+
+			<div class="sm:ml-6 sm:block">
+				<ul class="flex space-x-4 list-none p-0">
+					{% include 'partials/site-nav.html' %}
+				</ul>
+			</div>
+		</div>
+	</nav>
+</header>

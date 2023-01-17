@@ -1,0 +1,56 @@
+---
+layout: page
+tags: pages
+---
+
+<div class="max-w-8xl mx-auto">
+	<div class="flex px-4 pt-8 pb-10 lg:px-8">
+		<a class="group flex font-semibold text-sm leading-6 text-slate-700 hover:text-slate-900" href="/posts">
+			<svg viewBox="0 -9 3 24" class="overflow-visible mr-3 text-slate-400 w-auto h-6 group-hover:text-slate-600">
+				<path
+					d="M3 0L0 3L3 6"
+					fill="none"
+					stroke="currentColor"
+					stroke-width="2"
+					stroke-linecap="round"
+					stroke-linejoin="round"></path>
+			</svg>
+			Go back</a
+		>
+	</div>
+</div>
+<div class="max-w-3xl mx-auto pb-20">
+	{% block content %}
+
+	<article>
+		<dl>
+			<dt class="sr-only">Date</dt>
+			<dd class="mb-3 top-0 inset-x-0 text-slate-700">
+				<time datetime="2022-12-15T15:00:00.000Z">Thursday, December 15, 2022</time>
+			</dd>
+		</dl>
+		<h1 class="text-2xl font-extrabold tracking-tight text-slate-900 dark:text-slate-200 md:text-3xl">
+			{{ pageTitle }}
+		</h1>
+
+		<div class="my-6">
+			<div class="relative not-prose first:mt-0 last:mb-0 rounded-lg overflow-hidden">
+				<div
+					class="h-[20em] bg-cover bg-center bg-no-repeat"
+					style="background-image: url('{{imageUrl}}')"></div>
+				<div class="absolute inset-0 rounded-lg ring-1 ring-inset ring-slate-900/10"></div>
+			</div>
+		</div>
+
+		<nav id="inlineToc">
+			<h2 class="text-2xl pt-2">Contents</h2>
+			<div class="text-xl">{{ content | toc | safe }}</div>
+		</nav>
+
+		<hr class="my-4" />
+
+		<div>{{ content | safe }}</div>
+	</article>
+
+	{% endblock %}
+</div>

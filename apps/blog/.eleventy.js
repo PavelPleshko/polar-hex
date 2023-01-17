@@ -3,14 +3,22 @@ const pluginRss = require('@11ty/eleventy-plugin-rss');
 const pluginNavigation = require('@11ty/eleventy-navigation');
 const markdownIt = require('markdown-it');
 const markdownItEmoji = require('markdown-it-emoji');
+const markdownItAnchor = require('markdown-it-anchor');
+const pluginTOC = require('eleventy-plugin-nesting-toc');
 
 const customFilters = require('./utils/filters.js');
-const md = require('markdown-it');
 
 const OUTPUT_PATH = '../../dist/apps/blog';
 const NOT_FOUND_PATH = `${OUTPUT_PATH}/404.html`;
 
 module.exports = function (eleventyConfig) {
+	// https://github.com/JordanShurmer/eleventy-plugin-toc#readme
+	eleventyConfig.addPlugin(pluginTOC, {
+		tags: ['h2', 'h3'],
+		wrapper: 'div',
+		wrapperClass: '',
+	});
+
 	eleventyConfig.setBrowserSyncConfig({
 		callbacks: {
 			ready: function (err, bs) {
@@ -57,7 +65,7 @@ module.exports = function (eleventyConfig) {
 		linkify: true,
 		typographer: true,
 	};
-	const markdownLib = markdownIt(options).use(markdownItEmoji);
+	const markdownLib = markdownIt(options).use(markdownItAnchor).use(markdownItEmoji);
 	eleventyConfig.setLibrary('md', markdownLib);
 
 	eleventyConfig.addFilter('md', value => {
@@ -74,7 +82,7 @@ module.exports = function (eleventyConfig) {
 	 * Every Post will ALWAYS be published in DEVELOPMENT so you can preview locally.
 	 */
 	eleventyConfig.addCollection('posts', collection => {
-		const posts = [...collection.getFilteredByGlob('./src/posts/!(index)*.md')];
+		const posts = [...collection.getFilteredByGlob('./site/posts/!(index)*.md')];
 
 		if (process.env.ELEVENTY_ENV !== 'production') {
 			return posts;
@@ -108,17 +116,17 @@ module.exports = function (eleventyConfig) {
 		return [...tagSet];
 	});
 
-	eleventyConfig.addLayoutAlias('base', 'layouts/base.njk');
-	eleventyConfig.addLayoutAlias('page', 'layouts/page.njk');
-	// eleventyConfig.addLayoutAlias('post', 'layouts/post.njk')
+	eleventyConfig.addLayoutAlias('base', 'layouts/base.html');
+	eleventyConfig.addLayoutAlias('page', 'layouts/page.html');
+	eleventyConfig.addLayoutAlias('post', 'layouts/post.html');
 
-	eleventyConfig.addWatchTarget('./src/assets');
+	eleventyConfig.addWatchTarget('./site/assets');
 	eleventyConfig.addWatchTarget('./tailwind.config.js');
 
 	return {
 		// TODO maybe there is a NX executor for this
 		dir: {
-			input: 'src',
+			input: 'site',
 			output: OUTPUT_PATH,
 			includes: '_includes',
 			data: '_data',

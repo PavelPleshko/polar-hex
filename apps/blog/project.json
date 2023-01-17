@@ -1,3 +1,17 @@
 {
-	"name": "blog"
+	"name": "blog",
+	"$schema": "../../node_modules/nx/schemas/project-schema.json",
+	"sourceRoot": "apps/blog/src",
+	"projectType": "app",
+	"targets": {
+		"build:ts": {
+			"executor": "@nrwl/js:tsc",
+			"options": {
+				"outputPath": "dist/apps/blog",
+				"tsConfig": "apps/blog/tsconfig.json",
+				"main": "apps/blog/src/index.ts"
+			}
+		}
+	},
+	"tags": []
 }

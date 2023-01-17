@@ -1,7 +1,7 @@
 // const defaultTheme = require('tailwindcss/defaultTheme');
 
 module.exports = {
-	content: ['./src/**/*.{html,njk,md}'],
+	content: ['./site/**/*.{html,njk,md}'],
 	theme: {
 		extend: {
 			opacity: () => ({
