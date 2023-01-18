@@ -70,11 +70,7 @@ pre code {
 
 @tailwind utilities;
 
-.post-card .post-card-image {
-	transition: background-size 200ms ease-in;
-	background-size: 100%;
-}
-
-.post-card .post-card-image:hover {
-	background-size: 110%;
+body {
+	min-width: 100vw;
+	min-height: 100vh;
 }

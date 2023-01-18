@@ -9,11 +9,13 @@
 		<meta name="description" content="Pavel Pleshko. Personal blog about web development" />
 	</head>
 
-	<body>
+	<body class="flex flex-col">
 		<!--Cookie banner-->
 		{%- include "partials/header.html" %}
 
-		<main id="content">{% block content %} {{ content | safe }} {% endblock %}</main>
+		<main id="content" class="flex flex-col grow bg-slate-50">
+			{% block content %} {{ content | safe }} {% endblock %}
+		</main>
 
 		{% include "partials/footer.html" %}
 	</body>

@@ -1,6 +1,7 @@
 {%- macro PostComponent(params) -%} {% set postData = params.post %} {% set DEFAULT_IMAGE_URL =
 'https://via.placeholder.com/350' %}
-<div class="post-card">
+<div
+	class="post-card flex flex-col flex-grow bg-gray-100 flex flex-col bg-white border border-gray-200 rounded-lg shadow-md">
 	<a href="{{ postData.url }}">
 		<div
 			class="post-card-image py-12 sm:py-28 bg-cover bg-center bg-no-repeat"
@@ -13,6 +14,7 @@
 			</a>
 			<div class="mb-3 font-normal text-gray-500">{{ postData.description | md | safe }}</div>
 		</div>
+
 		<div class="self-end">
 			<a
 				href="{{ postData.url }}"
