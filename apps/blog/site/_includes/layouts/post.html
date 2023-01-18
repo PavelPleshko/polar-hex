@@ -23,12 +23,14 @@ tags: pages
 	{% block content %}
 
 	<article>
-		<dl>
-			<dt class="sr-only">Date</dt>
-			<dd class="mb-3 top-0 inset-x-0 text-slate-700">
-				<time datetime="2022-12-15T15:00:00.000Z">Thursday, December 15, 2022</time>
-			</dd>
-		</dl>
+		<div class="inline-flex mb-3 mb-3 text-slate-600 font-light">
+			<div class="pw-published-date bd b be z fs">May 7, 2018</div>
+			<div aria-hidden="true" class="mx-2">·</div>
+			<div>
+				{% set readTime = content | md | readingTime %} {% if readTime > 1 %} {{ readTime }} minutes {% else %}
+				less than a minute {% endif %} read
+			</div>
+		</div>
 		<h1 class="text-2xl font-extrabold tracking-tight text-slate-900 dark:text-slate-200 md:text-3xl">
 			{{ pageTitle }}
 		</h1>
