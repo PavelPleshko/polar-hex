@@ -3,6 +3,7 @@ pageTitle: Introduction
 description: Welcome everyone to **Polar Hex blog**! This is the first and intro entry on this blog
     so let's dive into the world of web development :)
 imageUrl: https://via.placeholder.com/350
+contentTags: [intro, programming, web]
 ---
 
 Welcome to **Polar Hex blog**

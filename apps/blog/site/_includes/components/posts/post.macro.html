@@ -13,6 +13,15 @@
 				<h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">{{ postData.name }}</h5>
 			</a>
 			<div class="mb-3 font-normal text-gray-500">{{ postData.description | md | safe }}</div>
+
+			<div class="inline-flex">
+				{% for tag in postData.tags %}
+				<div
+					class="mr-2 text-xs inline-flex items-center font-bold px-2 py-1 bg-slate-200 text-slate-700 rounded-full">
+					#{{ tag }}
+				</div>
+				{% endfor %}
+			</div>
 		</div>
 
 		<div class="self-end">
