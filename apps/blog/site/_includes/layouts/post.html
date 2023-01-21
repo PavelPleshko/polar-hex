@@ -22,9 +22,12 @@ layout: page
 	{% block content %}
 
 	<article>
-		<div class="inline-flex mb-3 mb-3 text-slate-600 font-light">
-			<div class="pw-published-date bd b be z fs">May 7, 2018</div>
+		<div class="inline-flex mb-3 mb-3 text-sm text-slate-500 font-normal">
+			{% if date %}
+
+			<div class="pw-published-date bd b be z fs">{{ date | readableDate }}</div>
 			<div aria-hidden="true" class="mx-2">·</div>
+			{% endif %}
 			<div>
 				{% set readTime = content | md | readingTime %} {% if readTime > 1 %} {{ readTime }} minutes {% else %}
 				less than a minute {% endif %} read
@@ -33,6 +36,7 @@ layout: page
 		<h1 class="text-2xl font-extrabold tracking-tight text-slate-900 dark:text-slate-200 md:text-3xl">
 			{{ pageTitle }}
 		</h1>
+		<div class="text-slate-500">{{ description | md | safe }}</div>
 
 		<div class="my-6">
 			<div class="relative not-prose first:mt-0 last:mb-0 rounded-lg overflow-hidden">

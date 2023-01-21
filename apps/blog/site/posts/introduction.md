@@ -4,6 +4,7 @@ description: Welcome everyone to **Polar Hex blog**! This is the first and intro
     so let's dive into the world of web development :)
 imageUrl: https://via.placeholder.com/350
 contentTags: [intro, programming, web]
+date: 2019-03-13
 ---
 
 Welcome to **Polar Hex blog**
