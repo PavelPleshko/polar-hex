@@ -4,8 +4,8 @@
 	class="post-card flex flex-col flex-grow bg-gray-100 flex flex-col bg-white border border-gray-200 rounded-lg shadow-md">
 	<a href="{{ postData.url }}">
 		<div
-			class="post-card-image py-12 sm:py-28 bg-cover bg-center bg-no-repeat"
-			style="background-image: url('{{postData.imageUrl or DEFAULT_IMAGE_URL}}')"></div>
+			class="post-card-image py-12 sm:py-28 bg-cover bg-center bg-no-repeat rounded-t-lg border-b"
+			style="background-image: url('{{'/assets/images/posts' + postData.imageUrl}}')"></div>
 	</a>
 	<div class="p-5 h-full flex flex-col justify-between">
 		<div>

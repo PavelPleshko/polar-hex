@@ -123,7 +123,7 @@ module.exports = function (eleventyConfig) {
 	eleventyConfig.addWatchTarget('./site/assets');
 	eleventyConfig.addWatchTarget('./tailwind.config.js');
 
-	eleventyConfig.addPassthroughCopy('./site/assets/images/*');
+	eleventyConfig.addPassthroughCopy('./site/assets/images/**/*');
 
 	return {
 		// TODO maybe there is a NX executor for this
