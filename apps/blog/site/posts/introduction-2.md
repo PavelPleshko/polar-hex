@@ -4,6 +4,7 @@ description: Welcome everyone to **Polar Hex blog**
     fewfwefewf ewegeg e wew gegewgewgw very long descriptions are not very cool indeed
     but who knows maybe it will work out eventually :)
 imageUrl: /introduction/hero.svg
+date: 2019-03-14
 ---
 
 Welcome to **Polar Hex blog**

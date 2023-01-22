@@ -82,7 +82,9 @@ module.exports = function (eleventyConfig) {
 	 * Every Post will ALWAYS be published in DEVELOPMENT so you can preview locally.
 	 */
 	eleventyConfig.addCollection('posts', collection => {
-		const posts = [...collection.getFilteredByGlob('./site/posts/!(index)*.md')];
+		const posts = [...collection.getFilteredByGlob('./site/posts/!(index)*.md')].sort((prev, curr) => {
+			return new Date(curr.data.date).getTime() - new Date(prev.data.date).getTime();
+		});
 
 		if (process.env.ELEVENTY_ENV !== 'production') {
 			return posts;
