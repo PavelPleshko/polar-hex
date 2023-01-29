@@ -1,10 +1,11 @@
 ---
 pageTitle: Introduction
 description: Welcome everyone to **Polar Hex blog**! This is the first and intro entry on this blog
-    so let's dive into the world of web development :)
+    so let's get to know each other :)
 imageUrl: /introduction/hero.svg
-contentTags: [intro, programming, web]
-date: 2019-03-13
+date: 2023-01-26
+contentTags: ['web development', 'programming']
+draft: true
 ---
 
 Welcome to **Polar Hex blog**

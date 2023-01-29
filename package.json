@@ -7,7 +7,8 @@
 		"demo-app:dev": "nx run yeti-demo-app:storybook",
 		"test": "nx affected:test",
 		"precommit": "lint-staged --relative --concurrent=false",
-		"prepare": "husky install"
+		"prepare": "husky install",
+		"generate:blog-post": "npx hygen post with-prompt"
 	},
 	"repository": {
 		"type": "git",
@@ -64,6 +65,7 @@
 		"eslint-plugin-jsdoc": "^39.6.4",
 		"extract-loader": "^5.1.0",
 		"husky": "^8.0.2",
+		"hygen": "^6.2.11",
 		"jest": "28.1.1",
 		"jest-environment-jsdom": "28.1.1",
 		"lerna": "^6.1.0",

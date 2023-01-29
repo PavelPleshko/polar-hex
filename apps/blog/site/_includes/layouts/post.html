@@ -2,6 +2,8 @@
 layout: page
 ---
 
+{% from 'components/posts/post.macro.html' import PostComponent %}
+
 <div class="max-w-8xl mx-auto">
 	<div class="flex px-4 pt-8 pb-10 lg:px-8">
 		<a class="group flex font-semibold text-sm leading-6 text-slate-700 hover:text-slate-900" href="/posts">
@@ -36,6 +38,14 @@ layout: page
 		<h1 class="text-2xl font-extrabold tracking-tight text-slate-900 dark:text-slate-200 md:text-3xl">
 			{{ pageTitle }}
 		</h1>
+		<div class="inline-flex mb-2">
+			{% for tag in contentTags %}
+			<div
+				class="mr-2 text-xs inline-flex items-center font-bold px-2 py-1 bg-slate-200 text-slate-700 rounded-full">
+				#{{ tag }}
+			</div>
+			{% endfor %}
+		</div>
 		<div class="text-slate-500">{{ description | md | safe }}</div>
 
 		<div class="my-6">
@@ -57,5 +67,21 @@ layout: page
 		<div>{{ content | safe }}</div>
 	</article>
 
-	{% endblock %}
+	{% endblock %} {%- set relatedPosts = collections.posts | filterByTags(contentTags) |
+	excludeFromCollection(page.url) -%} {% if relatedPosts.length %}
+
+	<div class="mt-12">
+		<div class="mx-auto w-24 h-1 my-2 bg-slate-300 rounded-full"></div>
+		<h3 data-tags="{{ contentTags | join(',') }}">Related posts</h3>
+		<ul class="list-none m-0">
+			{%- for post in relatedPosts | limit(6) -%}
+			<li class="hover:scale-105 transition">
+				{{ PostComponent({ horizontal: true, post: { url: post.url, name: post.data.pageTitle, description:
+				post.data.description, tags: post.data.contentTags, date: post.data.date, imageUrl: post.data.imageUrl }
+				}) }}
+			</li>
+			{%- endfor -%}
+		</ul>
+	</div>
+	{% endif %}
 </div>

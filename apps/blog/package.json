@@ -8,7 +8,6 @@
 	"scripts": {
 		"build": "eleventy",
 		"serve": "eleventy --serve",
-		"rollup:build": "rollup -c",
 		"dev:tailwind": "tailwindcss -i site/assets/css/style.css -o ../../dist/apps/blog/assets/css/style.css --watch"
 	}
 }

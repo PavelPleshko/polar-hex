@@ -72,6 +72,25 @@ module.exports = function (eleventyConfig) {
 		return markdownLib.render(value);
 	});
 
+	eleventyConfig.addNunjucksFilter('excludeFromCollection', function (collection = [], pageUrl = this.ctx.page.url) {
+		return collection.filter(post => post.url !== pageUrl);
+	});
+
+	eleventyConfig.addFilter('filterByTags', function (collection = [], ...requiredTags) {
+		return collection.filter(post => {
+			const result = requiredTags.flat().every(tag => post.data.contentTags?.includes(tag));
+			console.log(requiredTags, result);
+			return result;
+		});
+	});
+
+	eleventyConfig.addNunjucksFilter('related', function (collection = []) {
+		const { tags: requiredTags, page } = this.ctx;
+		return collection.filter(post => {
+			return post.url !== page.url && requiredTags?.every(tag => post.data.contentTags?.includes(tag));
+		});
+	});
+
 	/**
 	 * Collections
 	 * ============================
@@ -82,7 +101,7 @@ module.exports = function (eleventyConfig) {
 	 * Every Post will ALWAYS be published in DEVELOPMENT so you can preview locally.
 	 */
 	eleventyConfig.addCollection('posts', collection => {
-		const posts = [...collection.getFilteredByGlob('./site/posts/!(index)*.md')].sort((prev, curr) => {
+		const posts = [...collection.getFilteredByGlob('./site/posts/**/!(index)*.md')].sort((prev, curr) => {
 			return new Date(curr.data.date).getTime() - new Date(prev.data.date).getTime();
 		});
 
@@ -90,6 +109,18 @@ module.exports = function (eleventyConfig) {
 			return posts;
 		}
 		return posts.filter(post => !post.data.draft);
+	});
+
+	// TODO remove duplication
+	eleventyConfig.addCollection('tutorials', collection => {
+		const tutorials = [...collection.getFilteredByGlob('./site/tutorials/**/!(index)*.md')].sort((prev, curr) => {
+			return new Date(curr.data.date).getTime() - new Date(prev.data.date).getTime();
+		});
+
+		if (process.env.ELEVENTY_ENV !== 'production') {
+			return tutorials;
+		}
+		return tutorials.filter(tutorial => !tutorial.data.draft);
 	});
 
 	eleventyConfig.addCollection('tagList', function (collection) {
