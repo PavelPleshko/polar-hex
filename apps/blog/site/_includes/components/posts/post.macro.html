@@ -30,15 +30,7 @@ DEFAULT_IMAGE_URL = 'https://via.placeholder.com/350' %}
 				{{ postData.description | md | truncate(160) | safe }}
 			</div>
 
-			<div class="inline-flex mb-2">
-				{% for tag in postData.tags %}
-				<a
-					href="/posts/tags/{{tag | slugify}}"
-					class="mr-2 text-xs inline-flex items-center font-bold px-2 py-1 bg-slate-200 text-slate-700 rounded-full">
-					#{{ tag }}
-				</a>
-				{% endfor %}
-			</div>
+			<div class="inline-flex mb-2">{% set tags = postData.tags %} {% include 'partials/tags.html' %}</div>
 
 			<div class="flex justify-end">
 				<a

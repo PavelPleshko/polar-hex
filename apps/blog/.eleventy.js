@@ -1,5 +1,4 @@
 const fs = require('fs');
-const lodash = require('lodash');
 const pluginRss = require('@11ty/eleventy-plugin-rss');
 const pluginNavigation = require('@11ty/eleventy-navigation');
 const markdownIt = require('markdown-it');
@@ -9,6 +8,7 @@ const pluginTOC = require('eleventy-plugin-nesting-toc');
 
 const customFilters = require('./utils/filters.js');
 const tagsCollection = require('./utils/collections/tags');
+const writingCollection = require('./utils/collections/writing-entity');
 
 const OUTPUT_PATH = '../../dist/apps/blog';
 const NOT_FOUND_PATH = `${OUTPUT_PATH}/404.html`;
@@ -96,82 +96,25 @@ module.exports = function (eleventyConfig) {
 	 * Collections
 	 * ============================
 	 *
-	 * POST Collection set so we can check status of "draft:" frontmatter.
+	 * POST Collection set so we can check status of "draft:" front-matter.
 	 * If set "true" then post will NOT be processed in PRODUCTION env.
 	 * If "false" or NULL it will be published in PRODUCTION.
 	 * Every Post will ALWAYS be published in DEVELOPMENT so you can preview locally.
 	 */
 	eleventyConfig.addCollection('posts', collection => {
-		const posts = [...collection.getFilteredByGlob('./site/posts/**/!(index)*.md')].sort((prev, curr) => {
-			return new Date(curr.data.date).getTime() - new Date(prev.data.date).getTime();
-		});
-
-		if (process.env.ELEVENTY_ENV !== 'production') {
-			return posts;
-		}
-		return posts.filter(post => !post.data.draft);
+		return writingCollection.fromEntries(collection.getFilteredByGlob('./site/posts/**/!(index)*.md'));
 	});
 
-	// TODO remove duplication
 	eleventyConfig.addCollection('tutorials', collection => {
-		const tutorials = [...collection.getFilteredByGlob('./site/tutorials/**/!(index)*.md')].sort((prev, curr) => {
-			return new Date(curr.data.date).getTime() - new Date(prev.data.date).getTime();
-		});
-
-		if (process.env.ELEVENTY_ENV !== 'production') {
-			return tutorials;
-		}
-		return tutorials.filter(tutorial => !tutorial.data.draft);
+		return writingCollection.fromEntries(collection.getFilteredByGlob('./site/tutorials/**/!(index)*.md'));
 	});
 
 	eleventyConfig.addCollection('tagList', collectionApi => tagsCollection.generateUniqueTags(collectionApi.getAll()));
 
 	eleventyConfig.addCollection('postsByTags', collectionApi => {
-		const itemsPerPage = 1;
 		const allEntities = collectionApi.getAll();
 		const collectionTags = tagsCollection.generateUniqueTags(allEntities);
-
-		const paginatedCollectionByCategories = [];
-
-		// walk unique categories
-		collectionTags.forEach(tag => {
-			const postsForTag = allEntities.filter(item => item.data.contentTags?.includes(tag.title));
-
-			// chunk posts in category to create pages
-			const chunkedCollection = lodash.chunk(postsForTag, itemsPerPage);
-
-			// create array of slugs
-			const slugs = [];
-			for (let i = 1; i <= chunkedCollection.length; i++) {
-				let slug = `${tag.slug}/${i}`;
-				if (i === 1) {
-					slug = tag.slug;
-				}
-
-				slugs.push(slug);
-			}
-
-			// add formatted objects to empty array
-			chunkedCollection.forEach((items, index) => {
-				paginatedCollectionByCategories.push({
-					title: tag.title,
-					slug: slugs[index],
-					currentPage: index + 1,
-					totalItems: postsForTag.length,
-					totalPages: Math.ceil(postsForTag.length / itemsPerPage),
-					items: items,
-					hrefs: {
-						all: slugs,
-						first: slugs[0],
-						last: slugs[slugs.length - 1],
-						next: slugs[index + 1] ?? null,
-						previous: slugs[index - 1] ?? null,
-					},
-				});
-			});
-		});
-
-		return paginatedCollectionByCategories;
+		return writingCollection.fromTags(allEntities, collectionTags, 10);
 	});
 
 	eleventyConfig.addLayoutAlias('base', 'layouts/base.html');

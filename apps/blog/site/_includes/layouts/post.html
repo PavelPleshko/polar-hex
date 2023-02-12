@@ -38,14 +38,7 @@ layout: page
 		<h1 class="text-2xl font-extrabold tracking-tight text-slate-900 dark:text-slate-200 md:text-3xl">
 			{{ pageTitle }}
 		</h1>
-		<div class="inline-flex mb-2">
-			{% for tag in contentTags %}
-			<div
-				class="mr-2 text-xs inline-flex items-center font-bold px-2 py-1 bg-slate-200 text-slate-700 rounded-full">
-				#{{ tag }}
-			</div>
-			{% endfor %}
-		</div>
+		<div class="inline-flex mb-2">{% set tags = contentTags %} {% include 'partials/tags.html' %}</div>
 		<div class="text-slate-500">{{ description | md | safe }}</div>
 
 		<div class="my-6">

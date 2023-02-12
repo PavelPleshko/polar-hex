@@ -1,0 +1,26 @@
+---
+title:
+layout: page
+permalink: /404.html
+eleventyExcludeFromCollections: true
+seo:
+---
+
+<div class="bg-slate-50 h-screen">
+	<div class="pt-24 m-auto text-center">
+		<h1 class="mb-8 font-extrabold text-7xl text-indigo-400"><span class="sr-only">Error</span>{...Not found}</h1>
+
+		<div class="text-2xl text-gray-700">
+			The page you're looking for doesn't currently exist on this website. Perhaps you followed an old or bad
+			link?
+		</div>
+
+		<div class="mt-10">Here are 5 recent posts. Maybe one of these will help you along your way?</div>
+
+		<ol class="pt-4 list-none">
+			{% set latest_posts = collections.posts | reverse %} {% for post in latest_posts | limit(5) %}
+			<li><a class="underline" href="{{ post.url }}">{{ post.data.pageTitle }}</a></li>
+			{% endfor %}
+		</ol>
+	</div>
+</div>
