@@ -1,4 +1,7 @@
 const { DateTime } = require('luxon');
+const lodash = require('lodash');
+const slugify = require('./generic/slugify');
+
 module.exports = {
 	limit: (arr, count = 5) => {
 		return (arr || []).slice(0, count);
@@ -25,4 +28,15 @@ module.exports = {
 		}
 		return `${value.substring(0, count)}${truncationDelimiter}`;
 	},
+
+	include: (arr, path, value) => {
+		value = lodash.deburr(value).toLowerCase();
+		return arr.filter(item => {
+			let pathValue = lodash.get(item, path);
+			pathValue = lodash.deburr(pathValue).toLowerCase();
+			return pathValue.includes(value);
+		});
+	},
+
+	slugify: slugify,
 };

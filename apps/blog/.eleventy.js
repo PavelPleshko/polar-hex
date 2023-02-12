@@ -1,4 +1,5 @@
 const fs = require('fs');
+const lodash = require('lodash');
 const pluginRss = require('@11ty/eleventy-plugin-rss');
 const pluginNavigation = require('@11ty/eleventy-navigation');
 const markdownIt = require('markdown-it');
@@ -7,6 +8,7 @@ const markdownItAnchor = require('markdown-it-anchor');
 const pluginTOC = require('eleventy-plugin-nesting-toc');
 
 const customFilters = require('./utils/filters.js');
+const tagsCollection = require('./utils/collections/tags');
 
 const OUTPUT_PATH = '../../dist/apps/blog';
 const NOT_FOUND_PATH = `${OUTPUT_PATH}/404.html`;
@@ -59,13 +61,14 @@ module.exports = function (eleventyConfig) {
 	 * Set custom markdown library instance
 	 * and support for Emojis in markdown.
 	 */
-	const options = {
+	const markdownLib = markdownIt({
 		html: true,
 		breaks: true,
 		linkify: true,
 		typographer: true,
-	};
-	const markdownLib = markdownIt(options).use(markdownItAnchor).use(markdownItEmoji);
+	})
+		.use(markdownItAnchor)
+		.use(markdownItEmoji);
 	eleventyConfig.setLibrary('md', markdownLib);
 
 	eleventyConfig.addFilter('md', value => {
@@ -78,9 +81,7 @@ module.exports = function (eleventyConfig) {
 
 	eleventyConfig.addFilter('filterByTags', function (collection = [], ...requiredTags) {
 		return collection.filter(post => {
-			const result = requiredTags.flat().every(tag => post.data.contentTags?.includes(tag));
-			console.log(requiredTags, result);
-			return result;
+			return requiredTags.flat().every(tag => post.data.contentTags?.includes(tag));
 		});
 	});
 
@@ -123,30 +124,54 @@ module.exports = function (eleventyConfig) {
 		return tutorials.filter(tutorial => !tutorial.data.draft);
 	});
 
-	eleventyConfig.addCollection('tagList', function (collection) {
-		let tagSet = new Set();
-		collection.getAll().forEach(function (item) {
-			if ('tags' in item.data) {
-				let tags = item.data.tags;
+	eleventyConfig.addCollection('tagList', collectionApi => tagsCollection.generateUniqueTags(collectionApi.getAll()));
 
-				tags = tags.filter(function (item) {
-					switch (item) {
-						// this list should match the `filter` list in tags.njk
-						case 'authors':
-						case 'pages':
-						case 'post':
-							return false;
-					}
+	eleventyConfig.addCollection('postsByTags', collectionApi => {
+		const itemsPerPage = 1;
+		const allEntities = collectionApi.getAll();
+		const collectionTags = tagsCollection.generateUniqueTags(allEntities);
 
-					return true;
-				});
+		const paginatedCollectionByCategories = [];
 
-				for (const tag of tags) {
-					tagSet.add(tag);
+		// walk unique categories
+		collectionTags.forEach(tag => {
+			const postsForTag = allEntities.filter(item => item.data.contentTags?.includes(tag.title));
+
+			// chunk posts in category to create pages
+			const chunkedCollection = lodash.chunk(postsForTag, itemsPerPage);
+
+			// create array of slugs
+			const slugs = [];
+			for (let i = 1; i <= chunkedCollection.length; i++) {
+				let slug = `${tag.slug}/${i}`;
+				if (i === 1) {
+					slug = tag.slug;
 				}
+
+				slugs.push(slug);
 			}
+
+			// add formatted objects to empty array
+			chunkedCollection.forEach((items, index) => {
+				paginatedCollectionByCategories.push({
+					title: tag.title,
+					slug: slugs[index],
+					currentPage: index + 1,
+					totalItems: postsForTag.length,
+					totalPages: Math.ceil(postsForTag.length / itemsPerPage),
+					items: items,
+					hrefs: {
+						all: slugs,
+						first: slugs[0],
+						last: slugs[slugs.length - 1],
+						next: slugs[index + 1] ?? null,
+						previous: slugs[index - 1] ?? null,
+					},
+				});
+			});
 		});
-		return [...tagSet];
+
+		return paginatedCollectionByCategories;
 	});
 
 	eleventyConfig.addLayoutAlias('base', 'layouts/base.html');
