@@ -117,9 +117,21 @@ module.exports = function (eleventyConfig) {
 		return writingCollection.fromTags(allEntities, collectionTags, 10);
 	});
 
+	// rendering
+	eleventyConfig.addShortcode('renderlayoutblock', function (name) {
+		return (this.page.layoutblock || {})[name] || '';
+	});
+
+	eleventyConfig.addPairedShortcode('layoutblock', function (content, name) {
+		if (!this.page.layoutblock) this.page.layoutblock = {};
+		this.page.layoutblock[name] = content;
+		return '';
+	});
+
 	eleventyConfig.addLayoutAlias('base', 'layouts/base.html');
 	eleventyConfig.addLayoutAlias('page', 'layouts/page.html');
 	eleventyConfig.addLayoutAlias('post', 'layouts/post.html');
+	eleventyConfig.addLayoutAlias('contentPage', 'layouts/content-page.html');
 
 	eleventyConfig.addWatchTarget('./site/assets');
 	eleventyConfig.addWatchTarget('./tailwind.config.js');

@@ -1,59 +1,51 @@
 ---
 title: About
-layout: page
+layout: contentPage
 permalink: /about.html
 ---
 
-{% block content %}
+{% block content %} {% layoutblock 'pageTitle' %} About {% endlayoutblock %} {%- layoutblock 'pageSubtitle' -%} Get to
+know the author better {%- endlayoutblock -%}
 
-<div class="h-full p-10">
-	<header class="text-center mb-8 mt-20">
-		<h1 class="text-5xl mb-1 font-black">About</h1>
-		<p class="my-0 text-gray3">Get to know the author better</p>
-	</header>
+<div class="max-w-3xl mx-auto pb-20">
+	<div class="flex flex-col text-xl">
+		<h2>A bit about me</h2>
+		<p>Hi, <b>I am Pavel</b>, and in short I am a frontend enthusiast as some would say.</p>
+		<p>
+			I have been in web development for quite a bit and up to this day I can certainly say that I am still
+			actively learning. There is so much to it, new libraries and frameworks constantly emerging, and we have
+			only 24 hours in a day... but I try to stay up-to-date with the latest stuff!
+		</p>
+		<p>
+			At my day-to-day job I have been leading and designing technical solutions, implementing features, mentoring
+			and doing many things, but what I like the most is reverse engineering. To tell the truth, reverse
+			engineering can really drain all the free time you have, so for that reason I decided to do it with clear
+			purpose in mind.
+		</p>
+		<p>
+			Throughout my career I have accumulated some knowledge, and now I have reached the point where I wanted to
+			share all of it with the rest of the world and make it a better place.
+		</p>
 
-	<div class="mx-auto w-24 h-1 my-12 bg-slate-400 rounded-full"></div>
+		<h2>About this blog</h2>
+		<p>
+			This is the platform where I will be conducting experiments, debugging, thinking out loud. Also, I am
+			looking forward to new connections and feedback from peer engineers. Every entry in this blog is my chance
+			to dive deeper into certain topic and explain to the readers in clear and understandable language my
+			findings.
+		</p>
+		<p>
+			I will take you on a journey throughout the web technologies and explain how it all works under the hood
+			with real world examples. My goal is to have more people get better at creating of efficient and
+			professional software.
+		</p>
 
-	<div class="max-w-3xl mx-auto pb-20">
-		<div class="flex flex-col text-xl">
-			<h2>A bit about me</h2>
-			<p>Hi, <b>I am Pavel</b>, and in short I am a frontend enthusiast as some would say.</p>
-			<p>
-				I have been in web development for quite a bit and up to this day I can certainly say that I am still
-				actively learning. There is so much to it, new libraries and frameworks constantly emerging, and we have
-				only 24 hours in a day... but I try to stay up-to-date with the latest stuff!
-			</p>
-			<p>
-				At my day-to-day job I have been leading and designing technical solutions, implementing features,
-				mentoring and doing many things, but what I like the most is reverse engineering. To tell the truth,
-				reverse engineering can really drain all the free time you have, so for that reason I decided to do it
-				with clear purpose in mind.
-			</p>
-			<p>
-				Throughout my career I have accumulated some knowledge, and now I have reached the point where I wanted
-				to share all of it with the rest of the world and make it a better place.
-			</p>
-
-			<h2>About this blog</h2>
-			<p>
-				This is the platform where I will be conducting experiments, debugging, thinking out loud. Also, I am
-				looking forward to new connections and feedback from peer engineers. Every entry in this blog is my
-				chance to dive deeper into certain topic and explain to the readers in clear and understandable language
-				my findings.
-			</p>
-			<p>
-				I will take you on a journey throughout the web technologies and explain how it all works under the hood
-				with real world examples. My goal is to have more people get better at creating of efficient and
-				professional software.
-			</p>
-
-			<h2>Final thoughts</h2>
-			<p>
-				I try to produce content regularly, one article every week or so, however you never know when
-				inspiration suddenly comes.
-			</p>
-			<p>So buckle up! We have a lot of work to do :)</p>
-		</div>
+		<h2>Final thoughts</h2>
+		<p>
+			I try to produce content regularly, one article every week or so, however you never know when inspiration
+			suddenly comes.
+		</p>
+		<p>So buckle up! We have a lot of work to do :)</p>
 	</div>
 </div>
 {% endblock %}

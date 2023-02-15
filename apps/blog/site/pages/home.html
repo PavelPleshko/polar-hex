@@ -5,8 +5,6 @@ layout: page
 permalink: /
 ---
 
-{% from 'components/posts/post.macro.html' import PostComponent %}
-
 <div class="bg-gray-100 relative z-0">
 	<div
 		class="h-full absolute w-full bg-center bg-cover"
@@ -43,12 +41,5 @@ permalink: /
 		<p class="my-0 text-gray3">Check out the latest posts about web development</p>
 	</header>
 	<div class="mx-auto w-24 h-1 my-2 bg-slate-400 rounded-full"></div>
-	<ul class="list-none flex w-8/12 space-x-2 md:space-x-8">
-		{% set latest_posts = collections.posts %} {% for post in latest_posts | limit(6) %}
-		<li class="w-1/3 flex flex-col hover:scale-105 transition">
-			{{ PostComponent({ post: { url: post.url, name: post.data.pageTitle, description: post.data.description,
-			tags: post.data.contentTags, date: post.data.date, imageUrl: post.data.imageUrl } }) }}
-		</li>
-		{% endfor %}
-	</ul>
+	{% set posts = collections.posts | limit(6) %} {% include 'partials/post-list.html' %}
 </div>

@@ -13,9 +13,7 @@
 		<!--Cookie banner-->
 		{%- include "partials/header.html" %}
 
-		<main id="content" class="flex flex-col grow bg-slate-50">
-			{% block content %} {{ content | safe }} {% endblock %}
-		</main>
+		<main class="flex flex-col grow bg-slate-50">{% block content %} {{ content | safe }} {% endblock %}</main>
 
 		{% include "partials/footer.html" %}
 	</body>
