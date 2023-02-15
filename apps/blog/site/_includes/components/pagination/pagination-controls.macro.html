@@ -1,0 +1,37 @@
+{%- macro MoreLessPagination(params) -%} {% if params.prevHref %}
+<a
+	href="{{ params.baseHref }}{{ params.prevHref }}{{ params.pageAnchor }}"
+	class="inline-flex items-center focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-700 bg-slate-50 transition duration-150 ease-in-out hover:border-indigo-600 hover:bg-indigo-100 lg:text-xl lg:font-bold hover:text-indigo-600 rounded-full border border-indigo-700 text-indigo-700 px-4 sm:px-10 py-2 sm:py-2 text-sm">
+	<svg
+		aria-hidden="true"
+		class="w-4 h-4 mr-2 -ml-1 rotate-180"
+		fill="currentColor"
+		viewBox="0 0 20 20"
+		xmlns="http://www.w3.org/2000/svg">
+		<path
+			fill-rule="evenodd"
+			d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+			clip-rule="evenodd"></path>
+	</svg>
+
+	<span>{{ params.prevLabel or 'Previous' }}</span>
+</a>
+
+{% endif %} {% if params.nextHref %}
+<a
+	href="{{ params.baseHref }}{{ params.nextHref }}{{ params.pageAnchor }}"
+	class="inline-flex items-center focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-700 bg-slate-50 transition duration-150 ease-in-out hover:border-indigo-600 hover:bg-indigo-100 lg:text-xl lg:font-bold hover:text-indigo-600 rounded-full border border-indigo-700 text-indigo-700 px-4 sm:px-10 py-2 sm:py-2 text-sm">
+	<span>{{ params.nextLabel or 'Next' }}</span>
+	<svg
+		aria-hidden="true"
+		class="w-4 h-4 ml-2 -mr-1"
+		fill="currentColor"
+		viewBox="0 0 20 20"
+		xmlns="http://www.w3.org/2000/svg">
+		<path
+			fill-rule="evenodd"
+			d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+			clip-rule="evenodd"></path>
+	</svg>
+</a>
+{% endif %} {%- endmacro -%}

@@ -13,6 +13,8 @@ const writingCollection = require('./utils/collections/writing-entity');
 const OUTPUT_PATH = '../../dist/apps/blog';
 const NOT_FOUND_PATH = `${OUTPUT_PATH}/404.html`;
 
+const MAX_ENTRIES_PER_PAGE = 9;
+
 module.exports = function (eleventyConfig) {
 	// https://github.com/JordanShurmer/eleventy-plugin-toc#readme
 	eleventyConfig.addPlugin(pluginTOC, {
@@ -111,10 +113,13 @@ module.exports = function (eleventyConfig) {
 
 	eleventyConfig.addCollection('tagList', collectionApi => tagsCollection.generateUniqueTags(collectionApi.getAll()));
 
+	eleventyConfig.addGlobalData('paginationConfig', {
+		maxEntries: MAX_ENTRIES_PER_PAGE,
+	});
 	eleventyConfig.addCollection('postsByTags', collectionApi => {
 		const allEntities = collectionApi.getAll();
 		const collectionTags = tagsCollection.generateUniqueTags(allEntities);
-		return writingCollection.fromTags(allEntities, collectionTags, 10);
+		return writingCollection.fromTags(allEntities, collectionTags, MAX_ENTRIES_PER_PAGE);
 	});
 
 	// rendering

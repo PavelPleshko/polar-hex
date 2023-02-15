@@ -11,12 +11,13 @@ paginationNextText: 'Older posts'
 paginationAnchor: '#post-list'
 ---
 
-{% block content %} {% layoutblock 'pageTitle' %} Posts by tag: <i>{{ currentTag.title }}</i>
+{% from 'components/pagination/pagination-controls.macro.html' import MoreLessPagination %} {% block content %} {%
+layoutblock 'pageTitle' %} Posts by tag: <i>{{ currentTag.title }}</i>
 {% endlayoutblock %} {%- layoutblock 'pageSubtitle' -%} Check out the latest posts on web development {%- endlayoutblock
 -%}
 
 <div class="py-6">
-	<div class="flex flex-col justify-center items-center">
+	<div class="flex flex-col justify-center items-center" id="post-list">
 		{% set posts = currentTag.items %} {% include 'partials/post-list.html' %}
 	</div>
 </div>
@@ -25,42 +26,11 @@ paginationAnchor: '#post-list'
 <footer class="text-center">
 	<div class="wrapper">
 		<nav class="flex justify-center" aria-label="Pagination links">
-			{% if currentTag.hrefs.previous %}
-			<a
-				href="/posts/tags/{{ currentTag.hrefs.previous }}{{ paginationAnchor }}"
-				class="inline-flex items-center focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-700 bg-slate-50 transition duration-150 ease-in-out hover:border-indigo-600 hover:bg-indigo-100 lg:text-xl lg:font-bold hover:text-indigo-600 rounded-full border border-indigo-700 text-indigo-700 px-4 sm:px-10 py-2 sm:py-2 text-sm">
-				<svg
-					aria-hidden="true"
-					class="w-4 h-4 mr-2 -ml-1 rotate-180"
-					fill="currentColor"
-					viewBox="0 0 20 20"
-					xmlns="http://www.w3.org/2000/svg">
-					<path
-						fill-rule="evenodd"
-						d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
-						clip-rule="evenodd"></path>
-				</svg>
-				<span>{{ paginationPrevText if paginationPrevText else 'Previous' }}</span>
-			</a>
-			{% endif %} {% if currentTag.hrefs.next %}
-			<a
-				href="/posts/tags/{{ currentTag.hrefs.next }}{{ paginationAnchor }}"
-				class="inline-flex items-center focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-700 bg-slate-50 transition duration-150 ease-in-out hover:border-indigo-600 hover:bg-indigo-100 lg:text-xl lg:font-bold hover:text-indigo-600 rounded-full border border-indigo-700 text-indigo-700 px-4 sm:px-10 py-2 sm:py-2 text-sm">
-				<span>{{ paginationNextText if paginationNextText else 'Next' }}</span>
-				<svg
-					aria-hidden="true"
-					class="w-4 h-4 ml-2 -mr-1"
-					fill="currentColor"
-					viewBox="0 0 20 20"
-					xmlns="http://www.w3.org/2000/svg">
-					<path
-						fill-rule="evenodd"
-						d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
-						clip-rule="evenodd"></path>
-				</svg>
-			</a>
-
-			{% endif %}
+			<nav class="flex justify-center" aria-label="Pagination links">
+				{{ MoreLessPagination({ prevHref: currentTag.hrefs.previous, prevLabel: paginationPrevText, nextHref:
+				currentTag.hrefs.next, nextLabel: paginationNextText, pageAnchor: paginationAnchor, baseHref:
+				'/posts/tags/' }) }}
+			</nav>
 		</nav>
 	</div>
 </footer>
