@@ -2,29 +2,22 @@ const slugify = require('../generic/slugify');
 
 module.exports = {
 	generateUniqueTags: (allEntities, key = 'contentTags') => {
-		const tagSet = new Set();
-		allEntities.forEach(item => {
-			if (key in item.data) {
-				const tags = item.data[key].filter(item => {
-					switch (item) {
-						case 'authors':
-						case 'pages':
-						case 'post':
-							return false;
-					}
+		const entitiesWithTags = allEntities.filter(item => key in item.data);
+		// get all used categories
+		const collectionTags = entitiesWithTags
+			.flatMap(item => item.data[key])
+			.sort((a, b) => a.localeCompare(b, 'en', { sensitivity: 'base' }));
 
-					return true;
-				});
+		// dedupe
+		const uniqueTags = [...new Set(collectionTags)];
 
-				for (const tag of tags) {
-					tagSet.add(tag);
-				}
-			}
-		});
-		return [...tagSet].map(tag => {
+		// format and return array of categories objects
+		return uniqueTags.map(tag => {
+			const entriesForTag = entitiesWithTags.filter(item => item.data[key].includes(tag));
 			return {
 				title: tag,
 				slug: slugify(tag),
+				totalItems: entriesForTag.length,
 			};
 		});
 	},

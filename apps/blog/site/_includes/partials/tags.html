@@ -1,7 +1,2 @@
-{% for tag in tags %}
-<a
-	href="/posts/tags/{{tag | slugify}}"
-	class="mr-2 text-xs inline-flex items-center font-bold px-2 py-1 bg-slate-200 text-slate-700 rounded-full">
-	#{{ tag }}
-</a>
-{% endfor %}
+{% from 'components/tags/tag.macro.html' import Tag %} {% for tag in tags %} {% set tagContent %} #{{ tag }} {% endset
+%} {{ Tag({href: '/posts/tags/' + tag | slugify, content: tagContent}) }} {% endfor %}

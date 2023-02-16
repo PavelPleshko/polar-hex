@@ -39,4 +39,8 @@ module.exports = {
 	},
 
 	slugify: slugify,
+
+	pluckProperty: (arr, propertyName = '') => {
+		return arr.map(item => item[propertyName]);
+	},
 };
