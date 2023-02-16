@@ -3,12 +3,5 @@ layout: base
 ---
 
 {% block content %}
-<div class="{{ structure.g_pageWidth }} pb-24">
-	{% if seo.description %}
-	<div
-		class="p-2 {{ colors.borderCustom.borders or colors.borderDefault.borders }} {{ colors.borderCustom.color or colors.borderDefault.color }}">
-		{{ seo.description }}
-	</div>
-	{% endif %} {{ content | safe }}
-</div>
+<div class="pb-24">{{ content | safe }}</div>
 {% endblock %}

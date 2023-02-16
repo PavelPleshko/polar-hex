@@ -14,19 +14,22 @@ paginationAnchor: '#post-list'
 layoutblock 'pageTitle' %} Articles {% endlayoutblock %} {%- layoutblock 'pageSubtitle' -%} Check out the latest posts
 on web development {%- endlayoutblock -%}
 
-<div class="py-6">
-	<div class="flex flex-col justify-center items-center" id="post-list">
-		{% set posts = pagination.items %} {% include 'partials/post-list.html' %}
+<div class="content-center content-center--wide">
+	<div class="py-6">
+		<div class="flex flex-col justify-center items-center" id="post-list">
+			{% set posts = pagination.items %} {% include 'partials/post-list.html' %}
+		</div>
 	</div>
-</div>
 
-{% if pagination.href.next or pagination.href.previous %}
-<footer class="text-center">
-	<div class="wrapper">
-		<nav class="flex justify-center" aria-label="Pagination links">
-			{{ MoreLessPagination({ prevHref: pagination.href.previous, prevLabel: paginationPrevText, nextHref:
-			pagination.href.next, nextLabel: paginationNextText, pageAnchor: paginationAnchor }) }}
-		</nav>
-	</div>
-</footer>
-{% endif %} {% endblock %}
+	{% if pagination.href.next or pagination.href.previous %}
+	<footer class="text-center">
+		<div class="wrapper">
+			<nav class="flex justify-center" aria-label="Pagination links">
+				{{ MoreLessPagination({ prevHref: pagination.href.previous, prevLabel: paginationPrevText, nextHref:
+				pagination.href.next, nextLabel: paginationNextText, pageAnchor: paginationAnchor }) }}
+			</nav>
+		</div>
+	</footer>
+	{% endif %}
+</div>
+{% endblock %}

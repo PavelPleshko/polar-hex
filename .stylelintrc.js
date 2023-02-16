@@ -24,5 +24,6 @@ module.exports = {
 		'scss/dollar-variable-colon-space-after': ['always', { severity: 'warning' }],
 		'scss/selector-no-redundant-nesting-selector': [true, { severity: 'error' }],
 		'no-empty-source': null,
+		'selector-class-pattern': null,
 	},
 };

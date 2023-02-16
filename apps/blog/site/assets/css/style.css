@@ -1,3 +1,6 @@
+@import './layout.css';
+@import './utils.css';
+
 @import './navigation.css';
 
 @tailwind base;

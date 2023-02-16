@@ -20,14 +20,14 @@ layout: page
 		>
 	</div>
 </div>
-<div class="max-w-3xl mx-auto pb-20">
+<div class="content-center">
 	{% block content %}
 
 	<article>
 		<div class="inline-flex mb-3 mb-3 text-sm text-slate-500 font-normal">
 			{% if date %}
 
-			<div class="pw-published-date bd b be z fs">{{ date | readableDate }}</div>
+			<div>{{ date | readableDate }}</div>
 			<div aria-hidden="true" class="mx-2">·</div>
 			{% endif %}
 			<div>
@@ -38,7 +38,7 @@ layout: page
 		<h1 class="text-2xl font-extrabold tracking-tight text-slate-900 dark:text-slate-200 md:text-3xl">
 			{{ pageTitle }}
 		</h1>
-		<div class="inline-flex mb-2">{% set tags = contentTags %} {% include 'partials/tags.html' %}</div>
+		<div class="inline-flex my-2">{% set tags = contentTags %} {% include 'partials/tags.html' %}</div>
 		<div class="text-slate-500">{{ description | md | safe }}</div>
 
 		<div class="my-6">
@@ -64,8 +64,8 @@ layout: page
 	excludeFromCollection(page.url) -%} {% if relatedPosts.length %}
 
 	<div class="mt-12">
-		<div class="mx-auto w-24 h-1 my-2 bg-slate-300 rounded-full"></div>
-		<h3 data-tags="{{ contentTags | join(',') }}">Related posts</h3>
+		<div class="section-separator"></div>
+		<h3>Related posts</h3>
 		<ul class="list-none m-0">
 			{%- for post in relatedPosts | limit(6) -%}
 			<li class="hover:scale-105 transition">

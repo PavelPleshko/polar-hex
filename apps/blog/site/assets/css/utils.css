@@ -1,0 +1,3 @@
+.section-separator {
+	@apply mx-auto w-24 h-1 my-2 bg-slate-400 rounded-full;
+}
