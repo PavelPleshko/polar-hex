@@ -4,15 +4,15 @@ layout: contentPage
 pagination:
     data: collections.posts
     size: 9
-permalink: '/posts{% if pagination.pageNumber > 0 %}/{{ pagination.pageNumber }}{% endif %}/index.html'
+permalink: '/posts{% if pagination.pageNumber > 0 %}/{{ pagination.pageNumber + 1 }}{% endif %}/index.html'
 paginationPrevText: 'Newer posts'
 paginationNextText: 'Older posts'
 paginationAnchor: '#post-list'
 ---
 
-{% from 'components/pagination/pagination-controls.macro.html' import MoreLessPagination %} {% block content %} {%
-layoutblock 'pageTitle' %} Articles {% endlayoutblock %} {%- layoutblock 'pageSubtitle' -%} Check out the latest posts
-on web development {%- endlayoutblock -%}
+{% from 'components/pagination/pagination-controls.macro.html' import Pagination %} {% block content %} {% layoutblock
+'pageTitle' %} Articles {% endlayoutblock %} {%- layoutblock 'pageSubtitle' -%} Check out the latest posts on web
+development {%- endlayoutblock -%}
 
 <div class="content-center content-center--wide">
 	<div class="py-6">
@@ -23,10 +23,10 @@ on web development {%- endlayoutblock -%}
 
 	{% if pagination.href.next or pagination.href.previous %}
 	<footer class="text-center">
-		<div class="wrapper">
-			<nav class="flex justify-center" aria-label="Pagination links">
-				{{ MoreLessPagination({ prevHref: pagination.href.previous, prevLabel: paginationPrevText, nextHref:
-				pagination.href.next, nextLabel: paginationNextText, pageAnchor: paginationAnchor }) }}
+		<div class="flex justify-center mt-2">
+			<nav aria-label="Pagination links">
+				{{ Pagination({ totalPages: pagination.pages.length, hrefs: pagination.href, pageAnchor:
+				paginationAnchor, pageNumber: pagination.pageNumber }) }}
 			</nav>
 		</div>
 	</footer>

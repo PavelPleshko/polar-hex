@@ -11,7 +11,7 @@ const fromEntries = contentEntries => {
 	return allContentEntries.filter(entry => !entry.data.draft);
 };
 
-const fromTags = (contentEntries, uniqueTags, itemsPerPage = 10) => {
+const fromTags = (contentEntries, uniqueTags, itemsPerPage = 9) => {
 	const paginatedCollectionByCategories = [];
 	contentEntries = fromEntries(contentEntries);
 
@@ -37,7 +37,7 @@ const fromTags = (contentEntries, uniqueTags, itemsPerPage = 10) => {
 			paginatedCollectionByCategories.push({
 				title: tag.title,
 				slug: slugs[index],
-				currentPage: index + 1,
+				currentPage: index,
 				totalItems: postsForTag.length,
 				totalPages: Math.ceil(postsForTag.length / itemsPerPage),
 				items: items,

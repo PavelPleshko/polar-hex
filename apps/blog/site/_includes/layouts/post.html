@@ -2,79 +2,83 @@
 layout: page
 ---
 
-{% from 'components/posts/post.macro.html' import PostComponent %}
+{% from 'components/posts/post.macro.html' import PostComponent %} {% block content %}
 
-<div class="max-w-8xl mx-auto">
-	<div class="flex px-4 pt-8 pb-10 lg:px-8">
-		<a class="group flex font-semibold text-sm leading-6 text-slate-700 hover:text-slate-900" href="/posts">
-			<svg viewBox="0 -9 3 24" class="overflow-visible mr-3 text-slate-400 w-auto h-6 group-hover:text-slate-600">
-				<path
-					d="M3 0L0 3L3 6"
-					fill="none"
-					stroke="currentColor"
-					stroke-width="2"
-					stroke-linecap="round"
-					stroke-linejoin="round"></path>
-			</svg>
-			View all posts</a
-		>
+<article>
+	<div class="border-b border-slate-200 py-20 bg-slate-100">
+		<div class="content-center">
+			<div class="inline-flex mb-3 mb-3 text-sm text-indigo-500 font-semibold">
+				{% if date %}
+
+				<div>Published on <b>{{ date | readableDate }}</b></div>
+				<div aria-hidden="true" class="mx-2">·</div>
+				{% endif %}
+				<div>
+					{% set readTime = content | md | readingTime %} {% if readTime > 1 %} {{ readTime }} minutes {% else
+					%} less than a minute {% endif %} read
+				</div>
+			</div>
+			<h1 class="text-5xl text-slate-900 dark:text-slate-200 md:text-5xl tracking-wide">{{ pageTitle }}</h1>
+			<div class="inline-flex my-2">{% set tags = contentTags %} {% include 'partials/tags.html' %}</div>
+			<div class="text-slate-500 text-xl tracking-wide">{{ description | md | safe }}</div>
+		</div>
 	</div>
-</div>
-<div class="content-center">
-	{% block content %}
 
-	<article>
-		<div class="inline-flex mb-3 mb-3 text-sm text-slate-500 font-normal">
-			{% if date %}
-
-			<div>{{ date | readableDate }}</div>
-			<div aria-hidden="true" class="mx-2">·</div>
-			{% endif %}
-			<div>
-				{% set readTime = content | md | readingTime %} {% if readTime > 1 %} {{ readTime }} minutes {% else %}
-				less than a minute {% endif %} read
+	<div class="mt-12 relative">
+		<div class="max-w-8xl mx-auto absolute">
+			<div class="flex px-4 lg:px-8">
+				<a class="group flex font-semibold text-sm leading-6 text-slate-700 hover:text-slate-900" href="/posts">
+					<svg
+						viewBox="0 -9 3 24"
+						class="overflow-visible mr-3 text-slate-400 w-auto h-6 group-hover:text-slate-600">
+						<path
+							d="M3 0L0 3L3 6"
+							fill="none"
+							stroke="currentColor"
+							stroke-width="2"
+							stroke-linecap="round"
+							stroke-linejoin="round"></path>
+					</svg>
+					View all posts</a
+				>
 			</div>
 		</div>
-		<h1 class="text-2xl font-extrabold tracking-tight text-slate-900 dark:text-slate-200 md:text-3xl">
-			{{ pageTitle }}
-		</h1>
-		<div class="inline-flex my-2">{% set tags = contentTags %} {% include 'partials/tags.html' %}</div>
-		<div class="text-slate-500">{{ description | md | safe }}</div>
-
-		<div class="my-6">
+		<div class="content-center">
 			<div class="relative not-prose first:mt-0 last:mb-0 rounded-lg overflow-hidden">
 				<div
 					class="h-[20em] bg-cover bg-center bg-no-repeat"
 					style="background-image: url('/assets/images/posts/{{imageUrl}}')"></div>
 				<div class="absolute inset-0 rounded-lg ring-1 ring-inset ring-slate-900/10"></div>
 			</div>
+
+			<nav id="inlineToc">
+				<h2 class="text-2xl pt-2">Contents</h2>
+				<div class="text-xl">{{ content | toc | safe }}</div>
+			</nav>
+
+			<hr class="my-4" />
+
+			<div>{{ content | safe }}</div>
+
+			{%- set relatedPosts = collections.posts | filterByTags(contentTags) | excludeFromCollection(page.url) -%}
+			{% if relatedPosts.length %}
+
+			<div class="mt-12">
+				<div class="section-separator"></div>
+				<h3>Related posts</h3>
+				<ul class="list-none m-0">
+					{%- for post in relatedPosts | limit(6) -%}
+					<li class="hover:scale-105 transition">
+						{{ PostComponent({ horizontal: true, post: { url: post.url, name: post.data.pageTitle,
+						description: post.data.description, tags: post.data.contentTags, date: post.data.date, imageUrl:
+						post.data.imageUrl } }) }}
+					</li>
+					{%- endfor -%}
+				</ul>
+			</div>
+			{% endif %}
 		</div>
-
-		<nav id="inlineToc">
-			<h2 class="text-2xl pt-2">Contents</h2>
-			<div class="text-xl">{{ content | toc | safe }}</div>
-		</nav>
-
-		<hr class="my-4" />
-
-		<div>{{ content | safe }}</div>
-	</article>
-
-	{% endblock %} {%- set relatedPosts = collections.posts | filterByTags(contentTags) |
-	excludeFromCollection(page.url) -%} {% if relatedPosts.length %}
-
-	<div class="mt-12">
-		<div class="section-separator"></div>
-		<h3>Related posts</h3>
-		<ul class="list-none m-0">
-			{%- for post in relatedPosts | limit(6) -%}
-			<li class="hover:scale-105 transition">
-				{{ PostComponent({ horizontal: true, post: { url: post.url, name: post.data.pageTitle, description:
-				post.data.description, tags: post.data.contentTags, date: post.data.date, imageUrl: post.data.imageUrl }
-				}) }}
-			</li>
-			{%- endfor -%}
-		</ul>
 	</div>
-	{% endif %}
-</div>
+</article>
+
+{% endblock %}
