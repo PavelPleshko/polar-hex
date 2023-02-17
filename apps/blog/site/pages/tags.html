@@ -4,16 +4,23 @@ layout: contentPage
 permalink: /tags/index.html
 ---
 
-{% from 'components/tags/tag.macro.html' import Tag %} {% block content %} {% layoutblock 'pageTitle' %} Tags {%
-endlayoutblock %} {%- layoutblock 'pageSubtitle' -%} Browse all the tags present on the website{%- endlayoutblock -%}
+{% from 'components/tags/tag.macro.html' import Tag %}
+
+{% block content %}
+	{% layoutblock 'pageTitle' %} Tags {%endlayoutblock %}
+	{%- layoutblock 'pageSubtitle' -%} Find the content you are looking for easily {%- endlayoutblock -%}
 
 <div class="max-w-3xl mx-auto pb-20">
 	<div class="flex flex-col text-xl">
 		<div class="flex flex-row">
-			{% for tag in collections.tagList %} {% set tagContent %}
-			<span class="mr-2">#{{ tag.title }}</span> <b>({{ tag.totalItems }})</b>
-			{% endset %} {{ Tag({href: '/posts/tags/' + tag.slug, content: tagContent}) }} {% endfor %}
+			{% for tag in collections.tagList %}
+				{% set tagContent %}
+					<span class="mr-2">#{{ tag.title }}</span> <b>({{ tag.totalItems }})</b>
+				{% endset %}
+				{{ Tag({href: '/posts/tags/' + tag.slug, content: tagContent}) }}
+			{% endfor %}
 		</div>
 	</div>
 </div>
+
 {% endblock %}

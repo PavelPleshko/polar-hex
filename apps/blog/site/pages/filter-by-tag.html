@@ -11,27 +11,29 @@ paginationNextText: 'Older posts'
 paginationAnchor: '#post-list'
 ---
 
-{% from 'components/pagination/pagination-controls.macro.html' import Pagination %} {% block content %} {% layoutblock
-'pageTitle' %} Posts by tag: <i>{{ currentTag.title }}</i>
-{% endlayoutblock %} {%- layoutblock 'pageSubtitle' -%} Check out the latest posts on web development {%- endlayoutblock
--%}
+{% from 'components/pagination/pagination-controls.macro.html' import Pagination %}
 
-<div class="content-center content-center--wide">
-	<div class="py-6">
-		<div class="flex flex-col justify-center items-center" id="post-list">
-			{% set posts = currentTag.items %} {% include 'partials/post-list.html' %}
+{% block content %}
+	{% layoutblock 'pageTitle' %}<i>{{ currentTag.title }}</i>{% endlayoutblock %}
+	{%- layoutblock 'pageSubtitle' -%}  {%- endlayoutblock -%}
+
+	<div class="content-center content-center--wide">
+		<div class="py-6">
+			<div class="flex flex-col justify-center items-center" id="post-list">
+				{% set posts = currentTag.items %}
+				{% include 'partials/post-list.html' %}
+			</div>
 		</div>
+
+		{% if currentTag.hrefs.next or currentTag.hrefs.previous %}
+		<footer class="text-center">
+			<div class="flex justify-center mt-2">
+				<nav aria-label="Pagination links">
+					{{ Pagination({ totalPages: currentTag.totalPages, hrefs: currentTag.hrefs, pageAnchor:
+					paginationAnchor, pageNumber: currentTag.currentPage, baseHref: '/posts/tags/' }) }}
+				</nav>
+			</div>
+		</footer>
+		{% endif %}
 	</div>
-
-	{% if currentTag.hrefs.next or currentTag.hrefs.previous %}
-	<footer class="text-center">
-		<div class="flex justify-center mt-2">
-			<nav aria-label="Pagination links">
-				{{ Pagination({ totalPages: currentTag.totalPages, hrefs: currentTag.hrefs, pageAnchor:
-				paginationAnchor, pageNumber: currentTag.currentPage, baseHref: '/posts/tags/' }) }}
-			</nav>
-		</div>
-	</footer>
-	{% endif %}
-</div>
 {% endblock %}

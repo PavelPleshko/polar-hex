@@ -2,6 +2,7 @@
 @import './utils.css';
 
 @import './navigation.css';
+@import './pages/post.css';
 
 @tailwind base;
 

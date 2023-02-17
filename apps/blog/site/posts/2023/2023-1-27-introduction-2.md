@@ -16,6 +16,8 @@ I am a frontend engineer who is very passionate about web development and modern
 My goal is to spread knowledge that I have accumulated throughout my career
 and just to have fun along the way.
 
+### What is going on here
+
 ## What to expect from this blog?
 
 Here you can find a lot of material on different topics of frontend development including

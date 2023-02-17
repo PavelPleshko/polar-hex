@@ -4,7 +4,7 @@ const pluginNavigation = require('@11ty/eleventy-navigation');
 const markdownIt = require('markdown-it');
 const markdownItEmoji = require('markdown-it-emoji');
 const markdownItAnchor = require('markdown-it-anchor');
-const pluginTOC = require('eleventy-plugin-nesting-toc');
+const pluginTOC = require('eleventy-plugin-toc');
 
 const customFilters = require('./utils/filters.js');
 const tagsCollection = require('./utils/collections/tags');
@@ -18,9 +18,10 @@ const MAX_ENTRIES_PER_PAGE = 9;
 module.exports = function (eleventyConfig) {
 	// https://github.com/JordanShurmer/eleventy-plugin-toc#readme
 	eleventyConfig.addPlugin(pluginTOC, {
-		tags: ['h2', 'h3'],
+		tags: ['h2', 'h3', 'h4'],
 		wrapper: 'div',
-		wrapperClass: '',
+		ul: true,
+		flat: false,
 	});
 
 	eleventyConfig.setBrowserSyncConfig({
