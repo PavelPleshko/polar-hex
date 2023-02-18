@@ -1,8 +1,9 @@
 ---
-pageTitle: Introduction
+pageTitle: Launch of the blog
 description: Welcome everyone to **Polar Hex blog**! This is the first and intro entry on this blog
     so let's get to know each other :)
-imageUrl: /introduction/hero.svg
+imageUrl: /launch/feature.jpg
+imageCaption: '<a href="https://www.freepik.com/free-vector/rocket-mars-landscape-scene_5019388.htm#query=rocket&position=9&from_view=search&track=sph">Image by brgfx</a> on Freepik'
 date: 2023-01-26
 contentTags: ['web development', 'programming']
 draft: true

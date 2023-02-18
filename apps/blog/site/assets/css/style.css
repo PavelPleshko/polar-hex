@@ -12,7 +12,7 @@ h3,
 h4,
 h5,
 h6 {
-	@apply font-semibold text-gray-700;
+	@apply font-semibold text-normal;
 }
 
 h1 {
@@ -39,11 +39,11 @@ p a,
 li a,
 blockquote a,
 dd a {
-	@apply font-medium text-indigo-700;
+	@apply font-medium text-accent;
 }
 
 p {
-	@apply mt-4;
+	@apply mt-3;
 }
 
 .wrapper > p:first-of-type {

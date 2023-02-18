@@ -5,36 +5,36 @@
 	<div
 	class="post-card
 	flex {{ 'flex-row' if horizontal else 'flex-col' }}  flex-grow
-	bg-white border border-gray-200 rounded-lg shadow-md">
+	bg-white border border-gray-200 rounded-lg shadow-md text-left">
 	<div class="w-full p-5 relative">
 		{% if postData.content %}
-			<div class="absolute right-7 top-7 rounded text-sm p-1 bg-indigo-100 text-indigo-700">
+			<div class="absolute right-7 top-7 rounded text-xs p-1 bg-indigo-100 text-accent">
 				{% set readTime = postData.content | md | readingTime %}
 				<span class="font-semibold">{{ readTime }}</span> min read
 			</div>
 		{% endif %}
 		<a href="{{ postData.url }}">
 			<div
-				class="post-card-image h-full py-12 sm:py-28 bg-cover bg-center bg-no-repeat border rounded"
+				class="h-full py-12 sm:py-28 bg-cover bg-center bg-no-repeat border rounded"
 				style="background-image: url('{{'/assets/images/posts' + postData.imageUrl}}')">
 			</div>
 		</a>
 	</div>
 	<div
 		class="p-5 h-full flex
-		{{ 'flex-row' if horizontal else 'flex-col' }}
+		{{ 'flex-row pl-0' if horizontal else 'flex-col pt-0' }}
 		 justify-between">
 		<div>
 			{% if postData.date %}
-				<div class="text-slate-400 font-bold text-xs">
+				<div class="text-faded font-bold text-xs">
 					Published on <time class="font-normal">{{ postData.date | readableDate }}</time>
 				</div>
 			{% endif %}
 
 			<a class="mb-0" href="{{ postData.url }}">
-				<h5 class="text-2xl font-bold tracking-tight text-gray-900">{{ postData.name }}</h5>
+				<h5 class="text-2xl font-bold tracking-tight">{{ postData.name }}</h5>
 			</a>
-			<div class="mb-3 font-normal text-sm text-gray-500">
+			<div class="mb-3 font-normal text-sm text-dark">
 				{{ postData.description | md | truncate(160) | safe }}
 			</div>
 
@@ -42,7 +42,7 @@
 
 			<div class="flex justify-end">
 				<a  href="{{ postData.url }}"
-					class="inline-flex items-center px-3 py-2 text-2sm text-center text-indigo-700 hover:bg-indigo-100 rounded-lg focus:ring-4 focus:outline-none focus:ring-blue-300">
+					class="inline-flex items-center px-3 py-2 text-2sm text-center text-accent hover:bg-indigo-100 rounded-lg focus:ring-4 focus:outline-none focus:ring-blue-300">
 					Read more
 					<svg
 						aria-hidden="true"

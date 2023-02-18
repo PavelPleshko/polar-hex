@@ -1,6 +1,6 @@
 {%- macro Pagination(params) -%}
 
-	{% set buttonClasses = 'inline-flex items-center px-4 py-2 mr-3 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 hover:text-gray-700' %}
+	{% set buttonClasses = 'inline-flex items-center px-4 py-2 mr-3 text-sm font-medium text-dark bg-white border border-gray-300 rounded-lg hover:bg-gray-100 hover:text-gray-700' %}
 	{% set disabledButtonClasses = 'pointer-events-none opacity-70' %}
 
 	{% if params.totalPages > 1 %}
@@ -40,7 +40,7 @@
 				{% endif %}
 			</div>
 
-			<div class="text-sm text-gray-700 ml-3 mr-6">
+			<div class="text-sm text-dark ml-3 mr-6">
 				Page {{ (params.pageNumber + 1) or 0 }} of {{ params.totalPages }}
 			</div>
 
