@@ -1,0 +1,20 @@
+{% from 'components/posts/post.macro.html' import PostComponent %}
+
+<ul class="list-none flex pl-0 space-x-2 md:space-x-8 w-full">
+	{% for post in posts %}
+
+		<li class="w-1/3 flex flex-col hover:scale-105 transition">
+			{{ PostComponent({
+				post: {
+					url: post.url,
+					name: post.data.pageTitle,
+					description: post.data.description,
+					tags: post.data.contentTags,
+					date: post.data.date,
+					imageUrl: post.data.imageUrl,
+					content: post.templateContent
+				}
+			}) }}
+		</li>
+	{% endfor %}
+</ul>

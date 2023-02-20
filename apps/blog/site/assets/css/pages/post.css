@@ -1,0 +1,8 @@
+.toc,
+.toc a {
+	@apply text-indigo-500 tracking-wide hover:text-indigo-700;
+}
+
+.toc ul:not(:first-child) {
+	padding: 0;
+}

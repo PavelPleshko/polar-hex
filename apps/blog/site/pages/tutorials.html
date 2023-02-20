@@ -1,0 +1,21 @@
+---
+title: Posts
+layout: contentPage
+permalink: /tutorials/index.html
+---
+
+{% block content %} {% layoutblock 'pageTitle' %} Tutorials {% endlayoutblock %} {%- layoutblock 'pageSubtitle' -%} A
+collection of "How to" articles {%- endlayoutblock -%}
+
+<div class="py-6">
+	<div class="flex flex-col justify-center items-center">
+		{% if collections.tutorials.length %} {% else %}
+		<div class="text-center">
+			<h2 class="font-bold">Nothing to show</h2>
+			<p class="text-dark">There is no material published yet. We are working on it. Come back later!</p>
+		</div>
+		{% endif %}
+	</div>
+</div>
+
+{% endblock %}

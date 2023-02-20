@@ -1,0 +1,35 @@
+---
+title: Posts
+layout: contentPage
+pagination:
+    data: collections.posts
+    size: 9
+permalink: '/posts{% if pagination.pageNumber > 0 %}/{{ pagination.pageNumber + 1 }}{% endif %}/index.html'
+paginationPrevText: 'Newer posts'
+paginationNextText: 'Older posts'
+paginationAnchor: '#post-list'
+---
+
+{% from 'components/pagination/pagination-controls.macro.html' import Pagination %} {% block content %} {% layoutblock
+'pageTitle' %} Articles {% endlayoutblock %} {%- layoutblock 'pageSubtitle' -%} Check out the latest posts on web
+development {%- endlayoutblock -%}
+
+<div class="content-center content-center--wide">
+	<div class="py-6">
+		<div class="flex flex-col justify-center items-center" id="post-list">
+			{% set posts = pagination.items %} {% include 'partials/post-list.html' %}
+		</div>
+	</div>
+
+	{% if pagination.href.next or pagination.href.previous %}
+	<footer class="text-center">
+		<div class="flex justify-center mt-2">
+			<nav aria-label="Pagination links">
+				{{ Pagination({ totalPages: pagination.pages.length, hrefs: pagination.href, pageAnchor:
+				paginationAnchor, pageNumber: pagination.pageNumber }) }}
+			</nav>
+		</div>
+	</footer>
+	{% endif %}
+</div>
+{% endblock %}

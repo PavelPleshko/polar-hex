@@ -3,8 +3,11 @@
 	"description": "Polar hex blog",
 	"version": "0.1.0",
 	"private": true,
+	"main": "site/index.html",
+	"type": "commonjs",
 	"scripts": {
-		"build": "eleventy --input=./src --output=../../dist/apps/blog",
-		"serve": "eleventy --serve --input=./src --output=../../dist/apps/blog"
+		"build": "eleventy",
+		"serve": "eleventy --serve",
+		"dev:tailwind": "tailwindcss -i site/assets/css/style.css -o ../../dist/apps/blog/assets/css/style.css --watch"
 	}
 }

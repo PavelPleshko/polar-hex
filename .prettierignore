@@ -1,0 +1,3 @@
+# since there no plugins that format well nunjucks/html mixed syntax,
+# its better to avoid automatic formatting
+/apps/blog/**/*.html

@@ -1,0 +1,7 @@
+.content-center {
+	@apply max-w-3xl mx-auto pb-20;
+}
+
+.content-center--wide {
+	@apply max-w-6xl;
+}
