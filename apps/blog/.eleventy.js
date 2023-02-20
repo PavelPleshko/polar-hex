@@ -6,6 +6,7 @@ const markdownItEmoji = require('markdown-it-emoji');
 const markdownItAnchor = require('markdown-it-anchor');
 const pluginTOC = require('eleventy-plugin-toc');
 
+const codeHighlight = require('./utils/markdown/code-highlight');
 const customFilters = require('./utils/filters.js');
 const tagsCollection = require('./utils/collections/tags');
 const writingCollection = require('./utils/collections/writing-entity');
@@ -66,12 +67,17 @@ module.exports = function (eleventyConfig) {
 	 */
 	const markdownLib = markdownIt({
 		html: true,
-		breaks: true,
+		breaks: false,
 		linkify: true,
 		typographer: true,
+		highlight: (str, lang) => codeHighlight.highlighter(markdownLib, str, lang),
 	})
 		.use(markdownItAnchor)
-		.use(markdownItEmoji);
+		.use(markdownItEmoji)
+		.use(codeHighlight.preWrapperPlugin)
+		.use(codeHighlight.lineNumberPlugin)
+		.disable('code');
+
 	eleventyConfig.setLibrary('md', markdownLib);
 
 	eleventyConfig.addFilter('md', value => {
@@ -143,6 +149,7 @@ module.exports = function (eleventyConfig) {
 	eleventyConfig.addWatchTarget('./tailwind.config.js');
 
 	eleventyConfig.addPassthroughCopy('./site/assets/images/**/*');
+	eleventyConfig.addPassthroughCopy('./site/assets/fonts/**/*');
 
 	return {
 		// TODO maybe there is a NX executor for this

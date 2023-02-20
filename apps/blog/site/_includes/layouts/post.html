@@ -63,7 +63,7 @@ layout: page
         </div>
         <div class="content-center">
 
-            <div>{{ content | safe }}</div>
+            <div class="leading-loose">{{ content | safe }}</div>
 
             {%- set relatedPosts = collections.posts | filterByTags(contentTags) | excludeFromCollection(page.url) -%}
             {% if relatedPosts.length %}
