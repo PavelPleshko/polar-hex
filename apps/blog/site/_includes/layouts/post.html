@@ -1,0 +1,110 @@
+---
+layout: page
+---
+
+{% from 'components/posts/post.macro.html' import PostComponent %} {% block content %}
+
+<article>
+    <div class="border-b py-16 bg-surface--dark bg-surface-border--dark">
+        <div class="content-center p-0">
+            <div class="inline-flex mb-3 mb-3 text-sm text-accent font-semibold">
+                {% if date %}
+                    <div>Published on <b>{{ date | readableDate }}</b></div>
+                    <div aria-hidden="true" class="mx-2">·</div>
+                {% endif %}
+                <div>
+                    {% set readTime = content | md | readingTime %}
+                    {% if readTime > 1 %}
+                        {{ readTime }} minutes
+                    {% else %}
+                        less than a minute
+                    {% endif %}
+                    read
+                </div>
+            </div>
+            <h1 class="text-5xl md:text-5xl tracking-wide">
+                {{ pageTitle }}
+            </h1>
+            <div class="inline-flex my-2">
+                {% set tags = contentTags %}
+                {% include 'partials/tags.html' %}
+            </div>
+            <div class="text-dark text-xl italic tracking-wide">{{ description | md | safe }}</div>
+
+            <div class="section-separator"></div>
+
+            <div class="flex my-2 items-center flex-col">
+                <span class="font-semibold text-xl mb-1">Share this post</span>
+                {% include 'partials/post-share.html' %}
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-20 relative">
+        <div class="flex px-8 absolute">
+            <a class="group flex font-semibold text-2sm leading-6" href="/posts">
+                <svg
+                        viewBox="0 -9 3 24"
+                        class="overflow-visible mr-3 w-auto h-6">
+                    <path d="M3 0L0 3L3 6"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"></path>
+                </svg>
+                Back to all posts
+            </a>
+        </div>
+        <div class="max-w-6xl mx-auto">
+            <div class="relative rounded-lg overflow-hidden">
+                <img class="w-full"
+                        src="/assets/images/posts/{{imageUrl}}">
+                <div class="absolute inset-0 rounded-lg ring-1 ring-inset ring-slate-900/10"></div>
+            </div>
+            {% if imageCaption %}
+                <div class="text-center text-faded text-sm italic mt-1">
+                    {{ imageCaption | safe }}
+                </div>
+            {% endif %}
+        </div>
+        <div class="content-center">
+
+            <div class="leading-loose">{{ content | safe }}</div>
+
+            <div class="flex mt-4 items-center flex-col">
+                <span class="font-semibold text-xl mb-1">If you liked this post - please share it with others</span>
+                {% include 'partials/post-share.html' %}
+            </div>
+
+            {%- set relatedPosts = collections.posts | filterByTags(contentTags) | excludeFromCollection(page.url) -%}
+            {% if relatedPosts.length %}
+
+            <div class="mt-12">
+                <div class="section-separator"></div>
+                <h3>Related posts</h3>
+                <ul class="list-none m-0">
+                    {%- for post in relatedPosts | limit(6) -%}
+                    <li class="hover:scale-105 transition">
+                        {{ PostComponent({
+                            horizontal: true,
+                            post: {
+                                url: post.url,
+                                name: post.data.pageTitle,
+                                description: post.data.description,
+                                tags: post.data.contentTags,
+                                date: post.data.date,
+                                imageUrl: post.data.imageUrl,
+                                content: post.templateContent
+                            }
+                        }) }}
+                    </li>
+                    {%- endfor -%}
+                </ul>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</article>
+
+{% endblock %}

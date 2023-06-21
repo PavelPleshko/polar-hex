@@ -1,0 +1,46 @@
+---
+title:
+layout: page
+permalink: /404.html
+eleventyExcludeFromCollections: true
+seo:
+---
+
+<div class="bg-slate-50 h-screen">
+	<div class="content-center pt-24 text-center">
+		<h1 class="mb-8 font-extrabold text-7xl text-accent--light">
+			<span class="sr-only">Error</span>{...Not found}
+		</h1>
+
+		<div class="text-2xl text-dark">
+			The page you're looking for doesn't currently exist on this website. Perhaps you followed an old or bad
+			link?
+		</div>
+
+		<div class="mt-10">Here are some recent publications. Maybe one of these will help you along your way?</div>
+
+		{% set posts = collections.posts | limit(5) %}
+		{% from 'components/posts/post.macro.html' import PostComponent %}
+
+		<ul class="list-none w-full">
+			{% for post in posts %}
+
+				<li class="mb-4 hover:scale-105 transition">
+					{{ PostComponent({
+					horizontal: true,
+					post: {
+					url: post.url,
+					name: post.data.pageTitle,
+					description: post.data.description,
+					tags: post.data.contentTags,
+					date: post.data.date,
+					imageUrl: post.data.imageUrl,
+					content: post.templateContent
+					}
+					}) }}
+			</li>
+			{% endfor %}
+		</ul>
+
+	</div>
+</div>

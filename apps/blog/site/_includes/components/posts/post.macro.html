@@ -1,0 +1,63 @@
+{%- macro PostComponent(params) -%}
+	{% set postData = params.post %}
+	{% set horizontal = params.horizontal %}
+	{% set DEFAULT_IMAGE_URL = 'https://via.placeholder.com/350' %}
+	<div
+	class="post-card
+	flex {{ 'flex-row' if horizontal else 'flex-col' }}  flex-grow
+	bg-surface--light border border-gray-200 rounded-lg shadow-md text-left">
+	<div class="w-full p-5 relative">
+		{% if postData.content %}
+			<div class="absolute right-7 top-7 rounded text-xs p-1 bg-indigo-100 text-accent">
+				{% set readTime = postData.content | md | readingTime %}
+				<span class="font-semibold">{{ readTime }}</span> min read
+			</div>
+		{% endif %}
+		<a href="{{ postData.url }}">
+			<div
+				class="h-full py-12 sm:py-28 bg-cover bg-center bg-no-repeat border rounded"
+				style="background-image: url('{{'/assets/images/posts' + postData.imageUrl}}')">
+			</div>
+		</a>
+	</div>
+	<div
+		class="p-5 h-full flex
+		{{ 'flex-row pl-0' if horizontal else 'flex-col pt-0' }}
+		 justify-between">
+		<div>
+			{% if postData.date %}
+				<div class="text-faded font-bold text-xs">
+					Published on <time class="font-normal">{{ postData.date | readableDate }}</time>
+				</div>
+			{% endif %}
+
+			<a class="mb-0" href="{{ postData.url }}">
+				<h5 class="text-2xl font-bold tracking-tight">{{ postData.name }}</h5>
+			</a>
+			<div class="mb-3 font-normal text-sm text-dark">
+				{{ postData.description | md | truncate(160) | safe }}
+			</div>
+
+			<div class="inline-flex mb-2">{% set tags = postData.tags %} {% include 'partials/tags.html' %}</div>
+
+			<div class="flex justify-end">
+				<a  href="{{ postData.url }}"
+					class="inline-flex items-center px-3 py-2 text-2sm text-center text-accent hover:bg-indigo-100 rounded-lg focus:ring-4 focus:outline-none focus:ring-blue-300">
+					Read more
+					<svg
+						aria-hidden="true"
+						class="w-4 h-4 ml-2 -mr-1"
+						fill="currentColor"
+						viewBox="0 0 20 20"
+						xmlns="http://www.w3.org/2000/svg">
+						<path
+							fill-rule="evenodd"
+							d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+							clip-rule="evenodd"></path>
+					</svg>
+				</a>
+			</div>
+		</div>
+	</div>
+</div>
+{%- endmacro -%}

@@ -1,0 +1,128 @@
+@import 'prismjs/themes/prism-tomorrow.css';
+
+@import './layout.css';
+@import './utils.css';
+
+@import './navigation.css';
+@import './pages/post.css';
+
+@tailwind base;
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	@apply font-semibold text-normal;
+}
+
+h1 {
+	@apply text-4xl;
+}
+
+h2 {
+	@apply pt-12 text-3xl;
+}
+
+h3 {
+	@apply pt-8 text-2xl;
+}
+
+h4 {
+	@apply pt-4 mb-2 text-xl;
+}
+
+h5 {
+	@apply text-lg;
+}
+
+p a,
+li a,
+blockquote a,
+dd a {
+	@apply font-medium text-accent;
+}
+
+p {
+	@apply mt-3;
+}
+
+.wrapper > p:first-of-type {
+	@apply p-0 m-0;
+}
+
+ol {
+	@apply pt-4 ml-8 list-decimal;
+}
+
+ul {
+	@apply pt-4 ml-8 list-disc;
+}
+
+blockquote {
+	@apply pl-4 m-4 border-l-4 border-gray-500;
+}
+
+code {
+	@apply p-1 text-sm bg-gray-200 border border-gray-300 rounded-lg;
+}
+
+pre code {
+	@apply bg-transparent border-0 rounded-none;
+}
+
+@tailwind components;
+
+@tailwind utilities;
+
+@font-face {
+	font-family: JetBrains;
+	src: url('/assets/fonts/JetBrainsSans-Regular.woff');
+}
+
+@font-face {
+	font-family: JetBrains;
+	font-weight: bold;
+	src: url('/assets/fonts/JetBrainsSans-SemiBold.woff');
+}
+
+body {
+	min-width: 100vw;
+	min-height: 100vh;
+	font-family: JetBrains, Arial, Helvetica Neue, Helvetica, sans-serif;
+}
+
+.line-numbers-wrapper {
+	position: absolute;
+	top: 0;
+	left: 0;
+
+	/* mirror the prism padding and line-height to vertical align numbers with the text */
+	padding-top: 1em;
+	padding-left: 0.25em;
+	background: #2d2d2d;
+
+	/* mirror the colors from prism-tomorrow theme */
+	color: #ccc;
+	line-height: 1.5;
+	text-align: right;
+}
+
+div[class*='language-'].line-numbers-mode {
+	position: relative;
+}
+
+div[class*='language-'].line-numbers-mode pre[class*='language-'] {
+	margin-top: 0;
+	margin-bottom: 0;
+	padding-left: calc(2.2em + 1.2rem);
+}
+
+.social-share-btn {
+	@apply ml-2 mt-1 p-2 text-2xl bg-neutral-border rounded text-dark hover:text-indigo-700 hover:bg-indigo-100;
+}
+
+.social-share-btn[data-copied] {
+	@apply text-accent;
+}

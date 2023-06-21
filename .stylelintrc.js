@@ -19,10 +19,11 @@ module.exports = {
 
 		'scss/at-else-closing-brace-newline-after': ['always-last-in-chain', { severity: 'warning' }],
 		'scss/at-if-closing-brace-newline-after': ['always-last-in-chain', { severity: 'warning' }],
-		'scss/at-rule-no-unknown': [true, { severity: 'error' }],
+		'scss/at-rule-no-unknown': [true, { severity: 'error', ignoreAtRules: ['tailwind'] }],
 		'scss/comment-no-empty': [true, { severity: 'warning' }],
 		'scss/dollar-variable-colon-space-after': ['always', { severity: 'warning' }],
 		'scss/selector-no-redundant-nesting-selector': [true, { severity: 'error' }],
 		'no-empty-source': null,
+		'selector-class-pattern': null,
 	},
 };

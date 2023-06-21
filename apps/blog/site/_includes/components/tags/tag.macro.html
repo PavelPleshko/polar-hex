@@ -1,0 +1,9 @@
+{%- macro Tag(params) -%}
+
+<a
+	href="{{ params.href }}"
+	class="mr-2 mb-1 text-xs inline-flex tracking-normal items-center font-bold px-2 py-1 bg-neutral bg-neutral-border rounded-full">
+	{{ params.content | safe }}
+</a>
+
+{% endmacro %}
