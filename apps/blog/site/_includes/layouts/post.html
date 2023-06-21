@@ -5,7 +5,7 @@ layout: page
 {% from 'components/posts/post.macro.html' import PostComponent %} {% block content %}
 
 <article>
-    <div class="border-b border-slate-200 py-16 bg-slate-100">
+    <div class="border-b py-16 bg-surface--dark bg-surface-border--dark">
         <div class="content-center p-0">
             <div class="inline-flex mb-3 mb-3 text-sm text-accent font-semibold">
                 {% if date %}
@@ -30,6 +30,13 @@ layout: page
                 {% include 'partials/tags.html' %}
             </div>
             <div class="text-dark text-xl italic tracking-wide">{{ description | md | safe }}</div>
+
+            <div class="section-separator"></div>
+
+            <div class="flex my-2 items-center flex-col">
+                <span class="font-semibold text-xl mb-1">Share this post</span>
+                {% include 'partials/post-share.html' %}
+            </div>
         </div>
     </div>
 
@@ -64,6 +71,11 @@ layout: page
         <div class="content-center">
 
             <div class="leading-loose">{{ content | safe }}</div>
+
+            <div class="flex mt-4 items-center flex-col">
+                <span class="font-semibold text-xl mb-1">If you liked this post - please share it with others</span>
+                {% include 'partials/post-share.html' %}
+            </div>
 
             {%- set relatedPosts = collections.posts | filterByTags(contentTags) | excludeFromCollection(page.url) -%}
             {% if relatedPosts.length %}

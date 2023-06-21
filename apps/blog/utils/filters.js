@@ -2,6 +2,8 @@ const { DateTime } = require('luxon');
 const lodash = require('lodash');
 const slugify = require('./generic/slugify');
 
+const site = require('../_data/site');
+
 module.exports = {
 	limit: (arr, count = 5) => {
 		return (arr || []).slice(0, count);
@@ -42,5 +44,19 @@ module.exports = {
 
 	pluckProperty: (arr, propertyName = '') => {
 		return arr.map(item => item[propertyName]);
+	},
+
+	URIencode: str => {
+		if (!str) {
+			return '';
+		}
+		return encodeURI(str);
+	},
+
+	toAbsoluteUrl: url => {
+		if (!url || url === '/') {
+			return new URL(site.baseUrl).href;
+		}
+		return new URL(url, site.baseUrl).href;
 	},
 };

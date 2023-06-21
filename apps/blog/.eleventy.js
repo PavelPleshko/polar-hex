@@ -31,7 +31,7 @@ module.exports = function (eleventyConfig) {
 				bs.addMiddleware('*', (req, res) => {
 					if (!fs.existsSync(NOT_FOUND_PATH)) {
 						throw new Error(
-							`Expected a \`${NOT_FOUND_PATH}\` file but could not find one. Did you create a 404.html template?`
+							`Expected a "${NOT_FOUND_PATH}" file but could not find one. Did you create a 404.html template?`
 						);
 					}
 

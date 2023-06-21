@@ -11,6 +11,14 @@
 				"tsConfig": "apps/blog/tsconfig.json",
 				"main": "apps/blog/src/index.ts"
 			}
+		},
+		"dev": {
+			"executor": "nx:run-commands",
+			"options": {
+				"commands": ["npm run dev:tailwind", "npm run serve"],
+				"cwd": "apps/blog",
+				"parallel": true
+			}
 		}
 	},
 	"tags": []

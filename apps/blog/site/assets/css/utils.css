@@ -24,7 +24,76 @@
 	@apply text-indigo-500;
 }
 
+.text-inverse {
+	@apply text-white;
+}
+
+/* background styles */
+
+.bg-surface {
+	@apply bg-slate-50;
+}
+
+.bg-surface--dark {
+	@apply bg-slate-100;
+}
+
+.bg-surface-border--dark {
+	@apply border-slate-300;
+}
+
+.bg-surface--light {
+	@apply bg-white;
+}
+
+.bg-neutral {
+	@apply bg-slate-200 text-normal;
+}
+
+.bg-neutral--light {
+	@apply bg-slate-100 text-normal;
+}
+
+.bg-neutral--dark {
+	@apply bg-slate-400 text-normal;
+}
+
+.bg-neutral-border {
+	@apply border border-slate-300;
+}
+
+.bg-neutral-border--dark {
+	@apply border-slate-500;
+}
+
+.bg-primary {
+	@apply bg-indigo-600 text-inverse;
+}
+
+.bg-primary--dark {
+	@apply bg-indigo-800 text-inverse;
+}
+
+.bg-primary--light {
+	@apply bg-indigo-200 text-normal;
+}
+
+.bg-primary--lightest {
+	@apply bg-indigo-50 text-normal;
+}
+
+/**
+ * interactive elements
+ */
 a,
 button.text-accent {
 	@apply text-indigo-500 hover:text-indigo-700;
+}
+
+.btn-primary {
+	@apply bg-primary border border-indigo-700;
+}
+
+.btn-primary:hover {
+	@apply bg-primary--dark;
 }

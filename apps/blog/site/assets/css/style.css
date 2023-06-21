@@ -118,3 +118,11 @@ div[class*='language-'].line-numbers-mode pre[class*='language-'] {
 	margin-bottom: 0;
 	padding-left: calc(2.2em + 1.2rem);
 }
+
+.social-share-btn {
+	@apply ml-2 mt-1 p-2 text-2xl bg-neutral-border rounded text-dark hover:text-indigo-700 hover:bg-indigo-100;
+}
+
+.social-share-btn[data-copied] {
+	@apply text-accent;
+}
