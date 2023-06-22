@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.4.1](https://github.com/PavelPleshko/polar-hex/compare/@yeti-design/components-demo@0.4.0...@yeti-design/components-demo@0.4.1) (2023-06-22)
+
+**Note:** Version bump only for package @yeti-design/components-demo
+
 # [0.4.0](https://github.com/PavelPleshko/yeti-design/compare/@yeti-design/components-demo@0.3.0...@yeti-design/components-demo@0.4.0) (2023-01-13)
 
 ### Features
