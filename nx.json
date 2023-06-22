@@ -8,7 +8,7 @@
 		}
 	},
 	"defaultBase": "master",
-	"defaultProject": "yeti-design",
+	"defaultProject": "yeti-demo-app",
 	"targetDefaults": {
 		"test": {
 			"inputs": ["default", "^default", "{workspaceRoot}/jest.preset.js"]

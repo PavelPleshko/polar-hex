@@ -8,6 +8,7 @@
 	"scripts": {
 		"build": "eleventy",
 		"serve": "eleventy --serve",
-		"dev:tailwind": "tailwindcss -i site/assets/css/style.css -o ../../dist/apps/blog/assets/css/style.css --watch"
+		"dev:tailwind": "tailwindcss -i site/assets/css/style.css -o ../../dist/apps/blog/assets/css/style.css --watch",
+		"deploy": "gh-pages -d ../../dist/apps/blog -u GITHUB_PUBLISHER"
 	}
 }

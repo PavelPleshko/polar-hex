@@ -1,14 +1,14 @@
 {
-	"name": "yeti-design",
+	"name": "polar-hex",
 	"version": "0.0.0",
-	"description": "Design system for yeti brand",
+	"description": "Monorepo for 'polar hex'",
 	"main": "index.js",
 	"scripts": {
-		"demo-app:dev": "nx run yeti-demo-app:storybook",
-		"test": "nx affected:test",
+		"test": "nx affected:test --base=origin/main --head=HEAD",
 		"precommit": "lint-staged --relative --concurrent=false",
 		"prepare": "husky install",
 		"generate:blog-post": "npx hygen post with-prompt",
+		"demo-app:dev": "nx run yeti-demo-app:storybook",
 		"blog-app:dev": "nx run blog:dev"
 	},
 	"repository": {
@@ -16,8 +16,8 @@
 		"url": "git+https://github.com/PavelPleshko/yeti-design.git"
 	},
 	"keywords": [
-		"yeti",
 		"design",
+		"polar hex",
 		"components"
 	],
 	"private": true,
@@ -55,7 +55,6 @@
 		"@typescript-eslint/parser": "^5.46.1",
 		"babel-jest": "28.1.1",
 		"commitizen": "^4.2.6",
-		"concurrently": "^8.2.0",
 		"cypress": "^11.0.0",
 		"cz-conventional-changelog": "^3.3.0",
 		"eleventy-plugin-toc": "^1.1.5",
@@ -66,6 +65,7 @@
 		"eslint-plugin-import": "^2.26.0",
 		"eslint-plugin-jsdoc": "^39.6.4",
 		"extract-loader": "^5.1.0",
+		"gh-pages": "^5.0.0",
 		"husky": "^8.0.2",
 		"hygen": "^6.2.11",
 		"jest": "28.1.1",
@@ -79,7 +79,6 @@
 		"markdown-it-anchor": "^8.6.6",
 		"markdown-it-emoji": "^2.0.2",
 		"nx": "15.3.3",
-		"parallelshell": "^3.0.2",
 		"prettier": "^2.8.1",
 		"prismjs": "^1.29.0",
 		"rollup": "^3.10.0",
@@ -100,9 +99,6 @@
 		"typescript": "^4.9.4"
 	},
 	"license": "",
-	"nx": {
-		"targets": {}
-	},
 	"workspaces": [
 		"packages/**/*",
 		"apps/*"
