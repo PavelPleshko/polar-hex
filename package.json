@@ -4,13 +4,13 @@
 	"description": "Monorepo for 'polar hex'",
 	"main": "index.js",
 	"scripts": {
-		"test": "nx affected:test --base=origin/main --head=HEAD",
+		"test": "nx affected --target=test --base=origin/main --head=HEAD",
 		"precommit": "lint-staged --relative --concurrent=false",
 		"prepare": "husky install",
 		"generate:blog-post": "npx hygen post with-prompt",
 		"demo-app:dev": "nx run yeti-demo-app:storybook",
 		"blog-app:dev": "nx run blog:dev",
-		"deploy": "nx affected:deploy --base=origin/main --head=HEAD"
+		"deploy": "nx affected --target=deploy --base=origin/main --head=HEAD"
 	},
 	"repository": {
 		"type": "git",
