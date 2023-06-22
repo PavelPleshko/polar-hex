@@ -1,7 +1,7 @@
 {
-	"name": "yeti-design",
+	"name": "polar-hex",
 	"version": "0.0.0",
-	"description": "Design system for yeti brand",
+	"description": "Monorepo for 'polar hex'",
 	"main": "index.js",
 	"scripts": {
 		"test": "nx affected:test --base=origin/main --head=HEAD",
@@ -16,7 +16,6 @@
 		"url": "git+https://github.com/PavelPleshko/yeti-design.git"
 	},
 	"keywords": [
-		"yeti",
 		"design",
 		"polar hex",
 		"components"
@@ -100,9 +99,6 @@
 		"typescript": "^4.9.4"
 	},
 	"license": "",
-	"nx": {
-		"targets": {}
-	},
 	"workspaces": [
 		"packages/**/*",
 		"apps/*"
