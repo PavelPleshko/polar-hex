@@ -13,9 +13,8 @@ jobs:
                 node-version: [14.x]
         steps:
             - name: Checkout
-              uses: actions/checkout@v2
+              uses: actions/checkout@v3
               with:
-                  token: ${{ secrets.GH_TOKEN_SEMANTIC_RELEASE }}
                   fetch-depth: 0
 
             - name: Use Node.js ${{ matrix.node-version }}
@@ -29,7 +28,7 @@ jobs:
             - name: Publish
               run: |
                   git remote set-url origin https://git:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git
-                  nx affected:deploy
+                  npm run deploy
               env:
                   GITHUB_PUBLISHER: 'github-actions-bot <support+actions@github.com>'
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
