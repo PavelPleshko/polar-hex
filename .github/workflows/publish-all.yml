@@ -27,8 +27,9 @@ jobs:
 
             - name: Publish
               run: |
+                  git config user.name "GitHub Actions Bot"
+                  git config user.email "<>"
                   git remote set-url origin https://git:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git
                   npm run deploy
               env:
-                  GITHUB_PUBLISHER: 'github-actions-bot <support+actions@github.com>'
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
