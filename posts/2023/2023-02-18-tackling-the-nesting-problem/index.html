@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes" />
+		<title> | </title>
+		<link rel="stylesheet" href="/assets/css/style.css" />
+		<meta name="description" content="Pavel Pleshko. Personal blog about web development" />
+	</head>
+
+	<body class="flex flex-col">
+		<!--Cookie banner-->
+
+<header
+	class="sticky top-0 z-40 w-full backdrop-blur flex-none transition-colors duration-500 lg:z-50 lg:border-b lg:border-slate-900/10 bg-surface--light">
+	<nav class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
+		<div class="relative flex h-20 items-center justify-between">
+			<div class="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start h-full">
+				<div class="flex flex-shrink-0 items-center">
+					<a id="homeLink" href="/" class="h-full" aria-label="Home"> <div class="h-full p-2">
+	<img class="h-full" alt="Polar hex logo" src="/assets/images/logo.svg" />
+</div> </a>
+				</div>
+			</div>
+
+			<div class="sm:ml-6 sm:block">
+				<ul class="flex space-x-4 list-none p-0">
+					<li class="nav-item active">
+	<a href="/posts/">Posts</a>
+</li>
+
+<li class="nav-item">
+	<a href="/tutorials/">Tutorials</a>
+</li>
+
+<li class="nav-item">
+	<a href="/tags/">Tags</a>
+</li>
+
+<li class="nav-item">
+	<a href="/about/">About</a>
+</li>
+
+				</ul>
+			</div>
+		</div>
+	</nav>
+</header>
+
+
+		<main class="flex flex-col grow bg-surface"> 
+
+<div class="pb-24">
+ 
+
+<article>
+    <div class="border-b py-16 bg-surface--dark bg-surface-border--dark">
+        <div class="content-center p-0">
+            <div class="inline-flex mb-3 mb-3 text-sm text-accent font-semibold">
+                
+                    <div>Published on <b>18 Feb, 2023</b></div>
+                    <div aria-hidden="true" class="mx-2">·</div>
+                
+                <div>
+                    
+                    
+                        15 minutes
+                    
+                    read
+                </div>
+            </div>
+            <h1 class="text-5xl md:text-5xl tracking-wide">
+                Tackling the nesting problem
+            </h1>
+            <div class="inline-flex my-2">
+                
+                   <a
+	href="/posts/tags/refactoring"
+	class="mr-2 mb-1 text-xs inline-flex tracking-normal items-center font-bold px-2 py-1 bg-neutral bg-neutral-border rounded-full">
+	 #refactoring 
+</a>
+
+   <a
+	href="/posts/tags/coding-practices"
+	class="mr-2 mb-1 text-xs inline-flex tracking-normal items-center font-bold px-2 py-1 bg-neutral bg-neutral-border rounded-full">
+	 #coding practices 
+</a>
+
+ 
+
+            </div>
+            <div class="text-dark text-xl italic tracking-wide"><p>Deep nesting or too much indendation in the code leads to a lot of confusion when reading through already complex logic. This post will offer some common tips to deal with it.</p>
+</div>
+
+            <div class="section-separator"></div>
+
+            <div class="flex my-2 items-center flex-col">
+                <span class="font-semibold text-xl mb-1">Share this post</span>
+                <div class="flex flex-row">
+    <button onclick="copyPageURLToClipboard();" class="social-share-btn" id="post-url-share-btn" hidden>
+        <span class="sr-only">Share on: </span>
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" role="img" aria-label="Link">
+            <path d="M8.3335 10.8333C8.69138 11.3118 9.14796 11.7077 9.67229 11.9941C10.1966 12.2806 10.7764 12.4509 11.3724 12.4936C11.9683 12.5363 12.5665 12.4503 13.1263 12.2415C13.6861 12.0327 14.1944 11.7059 14.6168 11.2833L17.1168 8.78335C17.8758 7.9975 18.2958 6.94499 18.2863 5.85251C18.2768 4.76002 17.8386 3.71497 17.0661 2.94243C16.2935 2.1699 15.2485 1.7317 14.156 1.7222C13.0635 1.71271 12.011 2.13269 11.2252 2.89168L9.79183 4.31668M11.6668 9.16668C11.309 8.68824 10.8524 8.29236 10.328 8.0059C9.80371 7.71943 9.22391 7.54908 8.62796 7.5064C8.032 7.46372 7.43384 7.54971 6.87405 7.75853C6.31425 7.96735 5.8059 8.29412 5.3835 8.71668L2.8835 11.2167C2.12451 12.0025 1.70453 13.055 1.71402 14.1475C1.72352 15.24 2.16172 16.2851 2.93426 17.0576C3.70679 17.8301 4.75184 18.2683 5.84433 18.2778C6.93681 18.2873 7.98932 17.8673 8.77517 17.1083L10.2002 15.6833" stroke="currentColor" stroke-width="1.67" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+    </button>
+    <a class="social-share-btn" target="_blank" rel="noopener" href="https://twitter.com/intent/tweet?text=&url=https://polar-hex.github.io//posts/2023/2023-02-18-tackling-the-nesting-problem/">
+        <span class="sr-only">Share on: </span>
+        <svg width="20" height="20" viewBox="0 0 24 25" fill="none" role="img" aria-label="Twitter">
+            <path d="M24 4.70918C23.1 5.10918 22.2 5.40918 21.2 5.50918C22.2 4.90918 23 3.90918 23.4 2.80918C22.4 3.40918 21.4 3.80918 20.3 4.00918C19.4 3.00918 18.1 2.40918 16.7 2.40918C14 2.40918 11.8 4.60918 11.8 7.30918C11.8 7.70918 11.8 8.10918 11.9 8.40918C7.7 8.20918 4.1 6.20918 1.7 3.20918C1.2 4.00918 1 4.80918 1 5.70918C1 7.40918 1.9 8.90918 3.2 9.80918C2.4 9.80918 1.6 9.60918 1 9.20918C1 9.20918 1 9.20918 1 9.30918C1 11.7092 2.7 13.7092 4.9 14.1092C4.5 14.2092 4.1 14.3092 3.6 14.3092C3.3 14.3092 3 14.3092 2.7 14.2092C3.3 16.2092 5.1 17.6092 7.3 17.6092C5.6 18.9092 3.5 19.7092 1.2 19.7092C0.8 19.7092 0.4 19.7092 0 19.6092C2.2 21.0092 4.8 21.8092 7.5 21.8092C16.6 21.8092 21.5 14.3092 21.5 7.80918C21.5 7.60918 21.5 7.40918 21.5 7.20918C22.5 6.50918 23.3 5.60918 24 4.70918Z" fill="currentColor" />
+        </svg>
+    </a>
+    <a class="social-share-btn" target="_blank" rel="noopener" href="http://www.facebook.com/sharer/sharer.php?u=https://polar-hex.github.io///posts/2023/2023-02-18-tackling-the-nesting-problem/">
+        <span class="sr-only">Share on: </span>
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" role="img" aria-label="Facebook">
+            <path d="M20 10C20 4.47715 15.5229 0 10 0C4.47715 0 0 4.47715 0 10C0 14.9912 3.65684 19.1283 8.4375 19.8785V12.8906H5.89844V10H8.4375V7.79688C8.4375 5.29063 9.93047 3.90625 12.2146 3.90625C13.3084 3.90625 14.4531 4.10156 14.4531 4.10156V6.5625H13.1922C11.95 6.5625 11.5625 7.3334 11.5625 8.125V10H14.3359L13.8926 12.8906H11.5625V19.8785C16.3432 19.1283 20 14.9912 20 10Z" fill="currentColor" />
+        </svg>
+    </a>
+    <a class="social-share-btn" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?mini=true&url=https://polar-hex.github.io///posts/2023/2023-02-18-tackling-the-nesting-problem/&title=">
+        <span class="sr-only">Share on: </span>
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" role="img" aria-label="LinkedIn">
+            <path d="M18.5195 0H1.47656C0.660156 0 0 0.644531 0 1.44141V18.5547C0 19.3516 0.660156 20 1.47656 20H18.5195C19.3359 20 20 19.3516 20 18.5586V1.44141C20 0.644531 19.3359 0 18.5195 0ZM5.93359 17.043H2.96484V7.49609H5.93359V17.043ZM4.44922 6.19531C3.49609 6.19531 2.72656 5.42578 2.72656 4.47656C2.72656 3.52734 3.49609 2.75781 4.44922 2.75781C5.39844 2.75781 6.16797 3.52734 6.16797 4.47656C6.16797 5.42187 5.39844 6.19531 4.44922 6.19531ZM17.043 17.043H14.0781V12.4023C14.0781 11.2969 14.0586 9.87109 12.5352 9.87109C10.9922 9.87109 10.7578 11.0781 10.7578 12.3242V17.043H7.79688V7.49609H10.6406V8.80078H10.6797C11.0742 8.05078 12.043 7.25781 13.4844 7.25781C16.4883 7.25781 17.043 9.23438 17.043 11.8047V17.043V17.043Z" fill="currentColor" />
+        </svg>
+    </a>
+</div>
+
+<script>
+    const shareBtn = document.getElementById('post-url-share-btn');
+    shareBtn.removeAttribute('hidden');
+
+    // eslint-disable-next-line no-unused-vars
+    function copyPageURLToClipboard() {
+        const url = window.location.href;
+        navigator.clipboard.writeText(url);
+        shareBtn.setAttribute('data-copied', 'true');
+
+        setTimeout(() => {
+            shareBtn.removeAttribute('data-copied');
+        }, 5000);
+    }
+</script>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-20 relative">
+        <div class="flex px-8 absolute">
+            <a class="group flex font-semibold text-2sm leading-6" href="/posts">
+                <svg
+                        viewBox="0 -9 3 24"
+                        class="overflow-visible mr-3 w-auto h-6">
+                    <path d="M3 0L0 3L3 6"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"></path>
+                </svg>
+                Back to all posts
+            </a>
+        </div>
+        <div class="max-w-6xl mx-auto">
+            <div class="relative rounded-lg overflow-hidden">
+                <img class="w-full"
+                        src="/assets/images/posts//nesting/feature.jpg">
+                <div class="absolute inset-0 rounded-lg ring-1 ring-inset ring-slate-900/10"></div>
+            </div>
+            
+                <div class="text-center text-faded text-sm italic mt-1">
+                    <a href="https://www.freepik.com/free-photo/jabiru-stork-nest-high-dry-tree-brazilian-pantanal_17897652.htm#query=nesting&position=31&from_view=search&track=sph"> Image by vladimircech</a> on Freepik
+                </div>
+            
+        </div>
+        <div class="content-center">
+
+            <div class="leading-loose"><h2 id="introduction" tabindex="-1">Introduction</h2>
+<p>It’s fair to say that deeply nested code has been torturing many developers for
+quite some time. Indeed, deep nesting is considered a <strong>code smell</strong> and might
+be a signal to reconsider the design of your code structures and do some
+refactoring.</p>
+<p>This issue can manifest itself very often when we try to write more or less complex
+logic with many conditions to check, loops to run and those constructs are usually
+combined in the process making the code highly unreadable and hard to maintain.</p>
+<h3 id="why-this-is-not-great%3F" tabindex="-1">Why this is not great?</h3>
+<p>Deeply nested conditionals make it almost impossible to understand the control flow
+of the function, when different parts of it will run and when to expect state changes
+in your program. Everything just gets blurry until you put on your debugging hat and
+go through code statement by statement reproducing all the necessary environment to reach
+those parts that are wrapped and hidden from the naked eye.</p>
+<p>This is bad, because, after all, when reading the code that you are going to work with
+on a more detailed level - it might already be too overwhelming, let alone instrumenting
+the code to run in debug mode to understand maybe not the most crucial parts of logic.
+Moreover, human brain is not a machine (well, this is not true for some, but let’s assume the worst 😃)
+and as a result keeping too many things on the “stack” will make it overflow and let
+the reading begin again.</p>
+<h2 id="what-can-be-done%3F" tabindex="-1">What can be done?</h2>
+<p>There are definitely some useful techniques to deal with deeply nested code, they are mostly focused
+on making it flat, because flat is more readable than its counterpart.</p>
+<h3 id="use-guard-clauses" tabindex="-1">Use guard clauses</h3>
+<p>The most common way to get rid of excessive indentation is to simply return early if function
+can not execute its main chunk of logic. When we wrap this logic with one if statement which tests
+whether it should be executed or simply be ignored - we add an indentation, additional context to
+keep in mind which might not be such a bad thing, however it is better to have readability from day 1
+if possible.</p>
+<p>Consider a simple example:</p>
+<div class="language-ts line-numbers-mode"><pre class="language-ts"><code class="language-ts"><span class="token keyword">class</span> <span class="token class-name">Form</span> <span class="token punctuation">{</span>
+	<span class="token keyword">private</span> _value <span class="token operator">=</span> <span class="token string">''</span><span class="token punctuation">;</span>
+
+	<span class="token function">updateField</span><span class="token punctuation">(</span>value<span class="token operator">?</span><span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token keyword">void</span> <span class="token punctuation">{</span>
+		<span class="token keyword">if</span> <span class="token punctuation">(</span>value<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+			<span class="token keyword">this</span><span class="token punctuation">.</span>_value <span class="token operator">=</span> value<span class="token punctuation">.</span><span class="token function">trim</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+		<span class="token punctuation">}</span>
+	<span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<div class="line-numbers-wrapper" aria-hidden="true"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br></div></div><p>Seems like no big deal, but it already starts to feel “indented”. The main chunk of logic in this
+function is to “groom” the incoming value before it is set to the instance of the <em>Form</em>, and it is
+a little obstructed. Let’s see how the refactored version would look like:</p>
+<div class="language-ts line-numbers-mode"><pre class="language-ts"><code class="language-ts"><span class="token keyword">class</span> <span class="token class-name">Form</span> <span class="token punctuation">{</span>
+	<span class="token keyword">private</span> _value <span class="token operator">=</span> <span class="token string">''</span><span class="token punctuation">;</span>
+
+	<span class="token function">updateField</span><span class="token punctuation">(</span>value<span class="token operator">?</span><span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token keyword">void</span> <span class="token punctuation">{</span>
+		<span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>value<span class="token punctuation">)</span> <span class="token keyword">return</span><span class="token punctuation">;</span>
+
+		<span class="token keyword">this</span><span class="token punctuation">.</span>_value <span class="token operator">=</span> value<span class="token punctuation">.</span><span class="token function">trim</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<div class="line-numbers-wrapper" aria-hidden="true"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br></div></div><p>No indentation - less mental effort to make, the reader discards the conditions
+that do not allow to perform the main logic and focuses on what really matters,
+what function was made for.</p>
+<p>Let’s take a look at more serious example as it was just a warm-up. Take a look at the following:</p>
+<div class="language-ts line-numbers-mode"><pre class="language-ts"><code class="language-ts"><span class="token keyword">class</span> <span class="token class-name">Listcomponent</span> <span class="token punctuation">{</span>
+	<span class="token function">onKeyDown</span><span class="token punctuation">(</span>event<span class="token operator">:</span> KeyboardEvent<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+		<span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span><span class="token keyword">this</span><span class="token punctuation">.</span>disabled<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+			<span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">isNavigationKey</span><span class="token punctuation">(</span>event<span class="token punctuation">.</span>key<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+				<span class="token keyword">let</span> navigationDelta <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+				<span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>orientation <span class="token operator">===</span> <span class="token string">'vertical'</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+					navigationDelta <span class="token operator">=</span> event<span class="token punctuation">.</span>key <span class="token operator">===</span> <span class="token string">'ArrowDown'</span> <span class="token operator">?</span> <span class="token number">1</span> <span class="token operator">:</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span>
+				<span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>orientation <span class="token operator">===</span> <span class="token string">'horizontal'</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+					navigationDelta <span class="token operator">=</span> event<span class="token punctuation">.</span>key <span class="token operator">===</span> <span class="token string">'ArrowRight'</span> <span class="token operator">?</span> <span class="token number">1</span> <span class="token operator">:</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span>
+				<span class="token punctuation">}</span>
+				<span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">_navigateByDelta</span><span class="token punctuation">(</span>navigationDelta<span class="token punctuation">)</span><span class="token punctuation">;</span>
+			<span class="token punctuation">}</span>
+
+			<span class="token keyword">if</span> <span class="token punctuation">(</span>event<span class="token punctuation">.</span>key <span class="token operator">===</span> <span class="token string">'Enter'</span> <span class="token operator">||</span> event<span class="token punctuation">.</span>key <span class="token operator">===</span> <span class="token string">'Space'</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+				<span class="token keyword">const</span> previous <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>value<span class="token punctuation">;</span>
+
+				<span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">selectCurrentlyActive</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+				<span class="token keyword">const</span> changed <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>value <span class="token operator">!==</span> previous<span class="token punctuation">;</span>
+
+				<span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>changed<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+					<span class="token keyword">this</span><span class="token punctuation">.</span>valueConfirmed<span class="token punctuation">.</span><span class="token function">emit</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>value<span class="token punctuation">)</span><span class="token punctuation">;</span>
+				<span class="token punctuation">}</span>
+			<span class="token punctuation">}</span>
+		<span class="token punctuation">}</span>
+	<span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<div class="line-numbers-wrapper" aria-hidden="true"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br><span class="line-number">24</span><br><span class="line-number">25</span><br><span class="line-number">26</span><br><span class="line-number">27</span><br></div></div><p>This is a list component which inevitably needs some interaction handling. There are
+several requirements to the method:</p>
+<ol>
+<li>This list can be disabled and no action should be taken.</li>
+<li>We need to handle the actual side effect by selecting the option or navigating through list depending on orientation.</li>
+<li>If the pressed key is not what we need - do not do anything either.</li>
+<li>Propagate changes if the right signals were dispatched from the user and the value has changed.</li>
+</ol>
+<p>In current example it was handled with several levels of nesting, which is not easy to map in our minds.
+As previously the main logic of the function is wrapped in if statement which guards it from being executed
+when ListComponent is not in active state.</p>
+<p>There are more things that could be refactored to make it more readable, but we will focus on the guard clauses for now.
+The steps we are going to take are:</p>
+<ol>
+<li>Move the overarching if statement out of the way.</li>
+<li>Return early when selection action keys are not pressed.</li>
+</ol>
+<h4 id="overarching-if-statement" tabindex="-1">Overarching if statement</h4>
+<div class="language-ts line-numbers-mode"><pre class="language-ts"><code class="language-ts"><span class="token keyword">class</span> <span class="token class-name">Listcomponent</span> <span class="token punctuation">{</span>
+	<span class="token function">onKeyDown</span><span class="token punctuation">(</span>event<span class="token operator">:</span> KeyboardEvent<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+		<span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>disabled<span class="token punctuation">)</span> <span class="token keyword">return</span><span class="token punctuation">;</span>
+
+		<span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">isNavigationKey</span><span class="token punctuation">(</span>event<span class="token punctuation">.</span>key<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+			<span class="token comment">// navigation logic omitted for brevity</span>
+		<span class="token punctuation">}</span>
+
+		<span class="token keyword">if</span> <span class="token punctuation">(</span>event<span class="token punctuation">.</span>key <span class="token operator">===</span> <span class="token string">'Enter'</span> <span class="token operator">||</span> event<span class="token punctuation">.</span>key <span class="token operator">===</span> <span class="token string">'Space'</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+			<span class="token keyword">const</span> previous <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>value<span class="token punctuation">;</span>
+
+			<span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">selectCurrentlyActive</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+			<span class="token keyword">const</span> changed <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>value <span class="token operator">!==</span> previous<span class="token punctuation">;</span>
+
+			<span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>changed<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+				<span class="token keyword">this</span><span class="token punctuation">.</span>valueConfirmed<span class="token punctuation">.</span><span class="token function">emit</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>value<span class="token punctuation">)</span><span class="token punctuation">;</span>
+			<span class="token punctuation">}</span>
+		<span class="token punctuation">}</span>
+	<span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<div class="line-numbers-wrapper" aria-hidden="true"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br></div></div><h4 id="filter-unneeded-keys" tabindex="-1">Filter unneeded keys</h4>
+<div class="language-ts line-numbers-mode"><pre class="language-ts"><code class="language-ts"><span class="token keyword">const</span> <span class="token constant">ACTION_KEYS</span> <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">'Enter'</span><span class="token punctuation">,</span> <span class="token string">'Space'</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+<span class="token keyword">class</span> <span class="token class-name">Listcomponent</span> <span class="token punctuation">{</span>
+	<span class="token function">onKeyDown</span><span class="token punctuation">(</span>event<span class="token operator">:</span> KeyboardEvent<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+		<span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>disabled<span class="token punctuation">)</span> <span class="token keyword">return</span><span class="token punctuation">;</span>
+
+		<span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">isNavigationKey</span><span class="token punctuation">(</span>event<span class="token punctuation">.</span>key<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+			<span class="token comment">// navigation logic omitted for brevity</span>
+		<span class="token punctuation">}</span>
+
+		<span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span><span class="token constant">ACTION_KEYS</span><span class="token punctuation">.</span><span class="token function">includes</span><span class="token punctuation">(</span>event<span class="token punctuation">.</span>key<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token keyword">return</span><span class="token punctuation">;</span>
+
+		<span class="token keyword">const</span> previous <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>value<span class="token punctuation">;</span>
+
+		<span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">selectCurrentlyActive</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+		<span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>value <span class="token operator">!==</span> previous<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+			<span class="token keyword">this</span><span class="token punctuation">.</span>valueConfirmed<span class="token punctuation">.</span><span class="token function">emit</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>value<span class="token punctuation">)</span><span class="token punctuation">;</span>
+		<span class="token punctuation">}</span>
+	<span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<div class="line-numbers-wrapper" aria-hidden="true"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br></div></div><p>A note on the guard clauses: it is not uncommon to see a value returned, like
+booleans, empty arrays - those are all valid cases. In our case we looked at method
+which performed some side effects rather than querying for information.</p>
+<p>We removed some nesting, but our function suffers from handling multiple responsibilities - navigation and selection,
+and it is more obvious now after refactoring. Let’s see how can we improve it further.</p>
+<h3 id="extract-nested-code-into-its-own-method" tabindex="-1">Extract nested code into its own method</h3>
+<p>You can often improve the overall situation by chunking and abstracting
+away the logic into its own corresponding functions, thus making the main
+flow clearer to the reader.
+It is debatable however if the following refactoring is the best way to
+reorganize code, but it definitely removes responsibilities from the
+main function. We simply delegate the actions to specialized methods of
+the <code>ListComponent</code>.
+Another way to deal with this is to leave <code>if-then-else</code> in the main flow
+and call newly extracted methods with more strictly typed arguments, so
+decision branching is not hidden in those methods, but it is not for free as
+it requires to nest one level.</p>
+<div class="language-ts line-numbers-mode"><pre class="language-ts"><code class="language-ts"><span class="token keyword">const</span> <span class="token constant">ACTION_KEYS</span> <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">'Enter'</span><span class="token punctuation">,</span> <span class="token string">'Space'</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+<span class="token keyword">class</span> <span class="token class-name">Listcomponent</span> <span class="token punctuation">{</span>
+	<span class="token function">onKeyDown</span><span class="token punctuation">(</span>event<span class="token operator">:</span> KeyboardEvent<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+		<span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>disabled<span class="token punctuation">)</span> <span class="token keyword">return</span><span class="token punctuation">;</span>
+
+		<span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">_navigateByKey</span><span class="token punctuation">(</span>event<span class="token punctuation">.</span>key<span class="token punctuation">)</span><span class="token punctuation">;</span>
+		<span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">_selectByKey</span><span class="token punctuation">(</span>event<span class="token punctuation">.</span>key<span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+
+	<span class="token keyword">private</span> <span class="token function">_navigateByKey</span><span class="token punctuation">(</span>key<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token keyword">void</span> <span class="token punctuation">{</span>
+		<span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span><span class="token function">isNavigationKey</span><span class="token punctuation">(</span>key<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token keyword">return</span><span class="token punctuation">;</span>
+
+		<span class="token keyword">let</span> navigationDelta <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+		<span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>orientation <span class="token operator">===</span> <span class="token string">'vertical'</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+			navigationDelta <span class="token operator">=</span> key <span class="token operator">===</span> <span class="token string">'ArrowDown'</span> <span class="token operator">?</span> <span class="token number">1</span> <span class="token operator">:</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span>
+		<span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>orientation <span class="token operator">===</span> <span class="token string">'horizontal'</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+			navigationDelta <span class="token operator">=</span> key <span class="token operator">===</span> <span class="token string">'ArrowRight'</span> <span class="token operator">?</span> <span class="token number">1</span> <span class="token operator">:</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span>
+		<span class="token punctuation">}</span>
+		<span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">_navigateByDelta</span><span class="token punctuation">(</span>navigationDelta<span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+
+	<span class="token keyword">private</span> <span class="token function">_selectByKey</span><span class="token punctuation">(</span>key<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token keyword">void</span> <span class="token punctuation">{</span>
+		<span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span><span class="token constant">ACTION_KEYS</span><span class="token punctuation">.</span><span class="token function">includes</span><span class="token punctuation">(</span>key<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token keyword">return</span><span class="token punctuation">;</span>
+
+		<span class="token keyword">const</span> previous <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>value<span class="token punctuation">;</span>
+
+		<span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">selectCurrentlyActive</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+		<span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>value <span class="token operator">!==</span> previous<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+			<span class="token keyword">this</span><span class="token punctuation">.</span>valueConfirmed<span class="token punctuation">.</span><span class="token function">emit</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>value<span class="token punctuation">)</span><span class="token punctuation">;</span>
+		<span class="token punctuation">}</span>
+	<span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<div class="line-numbers-wrapper" aria-hidden="true"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br><span class="line-number">24</span><br><span class="line-number">25</span><br><span class="line-number">26</span><br><span class="line-number">27</span><br><span class="line-number">28</span><br><span class="line-number">29</span><br><span class="line-number">30</span><br><span class="line-number">31</span><br><span class="line-number">32</span><br><span class="line-number">33</span><br><span class="line-number">34</span><br></div></div><p>Now our main method performs orchestration and private methods do the
+actual logic, the confirmation is emitted when the value is selected instead
+of being mixed together with the navigation logic.</p>
+<p>Navigation method still feels quite clunky and extra nesting is hidden behind
+ternary expressions practically acting as a syntactic sugar here. We can do better
+for sure.</p>
+<h3 id="use-lookup-objects" tabindex="-1">Use lookup objects</h3>
+<p>Our list component has the ability to navigate through its own items and the
+navigation keys varies for different orientations as you can see from the code.
+However, one thing they have in common at this stage - is that you move through
+items at a consistent rate with 1 element at a time. This can get more complex
+if we add <strong>HOME</strong> and <strong>END</strong> keys to move to the first and to the last item
+in the list, although the same solution could be applied regardless.</p>
+<p>Our goal is to find out direction in which we can move, a “navigationDelta”. Let’s
+create a lookup object as follows:</p>
+<div class="language-ts line-numbers-mode"><pre class="language-ts"><code class="language-ts"><span class="token keyword">const</span> <span class="token constant">NAVIGATION_LOOKUP</span> <span class="token operator">=</span> <span class="token punctuation">{</span>
+	vertical<span class="token operator">:</span> <span class="token punctuation">{</span>
+		ArrowUp<span class="token operator">:</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span>
+		ArrowDown<span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span>
+	<span class="token punctuation">}</span><span class="token punctuation">,</span>
+	horizontal<span class="token operator">:</span> <span class="token punctuation">{</span>
+		ArrowLeft<span class="token operator">:</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span>
+		ArrowRight<span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span>
+	<span class="token punctuation">}</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+<div class="line-numbers-wrapper" aria-hidden="true"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br></div></div><p>Our decision logic for navigation now can be rewritten in a simpler way:</p>
+<div class="language-ts line-numbers-mode"><pre class="language-ts"><code class="language-ts"><span class="token keyword">class</span> <span class="token class-name">Listcomponent</span> <span class="token punctuation">{</span>
+	<span class="token comment">// other logic omitted for brevity</span>
+
+	<span class="token keyword">private</span> <span class="token function">_navigateByKey</span><span class="token punctuation">(</span>key<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token keyword">void</span> <span class="token punctuation">{</span>
+		<span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span><span class="token function">isNavigationKey</span><span class="token punctuation">(</span>key<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token keyword">return</span><span class="token punctuation">;</span>
+
+		<span class="token keyword">const</span> navigationDelta <span class="token operator">=</span> <span class="token constant">NAVIGATION_LOOKUP</span><span class="token punctuation">[</span><span class="token keyword">this</span><span class="token punctuation">.</span>orientation<span class="token punctuation">]</span><span class="token punctuation">[</span>key<span class="token punctuation">]</span> <span class="token operator">||</span> <span class="token number">0</span><span class="token punctuation">;</span>
+
+		<span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">_navigateByDelta</span><span class="token punctuation">(</span>navigationDelta<span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<div class="line-numbers-wrapper" aria-hidden="true"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br></div></div><p>Looks much better without these conditionals.</p>
+<p>Let’s compare the code now!</p>
+<p>Before:</p>
+<div class="language-ts line-numbers-mode"><pre class="language-ts"><code class="language-ts"><span class="token keyword">class</span> <span class="token class-name">Listcomponent</span> <span class="token punctuation">{</span>
+	<span class="token function">onKeyDown</span><span class="token punctuation">(</span>event<span class="token operator">:</span> KeyboardEvent<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+		<span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span><span class="token keyword">this</span><span class="token punctuation">.</span>disabled<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+			<span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">isNavigationKey</span><span class="token punctuation">(</span>event<span class="token punctuation">.</span>key<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+				<span class="token keyword">let</span> navigationDelta <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+				<span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>orientation <span class="token operator">===</span> <span class="token string">'vertical'</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+					navigationDelta <span class="token operator">=</span> event<span class="token punctuation">.</span>key <span class="token operator">===</span> <span class="token string">'ArrowDown'</span> <span class="token operator">?</span> <span class="token number">1</span> <span class="token operator">:</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span>
+				<span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>orientation <span class="token operator">===</span> <span class="token string">'horizontal'</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+					navigationDelta <span class="token operator">=</span> event<span class="token punctuation">.</span>key <span class="token operator">===</span> <span class="token string">'ArrowRight'</span> <span class="token operator">?</span> <span class="token number">1</span> <span class="token operator">:</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span>
+				<span class="token punctuation">}</span>
+				<span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">_navigateByDelta</span><span class="token punctuation">(</span>navigationDelta<span class="token punctuation">)</span><span class="token punctuation">;</span>
+			<span class="token punctuation">}</span>
+
+			<span class="token keyword">if</span> <span class="token punctuation">(</span>event<span class="token punctuation">.</span>key <span class="token operator">===</span> <span class="token string">'Enter'</span> <span class="token operator">||</span> event<span class="token punctuation">.</span>key <span class="token operator">===</span> <span class="token string">'Space'</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+				<span class="token keyword">const</span> previous <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>value<span class="token punctuation">;</span>
+
+				<span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">selectCurrentlyActive</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+				<span class="token keyword">const</span> changed <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>value <span class="token operator">!==</span> previous<span class="token punctuation">;</span>
+
+				<span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>changed<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+					<span class="token keyword">this</span><span class="token punctuation">.</span>valueConfirmed<span class="token punctuation">.</span><span class="token function">emit</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>value<span class="token punctuation">)</span><span class="token punctuation">;</span>
+				<span class="token punctuation">}</span>
+			<span class="token punctuation">}</span>
+		<span class="token punctuation">}</span>
+	<span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<div class="line-numbers-wrapper" aria-hidden="true"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br><span class="line-number">24</span><br><span class="line-number">25</span><br><span class="line-number">26</span><br><span class="line-number">27</span><br></div></div><p>and after refactoring:</p>
+<div class="language-ts line-numbers-mode"><pre class="language-ts"><code class="language-ts"><span class="token keyword">const</span> <span class="token constant">NAVIGATION_LOOKUP</span> <span class="token operator">=</span> <span class="token punctuation">{</span>
+	vertical<span class="token operator">:</span> <span class="token punctuation">{</span>
+		ArrowUp<span class="token operator">:</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span>
+		ArrowDown<span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span>
+	<span class="token punctuation">}</span><span class="token punctuation">,</span>
+	horizontal<span class="token operator">:</span> <span class="token punctuation">{</span>
+		ArrowLeft<span class="token operator">:</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span>
+		ArrowRight<span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span>
+	<span class="token punctuation">}</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> <span class="token constant">ACTION_KEYS</span> <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">'Enter'</span><span class="token punctuation">,</span> <span class="token string">'Space'</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+<span class="token keyword">class</span> <span class="token class-name">Listcomponent</span> <span class="token punctuation">{</span>
+	<span class="token function">onKeyDown</span><span class="token punctuation">(</span>event<span class="token operator">:</span> KeyboardEvent<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+		<span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>disabled<span class="token punctuation">)</span> <span class="token keyword">return</span><span class="token punctuation">;</span>
+
+		<span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">_navigateByKey</span><span class="token punctuation">(</span>event<span class="token punctuation">.</span>key<span class="token punctuation">)</span><span class="token punctuation">;</span>
+		<span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">_selectByKey</span><span class="token punctuation">(</span>event<span class="token punctuation">.</span>key<span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+
+	<span class="token keyword">private</span> <span class="token function">_navigateByKey</span><span class="token punctuation">(</span>key<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token keyword">void</span> <span class="token punctuation">{</span>
+		<span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span><span class="token function">isNavigationKey</span><span class="token punctuation">(</span>key<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token keyword">return</span><span class="token punctuation">;</span>
+
+		<span class="token keyword">const</span> navigationDelta <span class="token operator">=</span> <span class="token constant">NAVIGATION_LOOKUP</span><span class="token punctuation">[</span><span class="token keyword">this</span><span class="token punctuation">.</span>orientation<span class="token punctuation">]</span><span class="token punctuation">[</span>key<span class="token punctuation">]</span> <span class="token operator">||</span> <span class="token number">0</span><span class="token punctuation">;</span>
+
+		<span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">_navigateByDelta</span><span class="token punctuation">(</span>navigationDelta<span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+
+	<span class="token keyword">private</span> <span class="token function">_selectByKey</span><span class="token punctuation">(</span>key<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token keyword">void</span> <span class="token punctuation">{</span>
+		<span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span><span class="token constant">ACTION_KEYS</span><span class="token punctuation">.</span><span class="token function">includes</span><span class="token punctuation">(</span>key<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token keyword">return</span><span class="token punctuation">;</span>
+
+		<span class="token keyword">const</span> previous <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>value<span class="token punctuation">;</span>
+
+		<span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">selectCurrentlyActive</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+		<span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>value <span class="token operator">!==</span> previous<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+			<span class="token keyword">this</span><span class="token punctuation">.</span>valueConfirmed<span class="token punctuation">.</span><span class="token function">emit</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>value<span class="token punctuation">)</span><span class="token punctuation">;</span>
+		<span class="token punctuation">}</span>
+	<span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<div class="line-numbers-wrapper" aria-hidden="true"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br><span class="line-number">24</span><br><span class="line-number">25</span><br><span class="line-number">26</span><br><span class="line-number">27</span><br><span class="line-number">28</span><br><span class="line-number">29</span><br><span class="line-number">30</span><br><span class="line-number">31</span><br><span class="line-number">32</span><br><span class="line-number">33</span><br><span class="line-number">34</span><br><span class="line-number">35</span><br><span class="line-number">36</span><br><span class="line-number">37</span><br><span class="line-number">38</span><br><span class="line-number">39</span><br><span class="line-number">40</span><br></div></div><p>The final code might look a bit bigger, but it is much more human friendly and methods follow single
+responsibility principle. On top of that if we decide to expand the navigation logic - it is much easier
+with lookup object than building more and more complex pieces of conditionals at the expense of readability.</p>
+<h2 id="final-words" tabindex="-1">Final words</h2>
+<p>Let’s summarize what we have learned in this article:</p>
+<ol>
+<li>Deeply nested code <strong>impairs readability</strong>, so we should avoid it whenever we can.</li>
+<li>Deeply nested code might be a signal of a <strong>design issue</strong>.</li>
+<li>Most common way to unravel deep nesting is to <strong>return early</strong> from the function in question.
+This lets us see clearly the main purpose of the function for which it was created.</li>
+<li>We can also extract the nested code into <strong>separate methods</strong> to hide complexity from the main flow.</li>
+<li>At times there is a logic that might warrant a <strong>lookup object</strong> to be setup.</li>
+</ol>
+<p>There are other ways to deal with branching such as leveraging polymorphism including null-objects, but
+that is a topic for another time.</p>
+<p>Now, to be safe, these kind of refactorings are best in combination with good test coverage as it is
+easy to get it wrong or break existing functionality.</p>
+</div>
+
+            <div class="flex mt-4 items-center flex-col">
+                <span class="font-semibold text-xl mb-1">If you liked this post - please share it with others</span>
+                <div class="flex flex-row">
+    <button onclick="copyPageURLToClipboard();" class="social-share-btn" id="post-url-share-btn" hidden>
+        <span class="sr-only">Share on: </span>
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" role="img" aria-label="Link">
+            <path d="M8.3335 10.8333C8.69138 11.3118 9.14796 11.7077 9.67229 11.9941C10.1966 12.2806 10.7764 12.4509 11.3724 12.4936C11.9683 12.5363 12.5665 12.4503 13.1263 12.2415C13.6861 12.0327 14.1944 11.7059 14.6168 11.2833L17.1168 8.78335C17.8758 7.9975 18.2958 6.94499 18.2863 5.85251C18.2768 4.76002 17.8386 3.71497 17.0661 2.94243C16.2935 2.1699 15.2485 1.7317 14.156 1.7222C13.0635 1.71271 12.011 2.13269 11.2252 2.89168L9.79183 4.31668M11.6668 9.16668C11.309 8.68824 10.8524 8.29236 10.328 8.0059C9.80371 7.71943 9.22391 7.54908 8.62796 7.5064C8.032 7.46372 7.43384 7.54971 6.87405 7.75853C6.31425 7.96735 5.8059 8.29412 5.3835 8.71668L2.8835 11.2167C2.12451 12.0025 1.70453 13.055 1.71402 14.1475C1.72352 15.24 2.16172 16.2851 2.93426 17.0576C3.70679 17.8301 4.75184 18.2683 5.84433 18.2778C6.93681 18.2873 7.98932 17.8673 8.77517 17.1083L10.2002 15.6833" stroke="currentColor" stroke-width="1.67" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+    </button>
+    <a class="social-share-btn" target="_blank" rel="noopener" href="https://twitter.com/intent/tweet?text=&url=https://polar-hex.github.io//posts/2023/2023-02-18-tackling-the-nesting-problem/">
+        <span class="sr-only">Share on: </span>
+        <svg width="20" height="20" viewBox="0 0 24 25" fill="none" role="img" aria-label="Twitter">
+            <path d="M24 4.70918C23.1 5.10918 22.2 5.40918 21.2 5.50918C22.2 4.90918 23 3.90918 23.4 2.80918C22.4 3.40918 21.4 3.80918 20.3 4.00918C19.4 3.00918 18.1 2.40918 16.7 2.40918C14 2.40918 11.8 4.60918 11.8 7.30918C11.8 7.70918 11.8 8.10918 11.9 8.40918C7.7 8.20918 4.1 6.20918 1.7 3.20918C1.2 4.00918 1 4.80918 1 5.70918C1 7.40918 1.9 8.90918 3.2 9.80918C2.4 9.80918 1.6 9.60918 1 9.20918C1 9.20918 1 9.20918 1 9.30918C1 11.7092 2.7 13.7092 4.9 14.1092C4.5 14.2092 4.1 14.3092 3.6 14.3092C3.3 14.3092 3 14.3092 2.7 14.2092C3.3 16.2092 5.1 17.6092 7.3 17.6092C5.6 18.9092 3.5 19.7092 1.2 19.7092C0.8 19.7092 0.4 19.7092 0 19.6092C2.2 21.0092 4.8 21.8092 7.5 21.8092C16.6 21.8092 21.5 14.3092 21.5 7.80918C21.5 7.60918 21.5 7.40918 21.5 7.20918C22.5 6.50918 23.3 5.60918 24 4.70918Z" fill="currentColor" />
+        </svg>
+    </a>
+    <a class="social-share-btn" target="_blank" rel="noopener" href="http://www.facebook.com/sharer/sharer.php?u=https://polar-hex.github.io///posts/2023/2023-02-18-tackling-the-nesting-problem/">
+        <span class="sr-only">Share on: </span>
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" role="img" aria-label="Facebook">
+            <path d="M20 10C20 4.47715 15.5229 0 10 0C4.47715 0 0 4.47715 0 10C0 14.9912 3.65684 19.1283 8.4375 19.8785V12.8906H5.89844V10H8.4375V7.79688C8.4375 5.29063 9.93047 3.90625 12.2146 3.90625C13.3084 3.90625 14.4531 4.10156 14.4531 4.10156V6.5625H13.1922C11.95 6.5625 11.5625 7.3334 11.5625 8.125V10H14.3359L13.8926 12.8906H11.5625V19.8785C16.3432 19.1283 20 14.9912 20 10Z" fill="currentColor" />
+        </svg>
+    </a>
+    <a class="social-share-btn" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?mini=true&url=https://polar-hex.github.io///posts/2023/2023-02-18-tackling-the-nesting-problem/&title=">
+        <span class="sr-only">Share on: </span>
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" role="img" aria-label="LinkedIn">
+            <path d="M18.5195 0H1.47656C0.660156 0 0 0.644531 0 1.44141V18.5547C0 19.3516 0.660156 20 1.47656 20H18.5195C19.3359 20 20 19.3516 20 18.5586V1.44141C20 0.644531 19.3359 0 18.5195 0ZM5.93359 17.043H2.96484V7.49609H5.93359V17.043ZM4.44922 6.19531C3.49609 6.19531 2.72656 5.42578 2.72656 4.47656C2.72656 3.52734 3.49609 2.75781 4.44922 2.75781C5.39844 2.75781 6.16797 3.52734 6.16797 4.47656C6.16797 5.42187 5.39844 6.19531 4.44922 6.19531ZM17.043 17.043H14.0781V12.4023C14.0781 11.2969 14.0586 9.87109 12.5352 9.87109C10.9922 9.87109 10.7578 11.0781 10.7578 12.3242V17.043H7.79688V7.49609H10.6406V8.80078H10.6797C11.0742 8.05078 12.043 7.25781 13.4844 7.25781C16.4883 7.25781 17.043 9.23438 17.043 11.8047V17.043V17.043Z" fill="currentColor" />
+        </svg>
+    </a>
+</div>
+
+<script>
+    const shareBtn = document.getElementById('post-url-share-btn');
+    shareBtn.removeAttribute('hidden');
+
+    // eslint-disable-next-line no-unused-vars
+    function copyPageURLToClipboard() {
+        const url = window.location.href;
+        navigator.clipboard.writeText(url);
+        shareBtn.setAttribute('data-copied', 'true');
+
+        setTimeout(() => {
+            shareBtn.removeAttribute('data-copied');
+        }, 5000);
+    }
+</script>
+
+            </div>
+        </div>
+    </div>
+</article>
+
+
+</div>
+
+ </main>
+
+		
+
+<footer
+	class="p-4 px-2 sm:px-6 w-full lg:px-8 transition-colors duration-500 lg:z-50 lg:border-t lg:border-slate-900/10 bg-white/95 supports-backdrop-blur:bg-white/60">
+	<div>
+		<div class="mx-auto h-20 flex flex-col items-center"><div class="h-full p-2">
+	<img class="h-full" alt="Polar hex logo" src="/assets/images/logo.svg" />
+</div></div>
+		<div class="section-separator"></div>
+		<p class="mt-5 text-center text-sm leading-6 text-dark">© 2023 Polar Hex Inc. All rights reserved.</p>
+	</div>
+</footer>
+
+	</body>
+</html>
