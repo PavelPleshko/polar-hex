@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.1.4](https://github.com/PavelPleshko/polar-hex/compare/blog@0.1.3...blog@0.1.4) (2023-06-24)
+
+**Note:** Version bump only for package blog
+
 ## [0.1.3](https://github.com/PavelPleshko/polar-hex/compare/blog@0.1.2...blog@0.1.3) (2023-06-24)
 
 ### Bug Fixes
