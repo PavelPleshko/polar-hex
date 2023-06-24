@@ -97,7 +97,8 @@ module.exports = function (eleventyConfig) {
 	eleventyConfig.addNunjucksFilter('related', function (collection = []) {
 		const { tags: requiredTags, page } = this.ctx;
 		return collection.filter(post => {
-			return post.url !== page.url && requiredTags?.every(tag => post.data.contentTags?.includes(tag));
+			const isPostSameAsCurrentPage = post.url !== page.url;
+			return isPostSameAsCurrentPage && requiredTags?.every(tag => post.data.contentTags?.includes(tag));
 		});
 	});
 
