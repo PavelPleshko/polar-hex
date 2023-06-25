@@ -3,6 +3,36 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.1.8](https://github.com/PavelPleshko/polar-hex/compare/blog@0.1.7...blog@0.1.8) (2023-06-25)
+
+**Note:** Version bump only for package blog
+
+## [0.1.7](https://github.com/PavelPleshko/polar-hex/compare/blog@0.1.6...blog@0.1.7) (2023-06-25)
+
+### Bug Fixes
+
+-   **blog:** add deploy url when creating absolute urls ([d805a7a](https://github.com/PavelPleshko/polar-hex/commit/d805a7a1d4026dd4a43d4bf5a986ec406b6f6fc3))
+
+## [0.1.6](https://github.com/PavelPleshko/polar-hex/compare/blog@0.1.5...blog@0.1.6) (2023-06-25)
+
+### Bug Fixes
+
+-   **blog:** convert all asset urls to absolute ([e8430d0](https://github.com/PavelPleshko/polar-hex/commit/e8430d0fa73c45f3131d73702c493a5bbc67c65d))
+
+## [0.1.5](https://github.com/PavelPleshko/polar-hex/compare/blog@0.1.4...blog@0.1.5) (2023-06-24)
+
+**Note:** Version bump only for package blog
+
+## [0.1.4](https://github.com/PavelPleshko/polar-hex/compare/blog@0.1.3...blog@0.1.4) (2023-06-24)
+
+**Note:** Version bump only for package blog
+
+## [0.1.3](https://github.com/PavelPleshko/polar-hex/compare/blog@0.1.2...blog@0.1.3) (2023-06-24)
+
+### Bug Fixes
+
+-   **blog:** add default url ([c56ea59](https://github.com/PavelPleshko/polar-hex/commit/c56ea590c03958a742dab6e2ac2417fdb4bf297e))
+
 ## [0.1.2](https://github.com/PavelPleshko/polar-hex/compare/blog@0.1.1...blog@0.1.2) (2023-06-22)
 
 **Note:** Version bump only for package blog
