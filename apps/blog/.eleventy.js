@@ -150,7 +150,7 @@ module.exports = function (eleventyConfig) {
 	eleventyConfig.addWatchTarget('./tailwind.config.js');
 
 	eleventyConfig.addPassthroughCopy('./site/assets/images/**/*');
-	eleventyConfig.addPassthroughCopy('./site/assets/fonts/**/*');
+	eleventyConfig.addPassthroughCopy({ './site/assets/fonts/**/*': 'assets/css/fonts' });
 
 	return {
 		// TODO maybe there is a NX executor for this
