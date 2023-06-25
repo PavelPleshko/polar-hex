@@ -1,8 +1,9 @@
 const { DateTime } = require('luxon');
 const lodash = require('lodash');
+const path = require('path');
 const slugify = require('./generic/slugify');
 
-const site = require('../_data/site');
+const site = require('../site/_data/site');
 
 module.exports = {
 	limit: (arr, count = 5) => {
@@ -55,8 +56,8 @@ module.exports = {
 
 	toAbsoluteUrl: url => {
 		if (!url || url === '/') {
-			return [new URL(site.baseUrl).href, site.deployUrl].filter(Boolean).join('/');
+			return path.join(new URL(site.baseUrl).href, site.deployUrl);
 		}
-		return new URL([site.deployUrl, url].filter(Boolean).join('/'), site.baseUrl).href;
+		return new URL(path.join(site.deployUrl, url), site.baseUrl).href;
 	},
 };
