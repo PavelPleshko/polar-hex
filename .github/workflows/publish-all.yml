@@ -27,7 +27,7 @@ jobs:
 
             - name: Publish
               run: |
-                  export PAGES_BASE_URL="https://pavelpleshko.github.io/polar-hex"
+                  export PAGES_BASE_URL="https://pavelpleshko.github.io"
                   git config user.name "GitHub Actions Bot"
                   git config user.email "<>"
                   git remote set-url origin https://git:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git
