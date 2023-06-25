@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.1.7](https://github.com/PavelPleshko/polar-hex/compare/blog@0.1.6...blog@0.1.7) (2023-06-25)
+
+### Bug Fixes
+
+-   **blog:** add deploy url when creating absolute urls ([d805a7a](https://github.com/PavelPleshko/polar-hex/commit/d805a7a1d4026dd4a43d4bf5a986ec406b6f6fc3))
+
 ## [0.1.6](https://github.com/PavelPleshko/polar-hex/compare/blog@0.1.5...blog@0.1.6) (2023-06-25)
 
 ### Bug Fixes
