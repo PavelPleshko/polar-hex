@@ -78,13 +78,13 @@ pre code {
 
 @font-face {
 	font-family: JetBrains;
-	src: url('/assets/fonts/JetBrainsSans-Regular.woff');
+	src: url('fonts/JetBrainsSans-Regular.woff');
 }
 
 @font-face {
 	font-family: JetBrains;
 	font-weight: bold;
-	src: url('/assets/fonts/JetBrainsSans-SemiBold.woff');
+	src: url('fonts/JetBrainsSans-SemiBold.woff');
 }
 
 body {
