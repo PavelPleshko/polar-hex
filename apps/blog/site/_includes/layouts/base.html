@@ -4,13 +4,14 @@
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes" />
+		<base href="{{ '' | toAbsoluteUrl }}"/>
 		<title>{{ seo.title or title }} | {{ meta.siteName }}</title>
-		<link rel="stylesheet" href="{{ 'assets/css/style.css' | toAbsoluteUrl }}" />
-		<meta name="description" content="Pavel Pleshko. Personal blog about web development" />
+		<link rel="stylesheet" href="assets/css/style.css" />
+		<meta name="description" content="Polar Hex. Blog about web development" />
 	</head>
 
 	<body class="flex flex-col">
-		<!--Cookie banner-->
+
 		{%- include "partials/header.html" %}
 
 		<main class="flex flex-col grow bg-surface">{% block content %} {{ content | safe }} {% endblock %}</main>

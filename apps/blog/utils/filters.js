@@ -55,8 +55,8 @@ module.exports = {
 
 	toAbsoluteUrl: url => {
 		if (!url || url === '/') {
-			return [new URL(site.baseUrl).href, site.deployUrl].join('/');
+			return [new URL(site.baseUrl).href, site.deployUrl].filter(Boolean).join('/');
 		}
-		return new URL([site.deployUrl, url].join('/'), site.baseUrl).href;
+		return new URL([site.deployUrl, url].filter(Boolean).join('/'), site.baseUrl).href;
 	},
 };
