@@ -8,7 +8,8 @@
 	"scripts": {
 		"build": "ELEVENTY_ENV=production eleventy",
 		"serve": "ELEVENTY_ENV=development eleventy --serve",
-		"dev:tailwind": "tailwindcss -i site/assets/css/style.css -o ../../dist/apps/blog/assets/css/style.css --watch",
+		"tailwind:build": "tailwindcss -i site/assets/css/style.css -o ../../dist/apps/blog/assets/css/style.css",
+		"tailwind:dev": "npm run tailwind:build -- --watch",
 		"deploy": "gh-pages -d ../../dist/apps/blog"
 	}
 }
