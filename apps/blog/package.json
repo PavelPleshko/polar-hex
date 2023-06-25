@@ -1,7 +1,7 @@
 {
 	"name": "blog",
 	"description": "Polar hex blog",
-	"version": "0.1.7",
+	"version": "0.1.8",
 	"private": true,
 	"main": "site/index.html",
 	"type": "commonjs",
