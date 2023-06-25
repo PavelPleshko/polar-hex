@@ -56,7 +56,7 @@ jobs:
 
             # implement checks here (call the checks pipeline - build affected, test affected)
             - name: 'Release'
-              if: ${{ steps.get_requested_version.outputs.group1 }} != ''
+              if: ${{ steps.get_requested_version.outputs.group1 }} != null
               env:
                   NEXT_VERSION: ${{ steps.get_requested_version.outputs.group1 }}
               run: |
