@@ -89,7 +89,7 @@ layout: page
                         {{ PostComponent({
                             horizontal: true,
                             post: {
-                                url: post.url,
+                                url: site.deployUrl + post.url,
                                 name: post.data.pageTitle,
                                 description: post.data.description,
                                 tags: post.data.contentTags,
