@@ -1,15 +1,15 @@
 <li class="nav-item{% if page.url.startsWith('/posts') %} active{% endif %}">
-	<a href="posts/">Posts</a>
+	<a href="{{site.deployUrl}}posts/">Posts</a>
 </li>
 
 <li class="nav-item{% if page.url.startsWith('/tutorials') %} active{% endif %}">
-	<a href="tutorials/">Tutorials</a>
+	<a href="{{site.deployUrl}}tutorials/">Tutorials</a>
 </li>
 
 <li class="nav-item{% if page.url.startsWith('/tags') %} active{% endif %}">
-	<a href="tags/">Tags</a>
+	<a href="{{site.deployUrl}}tags/">Tags</a>
 </li>
 
 <li class="nav-item{% if page.url.startsWith('/about') %} active{% endif %}">
-	<a href="about/">About</a>
+	<a href="{{site.deployUrl}}about/">About</a>
 </li>
