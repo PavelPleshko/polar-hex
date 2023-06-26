@@ -13,7 +13,7 @@
 				<span class="font-semibold">{{ readTime }}</span> min read
 			</div>
 		{% endif %}
-		<a href="{{ postData.url }}">
+		<a href="{{site.deployUrl}}{{ postData.url }}">
 			<div
 				class="h-full py-12 sm:py-28 bg-cover bg-center bg-no-repeat border rounded"
 				style="background-image: url({{'assets/images/posts' + postData.imageUrl }})">
@@ -31,7 +31,7 @@
 				</div>
 			{% endif %}
 
-			<a class="mb-0" href="{{ postData.url }}">
+			<a class="mb-0" href="{{site.deployUrl}}{{ postData.url }}">
 				<h5 class="text-2xl font-bold tracking-tight">{{ postData.name }}</h5>
 			</a>
 			<div class="mb-3 font-normal text-sm text-dark">
@@ -41,7 +41,7 @@
 			<div class="inline-flex mb-2">{% set tags = postData.tags %} {% include 'partials/tags.html' %}</div>
 
 			<div class="flex justify-end">
-				<a  href="{{ postData.url }}"
+				<a  href="{{site.deployUrl}}{{ postData.url }}"
 					class="inline-flex items-center px-3 py-2 text-2sm text-center text-accent hover:bg-indigo-100 rounded-lg focus:ring-4 focus:outline-none focus:ring-blue-300">
 					Read more
 					<svg
