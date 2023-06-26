@@ -6,7 +6,7 @@ imageUrl: /launch/feature.jpg
 imageCaption: '<a href="https://www.freepik.com/free-vector/rocket-mars-landscape-scene_5019388.htm#query=rocket&position=9&from_view=search&track=sph">Image by brgfx</a> on Freepik'
 date: 2023-01-26
 contentTags: ['web development', 'programming']
-draft: true
+draft: false
 ---
 
 Welcome to **Polar Hex blog**
