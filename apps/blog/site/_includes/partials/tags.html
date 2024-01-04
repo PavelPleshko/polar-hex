@@ -1,2 +1,9 @@
-{% from 'components/tags/tag.macro.html' import Tag %} {% for tag in tags %} {% set tagContent %} #{{ tag }} {% endset
-%} {{ Tag({href: site.deployUrl + 'posts/tags/' + tag | slugify, content: tagContent}) }} {% endfor %}
+{% from 'components/tags/tag.macro.html' import Tag %}
+{% set deployUrl = globalData.site.deployUrl %}
+{% for tag in tags %}
+    {% set tagContent %}
+        #{{ tag }}
+    {% endset %}
+    {{ Tag({href: deployUrl + 'posts/tags/' + tag | slugify, content: tagContent}) }}
+{% endfor %}
+
