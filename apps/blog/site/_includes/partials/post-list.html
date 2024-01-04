@@ -1,9 +1,9 @@
 {% from 'components/posts/post.macro.html' import PostComponent %}
 
-<ul class="list-none flex pl-0 space-x-2 md:space-x-8 w-full">
+<ul class="list-none flex ml-0 space-x-0 space-y-4 md:space-x-8 md:space-y-0 flex-wrap">
 	{% for post in posts %}
 
-		<li class="w-1/3 flex flex-col hover:scale-105 transition">
+		<li class="w-full md:w-1/3 flex flex-col hover:scale-105 transition">
 			{{ PostComponent({
 				post: {
 					url: site.deployUrl + post.url,

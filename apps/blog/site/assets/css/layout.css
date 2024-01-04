@@ -1,7 +1,7 @@
 .content-center {
-	@apply max-w-3xl mx-auto pb-20;
+	@apply w-full md:max-w-3xl mx-auto pb-20;
 }
 
 .content-center--wide {
-	@apply max-w-6xl;
+	@apply md:max-w-6xl;
 }

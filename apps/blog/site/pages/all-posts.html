@@ -15,10 +15,8 @@ paginationAnchor: '#post-list'
 development {%- endlayoutblock -%}
 
 <div class="content-center content-center--wide">
-	<div class="py-6">
-		<div class="flex flex-col justify-center items-center" id="post-list">
+	<div class="py-6" id="post-list">
 			{% set posts = pagination.items %} {% include 'partials/post-list.html' %}
-		</div>
 	</div>
 
 	{% if pagination.href.next or pagination.href.previous %}
